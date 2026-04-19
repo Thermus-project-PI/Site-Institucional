@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/src/styles/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <a href="/src/index.html"><img src="/src/img/seta.png" class="seta"></a>
+            <div class="logo">
+                <img src="/src/img/logo.png" alt="Logo Thermus">
+                <img src="/src/img/THERMUS.png">
+            </div>
+            <div class="campos">
+                    <input type="text" class="campo" placeholder="Nome Completo" id="InNome">
+                    <p style="display: none; color: red;" id="nomeIn">Nome Inválido</p>
+                    <input type="text" class="campo" placeholder="Email" id="InEmail">
+                    <p style="display: none; color: red;" id="emailIn">Email Inválido</p>
+                    <input type="text" class="campo" placeholder="Intituição" id="InInstituicao">
+                    <p style="display: none; color: red;" id="instituicaoIn">instituição Inválida</p>
+                    <input type="text" class="campo" placeholder="Cargo" id="InCargo">
+                    <p style="display: none; color: red;" id="cargoIn">Cargo Inválido</p>
+                    <button class="botao" onclick="cadastrar()">Cadastrar</button>
+                    <p>Ja possui uma conta?<a href="/src/auth/museu/login.html">Clique aqui</a></p>
+            </div>
+                
+            </div>
+        </div>
+</body>
+</html>
+<script>
+
+function cadastrar() {
+    let nome = InNome.value;
+    let email = InEmail.value;
+    let instituicao = InInstituicao.value;
+    let cargo = InCargo.value;
+
+    let posArroba = email.indexOf('@');
+    let posCom = email.indexOf('.com');
+
+    if (nome == '') {
+        InNome.style.border = "solid red 3px";
+        nomeIn.style.display = "block"
+        return;
+    }else{
+        InNome.style.border = "none"
+        nomeIn.style.display = "none"
+    }
+
+    if (email == '') {
+        InEmail.style.border = "solid red 3px";
+        emailIn.style.display = "block"
+        return;
+    }else{
+        InEmail.style.border = "none";
+        emailIn.style.display = "none";
+
+
+    }
+
+    if ( //verifica se tem @, algo entre o @ e o .com e se termina com .com
+        posArroba <= 0 || 
+        posCom <= posArroba + 1 || 
+        posCom != email.length - 4
+    ) {
+        InEmail.style.border = "solid red 3px";
+        emailIn.style.display = "block"
+        return;
+    } else{
+        InEmail.style.border = "none";
+        emailIn.style.display = "none";
+    }
+
+    if (instituicao == '') {
+       InInstituicao.style.border = "solid red 3px";
+       instituicaoIn.style.display = "block"
+        return;
+    } else{
+        InInstituicao.style.border = "none";
+       instituicaoIn.style.display = "none"
+
+    }
+
+    if (cargo == '') {
+       InCargo.style.border = "solid red 3px";
+       cargoIn.style.display = "block"
+        return;
+    } else{
+        InCargo.style.border = "none";
+       cargoIn.style.display = "none"
+    }
+
+    div_mensagem.innerHTML = 'Cadastro realizado com sucesso';
+}
+</script>
