@@ -57,10 +57,10 @@ nome varchar(100),
 cargo varchar(100),
 email varchar(100),
 senha varchar(100),
-fk_museu int,
+fk_museu1 int,
 fk_chefe int,
 
-primary key(id, fk_museu),
+primary key(id, fk_museu1),
 
 constraint fk_museu1 foreign key (fk_museu1) 
 references museu(id),
