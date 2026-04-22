@@ -6,7 +6,7 @@ id int primary key auto_increment,
 museuNome varchar(100),
 email varchar(100),
 cnpj char(14),
-criadoEm datetime,
+criadoEm datetime default current_timestamp(),
 ativo tinyint
 );
 
@@ -33,7 +33,7 @@ id int auto_increment,
 fk_sensor int,
 descricao varchar(255),
 resolvido tinyint,
-criadoEM datetime,
+criadoEM datetime default current_timestamp(),
 primary key(id, fk_sensor),
 constraint fk_sensor foreign key (fk_sensor) references sensor(id)
 );
@@ -44,7 +44,7 @@ fk_sensor1 int,
 temperatura decimal(5,2),
 umidade decimal(5,2),
 pontoOrvalho decimal(5,2),
-dataHora datetime,
+dataHora datetime default current_timestamp,
 
 primary key(id, fk_sensor1),
 
@@ -67,4 +67,5 @@ references museu(id),
 
 constraint fk_chefe foreign key (fk_chefe) references funcionarios(id)
 );
+
 
