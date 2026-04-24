@@ -16,12 +16,13 @@ quadroNome varchar(100),
 localizacao varchar(100),
 salaId int,
 fk_museu int,
+instaladoEm datetime default current_timestamp(),
 status varchar(20),
 
 primary key(id, fk_museu),
 
-constraint fk_museu foreign key (fk_museu) 
-references museu(id),
+constraint fk_museu_sensor 
+foreign key (fk_museu) references museu(id),
 
 constraint chk_status
 CHECK (status IN ('ativo', 'inativo'))
@@ -35,20 +36,20 @@ descricao varchar(255),
 resolvido tinyint,
 criadoEM datetime default current_timestamp(),
 primary key(id, fk_sensor),
-constraint fk_sensor foreign key (fk_sensor) references sensor(id)
+constraint fk_sensor_alerta foreign key (fk_sensor) references sensor(id)
 );
 
 create table leitura(
 id int auto_increment,
-fk_sensor1 int,
+fk_sensor int,
 temperatura decimal(5,2),
 umidade decimal(5,2),
 pontoOrvalho decimal(5,2),
 dataHora datetime default current_timestamp,
 
-primary key(id, fk_sensor1),
+primary key(id, fk_sensor),
 
-constraint fk_sensor1 foreign key (fk_sensor1) references sensor(id)
+constraint fk_sensor_leitura foreign key (fk_sensor) references sensor(id)
 );
 
 create table funcionarios(
@@ -57,15 +58,15 @@ nome varchar(100),
 cargo varchar(100),
 email varchar(100),
 senha varchar(100),
-fk_museu1 int,
+fk_museu int,
 fk_chefe int,
+cadastradoEm datetime default current_timestamp(),
 
-primary key(id, fk_museu1),
+primary key(id, fk_museu),
 
-constraint fk_museu1 foreign key (fk_museu1) 
+constraint fk_museu_funcionarios foreign key (fk_museu) 
 references museu(id),
 
 constraint fk_chefe foreign key (fk_chefe) references funcionarios(id)
 );
-
 
