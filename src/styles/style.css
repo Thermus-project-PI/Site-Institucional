@@ -15,7 +15,7 @@ body{
         justify-content: center;
         align-items: center; 
         margin: 0;
-        padding: 0;     
+        padding: 0;    
 }
 
 .container{
@@ -47,6 +47,7 @@ body{
         height: fit-content;   
         overflow-y: auto;    
         box-sizing: border-box;
+        overflow-x: hidden;
 }
 
 .campos{
