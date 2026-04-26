@@ -185,6 +185,7 @@ footer{
     justify-content: center;
     justify-items: center;
     align-items: center;
+    
 }
 
 .content{
@@ -202,6 +203,8 @@ footer{
     margin-left: 28px;
     width:40%;
     margin-left: 28px;
+    border-radius: 70px;
+    border: solid 3px #214B63;
 }
 
 .texto{
