@@ -496,11 +496,10 @@ footer{
     display: flex;
     justify-content: center;
     align-items: center;
-    justify-self: center;
-    height: fit-content;
-    height: fit-content;
     width: 100%;
     background-color: #214B63;
+
+    padding: 40px 0;
 }
 
 .info{
@@ -509,12 +508,13 @@ footer{
     justify-content: flex-start;
     margin-left: 3%;
     margin-left: 3%;
+    gap: 1vh;
 }
 
 .info p{
     color: white;
     text-align: left;
-    font-size: 1rem;
+    font-size: 1.2rem;
     width: 50%;
     margin-left: 3%;
 
@@ -544,8 +544,7 @@ footer{
     width: 40%;
     border: none;
     border-radius: 25px;
-    height: 5vh;
-    height: 5vh;
+    height: 5.5vh;
     text-align: center;
 }
 
