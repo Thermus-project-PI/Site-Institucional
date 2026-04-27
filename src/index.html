@@ -94,19 +94,80 @@
         </div>
   
     </div>
-    <div class="container">
-        <div class="calculadora">
-            <p class="titulo">Planejamento e Economia: <br> Sua Calculadora Thermus</p>
-            <p class="texto">Estimativa clara do investimento necessário em sensores e infraestrutura, comparando-o aos altos custos médios de restauração de obras de arte. O Thermus protege não apenas o seu acervo, mas também o orçamento da sua instituição contra gastos emergenciais e danos permanentes.</p>
+    <p class="titulo">
+    Planejamento e Economia: <br>
+    Sua Calculadora Thermus
+</p>
+
+<p class="texto_calculadora">
+    Estimativa clara do investimento necessário em sensores e infraestrutura, comparando-o aos altos custos médios de restauração de obras de arte. O Thermus protege não apenas o seu acervo, mas também o orçamento da sua instituição contra gastos emergenciais e danos permanentes.
+</p>
+
+
+   <div class="calculadora_container">
+
+    <div class="calculadora">
+
+        <p class="titulo_blue">Quantidade de Obras</p>
+
+        <input class="texto_input" id="valor" type="number" value="100" oninput="atualizarRange()">
+
+        <input type="range" id="range_obras" min="0" max="10000" value="100" oninput="atualizarValor()">
+
+        <p class="titulo_blue">Perfil do Acervo</p>
+
+        <div class="botoes_calculadora">
+            <div class="tooltip">
+    <button onclick="selecionarPerfil(50000)">ALTO</button>
+    <span class="tooltip_text">R$ 50.000</span>
+</div>
+
+<div class="tooltip">
+    <button onclick="selecionarPerfil(15000)">MÉDIO</button>
+    <span class="tooltip_text">R$ 15.000</span>
+</div>
+
+<div class="tooltip">
+    <button onclick="selecionarPerfil(3000)">BAIXO</button>
+    <span class="tooltip_text">R$ 3.000</span>
+</div>
         </div>
-        <div class="content">
-            <div class="fomulario"></div>
-            <div class="resultado"></div>
-        </div>
+
+        <button class="botao_calcular" onclick="calcular()">
+            Calcular Economia ➔
+        </button>
+
     </div>
-</body>
+
+    <div class="linha"></div>
+
+    <div class="resultado">
+
+        <div class="caixa">
+            <p>CUSTO ESTIMADO DO ACERVO</p>
+            <p id="resultado_acervo">R$ 0</p>
+        </div>
+
+        <div class="caixa">
+            <p>RISCO DE RESTAURO (20%)</p>
+            <p id="resultado_risco">R$ 0</p>
+        </div>
+
+        <div class="caixa">
+            <p>INVESTIMENTO EM MONITORAMENTO</p>
+            <p id="resultado_investimento">R$ 0</p>
+        </div>
+
+        <div class="caixa caixa_azul">
+            <p>ECONOMIA GERADA — ROI</p>
+            <p id="resultado_economia">R$ 0</p>
+        </div>
+
+    </div>
+  
+
+</div>
 <footer>
-    <div class="container">
         <div class="footer">
             <div class="info">
                 <p class="titulo">Quer saber mais?</p>
@@ -117,6 +178,36 @@
                 <button>Enviar</button>
             </div>
         </div>
-    </div>
 </footer>
 </html>
+<script>
+    let valorObra = 0;
+
+function atualizarValor() {
+    valor.value = range_obras.value;
+}
+
+function atualizarRange() {
+    range_obras.value = valor.value;
+}
+
+function selecionarPerfil(valorSelecionado) {
+    valorObra = valorSelecionado;
+}
+
+function calcular() {
+    let quantidade = Number(valor.value);
+
+    let acervo = valorObra * quantidade;
+    let risco = acervo * 0.2;
+    let investimento = 57.5 * quantidade;
+    let economia = risco - investimento;
+
+    resultado_acervo.innerText = "R$ " + acervo.toFixed(2);
+    resultado_risco.innerText = "R$ " + risco.toFixed(2);
+    resultado_investimento.innerText = "R$ " + investimento.toFixed(2);
+    resultado_economia.innerText = "R$ " + economia.toFixed(2);
+}
+
+
+</script>

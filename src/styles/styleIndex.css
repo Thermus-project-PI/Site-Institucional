@@ -187,6 +187,7 @@ footer{
     justify-content: center;
     justify-items: center;
     align-items: center;
+    
 }
 
 .content{
@@ -204,6 +205,8 @@ footer{
     margin-left: 28px;
     width:40%;
     margin-left: 28px;
+    border-radius: 70px;
+    border: solid 3px #214B63;
 }
 
 .texto{
@@ -310,17 +313,181 @@ footer{
 
 /* Calculadora */
 
-.calculadora{
+.titulo {
+    font-size: 55px;
+    color: #2f4f5f;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Playfair Display';
+}
+
+.texto_calculadora {
+    width: 90%;
+    margin: 20px auto;
+    text-align: center;
+    color: #383838;
+    font-family: 'Playfair Display';
+    font-size: 25px;
+    line-height: 1.5;
+}
+
+
+.calculadora_container {
+    display: flex;
+    justify-content: space-around;
+    margin: 40px auto;
+    width: 80%;
+    background-color: #ffffff;
+    border-radius: 40px;
+    padding: 40px;
+    border: solid 4px #19395a;
+}
+
+.calculadora {
+    width: 40%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 }
 
-.calculadora .texto{
+.resultado {
+    width: 45%;
+}
+
+
+.linha {
+    width: 3px;
+    height: 450px;
+    background-color: #2f4f5f;
+    margin: 0 25px;
+}
+
+
+.titulo_blue {
+    color: #2f4f5f;
+    margin-top: 30px;
+    font-weight: bold;
+    font-size: 32px;
+    font-family: 'Playfair Display';
     text-align: center;
+}
+
+
+.texto_input {
+    width: 120px;
+    height: 40px;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 30px;
+    border: 2px solid #2f4f5f;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    background-color: #b7c6cd;
+}
+
+
+#range_obras {
     width: 80%;
-    font-size: 2rem;
+    margin-top: 30px;
+}
+
+
+.botoes_calculadora {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.botoes_calculadora button {
+    margin: 10px;
+    padding: 12px 20px;
+    border-radius: 25px;
+    border: 2px solid #2f4f5f;
+    background-color: #e6e6e6;
+    color: #275570;
+    font-family: 'Playfair Display';
+}
+
+.botoes_calculadora button:hover {
+    background-color: #2f4f5f;
+    color: white;
+}
+
+
+.botao_calcular {
+    margin-top: 30px;
+    padding: 15px 30px;
+    border-radius: 20px;
+    border: none;
+    background-color: #2f4f5f;
+    color: white;
+    font-size: 16px;
+    font-family: 'Playfair Display';
+}
+
+.botao_calcular:hover {
+    background-color: #1f3a47;
+}
+
+
+.caixa {
+    background-color: #e6e6e6;
+    margin: 20px;
+    padding: 18px;
+    border-radius: 25px;
+    font-family: 'Playfair Display';
+}
+
+
+.caixa p {
+    margin: 5px 0;
+}
+
+.valor {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+.caixa_azul {
+    background-color: #2f4f5f;
+    color: white;
+}
+
+.caixa_azul .valor {
+    font-size: 22px;
+}
+.titulo_quer{
+    color: #ffffff;
+    font-size: 55px;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Playfair Display';
+}
+.footer{
+    background-color: #21516C;
+}
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip_text {
+    visibility: hidden;
+    background-color: #2f4f5f;
+    color: white;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 8px;
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+}
+
+.tooltip:hover .tooltip_text {
+    visibility: visible;
 }
 
 /* Footer */
@@ -329,12 +496,11 @@ footer{
     display: flex;
     justify-content: center;
     align-items: center;
-    justify-self: center;
-    height: fit-content;
-    height: fit-content;
     width: 100%;
     height: 15vh;
     background-color: #214B63;
+
+    padding: 40px 0;
 }
 
 .info{
@@ -346,6 +512,7 @@ footer{
     gap: 1vh;
     
     margin-left: 3%;
+    gap: 1vh;
 }
 
 .info p{
@@ -382,8 +549,7 @@ footer{
     width: 40%;
     border: none;
     border-radius: 25px;
-    height: 5vh;
-    height: 5vh;
+    height: 5.5vh;
     text-align: center;
 }
 
