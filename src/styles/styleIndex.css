@@ -160,6 +160,7 @@ footer{
 .banner .titulo{
     padding: 10px;
     display: flex;
+    text-align: left;
     color: white;
     font-size: 8vh;
     width: 80%;
