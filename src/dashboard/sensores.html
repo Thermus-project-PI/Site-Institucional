@@ -1,108 +1,235 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/src/styles/stylesDashboard.css">
     <link rel="stylesheet" href="/src/styles/styleDashboardSensores.css">
-    <title>Dashboard - Sensores</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Dashboard - Alertas</title>
 </head>
+
 <body>
-    <aside>
-            <div class="top">
-                <div class="logo-container">
-                    <img src="/src/img/logo-fina.svg" alt="logo" class="logo">
-               </div>
-               <div class="links-container">
-                    <div class="link">
-                        <a href="/src/dashboard/index.html">Dashboard</a>
-                    </div>
-                    <div class="link selected">
-                        <a href="/src/dashboard/sensores.html">Sensores</a>
-                    </div>
-                    <div class="link">
-                        <a href="/src/dashboard/alertas.html">Alertas</a>
-                    </div>
-                    <div class="link">
-                        <a href="/src/dashboard/relatorios.html">Relatórios</a>
-                    </div>
-               </div>
-            </div>
-            <div class="bottom">
-                <div class="btn-container">
-                     <button class="btn" href="/src/index.html">
-                        <span>Sair</span>
-                        <i class="fa-solid fa-arrow-right-from-bracket" class="btn-icon-logout"></i>
-                    </button>
-                </div>
-            </div>
-    </aside>
-    <div class="main">
-        <div class="sensores-container">
-            <div class="sensor">
-                <div class="sensor-top">
-                    <div class="sersor-title"></div>
-                    <h1>Monalisa</h1>
-                    <div class="sensor-status">
-                        <h2>Atenção</h2>
-                    </div>
-                </div>
-                <div class="sensor-main">
-                    <div class="temp">
-                        <h1>23,4°C</h1>
-                    </div>
-                    <div class="umid">
-                        <h1>67%</h1>
-                    </div>
-                </div>
-                <div class="sensor-lastUpdate">
-                    <p>Atualizado em:</p>
-                    <p>16:00</p>
-                </div>
-            </div>
-            <div class="sensor">
-                <div class="sensor-top">
-                    <div class="sersor-title"></div>
-                    <h1>Monalisa</h1>
-                    <div class="sensor-status">
-                        <h2>Atenção</h2>
-                    </div>
-                </div>
-                <div class="sensor-main">
-                    <div class="temp">
-                        <h1>23,4°C</h1>
-                    </div>
-                    <div class="umid">
-                        <h1>67%</h1>
-                    </div>
-                </div>
-                <div class="sensor-lastUpdate">
-                    <p>Atualizado em:</p>
-                    <p>16:00</p>
-                </div>
-            </div>
-            <div class="sensor">
-                <div class="sensor-top">
-                    <div class="sersor-title"></div>
-                    <h1>Monalisa</h1>
-                    <div class="sensor-status">
-                        <h2>Atenção</h2>
-                    </div>
-                </div>
-                <div class="sensor-main">
-                    <div class="temp">
-                        <h1>23,4°C</h1>
-                    </div>
-                    <div class="umid">
-                        <h1>67%</h1>
-                    </div>
-                </div>
-                <div class="sensor-lastUpdate">
-                    <p>Atualizado em:</p>
-                    <p>16:00</p>
-                </div>
-            </div>
+
+<aside>
+    <div class="top">
+        <div class="logo-container">
+            <img src="/src/img/logo-fina.svg" class="logo">
+        </div>
+
+        <div class="links-container">
+            <div class="link"><a href="/src/dashboard/index.html">Dashboard</a></div>
+            <div class="link"><a href="/src/dashboard/sensores.html">Sensores</a></div>
+            <div class="link selected"><a href="/src/dashboard/alertas.html">Alertas</a></div>
+            <div class="link"><a href="/src/dashboard/relatorios.html">Relatórios</a></div>
         </div>
     </div>
+
+    <div class="bottom">
+        <div class="btn-container">
+            <button class="btn"><span>Sair</span></button>
+        </div>
+    </div>
+</aside>
+
+<div class="content">
+
+    <div class="lista" id="lista"></div>
+
+    <div class="conteudo">
+
+        <div class="topo">
+            <h2 id="nome"></h2>
+            <p id="sala"></p>
+            <p id="status"></p>
+        </div>
+
+        <div class="dados">
+            <div class="caixa">
+                <p>Temp média</p>
+                <h3 id="temp"></h3>
+            </div>
+
+            <div class="caixa">
+                <p>Umidade média</p>
+                <h3 id="umi"></h3>
+            </div>
+
+            <div class="caixa">
+                <p>Alertas</p>
+                <h3 id="alerta"></h3>
+            </div>
+        </div>
+
+        <div class="grafico" id="grafico"></div>
+
+    </div>
+
+</div>
+
+<script>
+
+const lista = document.querySelector("#lista");
+const nome = document.querySelector("#nome");
+const sala = document.querySelector("#sala");
+const status = document.querySelector("#status");
+const temp = document.querySelector("#temp");
+const umi = document.querySelector("#umi");
+const alerta = document.querySelector("#alerta");
+const grafico = document.querySelector("#grafico");
+
+let graf;
+
+
+let listaDados = [
+{
+    nome:"Monalisa",
+    sala:"Sala 03",
+    dados:[
+        {h:"08:00",t:20,u:50},
+        {h:"10:00",t:22,u:55},
+        {h:"12:00",t:24,u:65},
+        {h:"14:00",t:23,u:60}
+    ]
+},
+{
+    nome:"Noite Estrelada",
+    sala:"Sala 01",
+    dados:[
+        {h:"08:00",t:18,u:45},
+        {h:"10:00",t:20,u:90},
+        {h:"12:00",t:22,u:95},
+        {h:"14:00",t:21,u:60}
+    ]
+},
+{
+    nome:"O Grito",
+    sala:"Sala 07",
+    dados:[
+        {h:"08:00",t:21,u:52},
+        {h:"10:00",t:23,u:60},
+        {h:"12:00",t:25,u:72},
+        {h:"14:00",t:24,u:75}
+    ]
+}
+];
+
+
+function montar(){
+    lista.innerHTML = "";
+
+    for(let i=0;i<listaDados.length;i++){
+        let d = listaDados[i];
+        let ultimo = d.dados[d.dados.length-1];
+
+        let s = ultimo.u > 80 || ultimo.t < 22 ? "ALERTA" : "OK";
+
+        lista.innerHTML +=
+        `<div class='card' onclick='trocar(${i})'>
+            <div class='top-card'>
+                <b>${d.nome}</b>
+                <span class='badge'>${s}</span>
+            </div>
+            <div class='valores'>${ultimo.t}°C | ${ultimo.u}%</div>
+            <div class='hora'>${ultimo.h}</div>
+        </div>`;
+    }
+}
+
+function trocar(i){
+    let d = listaDados[i];
+
+    nome.innerHTML = d.nome;
+    sala.innerHTML = d.sala;
+
+    let somaT = 0;
+    let somaU = 0;
+    let alertas = 0;
+
+    let temps = [];
+    let umis = [];
+    let horas = [];
+
+    for(let j=0;j<d.dados.length;j++){
+        somaT += d.dados[j].t;
+        somaU += d.dados[j].u;
+
+        temps.push(d.dados[j].t);
+        umis.push(d.dados[j].u);
+        horas.push(d.dados[j].h);
+
+        if(d.dados[j].u > 80){
+            alertas++;
+        }
+    }
+
+    temp.innerHTML = (somaT / d.dados.length).toFixed(1) + "°C";
+    umi.innerHTML = (somaU / d.dados.length).toFixed(0) + "%";
+    alerta.innerHTML = alertas;
+
+    status.innerHTML = alertas > 0 ? "ALERTA" : "OK";
+
+
+    grafico.innerHTML = "<canvas></canvas>";
+    const ctx = grafico.querySelector("canvas");
+
+
+    const humidity = {
+        label: 'Umidade',
+        data: umis,
+        borderWidth: 1,
+        borderColor:"#2E6AA3",
+        backgroundColor:"#2E6AA320",
+        fill:true
+    };
+
+    const temperature = {
+        label: 'Temperatura',
+        data: temps,
+        borderWidth: 1,
+        borderColor:"#348A6F",
+        backgroundColor:"#348A6F20",
+        fill:true
+    };
+
+    let dataset = temperature;
+
+    graf = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: horas,
+            datasets: [temperature, humidity]
+        },
+        options: {
+            scales: {
+                y: {
+                    min: 0,
+                    max: 100,
+                    beginAtZero: true,
+                    ticks:{
+                        stepSize: 10
+                    }
+                }
+            }
+        }
+    });
+
+
+    window.change = function(tipo){
+        if(tipo === "temperature"){
+            graf.data.datasets[0] = temperature;
+        } else if(tipo === "humidity"){
+            graf.data.datasets[0] = humidity;
+        }
+        graf.update();
+    }
+}
+
+
+montar();
+trocar(0);
+
+</script>
+
 </body>
 </html>
