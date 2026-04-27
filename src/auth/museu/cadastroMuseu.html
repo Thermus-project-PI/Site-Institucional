@@ -82,25 +82,25 @@
 
     if (senha == '') {
         InSenha.style.border = "solid red 3px";
-        emailIn.style.display = "none";
+        senhaIn.style.display = "block";
         return;
     } else{
         InSenha.style.border = "none";
-        emailIn.style.display = "none";
+        senhaIn.style.display = "none";
     }
 
     if (senha.length < 6) {
         InSenha.style.border = "solid red 3px";
-        emailIn.style.display = "none";
+        senhaIn.style.display = "block";
         return;
     }else{
         InSenha.style.border = "none";
-        emailIn.style.display = "none";
+        senhaIn.style.display = "none";
     }
 
     if (cnpj == '') {
         InCnpj.style.border = "solid red 3px";
-        cnpjin.style.border = "none";
+        cnpjin.style.border = "block";
     }else{
         InCnpj.style.border = "none";
         cnpjin.style.border = "none";
@@ -108,7 +108,8 @@
 
     if (cnpj.length != 14) {
         InCnpj.style.border = "solid red 3px";
-        cnpjin.style.border = "none";
+        cnpjin.style.display = "block";
+        return;
     } else{
         InCnpj.style.border = "none";
         cnpjin.style.border = "none";

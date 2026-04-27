@@ -387,6 +387,10 @@ main{
     justify-content: center;
 
     border-radius: 20px;
+
+}
+td{
+    text-align: center;
 }
 
 .alert-status-red{color:#D24848; background-color: #FDE8E8; border: solid 1px #D24848;}
