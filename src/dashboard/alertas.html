@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,38 +9,39 @@
     <link rel="stylesheet" href="../styles/styleDashboardAlert.css">
     <title>Dashboard - Alertas</title>
 </head>
+
 <body>
     <div class="content">
         <aside>
-                 <div class="top">
-                     <div class="logo-container">
-                         <img src="../img/logo-fina.svg" alt="logo" class="logo">
+            <div class="top">
+                <div class="logo-container">
+                    <img src="../img/logo-fina.svg" alt="logo" class="logo">
+                </div>
+                <div class="links-container">
+                    <div class="link">
+                        <a href="index.html">Dashboard</a>
                     </div>
-                    <div class="links-container">
-                         <div class="link">
-                             <a href="index.html">Dashboard</a>
-                         </div>
-                         <div class="link">
-                             <a href="sensores.html">Sensores</a>
-                         </div>
-                         <div class="link selected">
-                             <a href="alertas.html">Alertas</a>
-                         </div>
-                         <div class="link">
-                             <a href="relatorios.html">Relatórios</a>
-                         </div>
+                    <div class="link">
+                        <a href="sensores.html">Sensores</a>
                     </div>
-                 </div>
-                 <div class="bottom">
-                <div class="btn-container">
-                     <button class="btn" onclick="window.location.href='../index.html'">
-                         <span>Sair</span>
-                         <i class="fa-solid fa-arrow-right-from-bracket btn-icon-logout"></i>
-                     </button>
+                    <div class="link selected">
+                        <a href="alertas.html">Alertas</a>
+                    </div>
+                    <div class="link">
+                        <a href="relatorios.html">Relatórios</a>
+                    </div>
                 </div>
             </div>
-         </aside> 
-         <div class="main">
+            <div class="bottom">
+                <div class="btn-container">
+                    <button class="btn" onclick="window.location.href='../index.html'">
+                        <span>Sair</span>
+                        <i class="fa-solid fa-arrow-right-from-bracket btn-icon-logout"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+        <div class="main">
             <div class="kpis">
                 <div class="kpi">
                     <div class="kpi-title">
@@ -81,16 +83,16 @@
                         <p onclick="change('todos')">Todos</p>
                     </div>
                     <div class="filter filter-yellow">
-                        <p onclick="change('atencao')">Atenção</p>
+                        <p onclick="change('td-yellow')">Atenção</p>
                     </div>
                     <div class="filter filter-red">
-                        <p onclick="change('risco')">Risco</p>
+                        <p onclick="change('td-red')">Risco</p>
                     </div>
                     <div class="filter filter-purple">
-                        <p onclick="change('alerta')">Alerta</p>
+                        <p onclick="change('td-purple')">Alerta</p>
                     </div>
                 </div>
-                <table class="alertas">
+                <table class="alertas" id="tabelaAlertas">
                     <tr>
                         <th>Data/hora</th>
                         <th>Sensor</th>
@@ -108,7 +110,7 @@
                         <td>22</td>
                         <td>1</td>
                         <div class="alerta-status">
-                            <td>Alerta</td>
+                            <td class="td-purple"><span>Alerta</span></td>
                         </div>
                     </tr>
                     <tr>
@@ -119,7 +121,7 @@
                         <td>24.4</td>
                         <td>0.6</td>
                         <div class="alerta-status ">
-                            <td>Alerta</td>
+                            <td class="td-purple"><span>Alerta</span></td>
                         </div>
                     </tr>
                     <tr>
@@ -130,7 +132,7 @@
                         <td>20.6</td>
                         <td>1.4</td>
                         <div class="alerta-status">
-                            <td>Risco</td>
+                            <td class="td-red"><span>Risco</span></td>
                         </div>
                     </tr>
                     <tr>
@@ -141,7 +143,7 @@
                         <td>25.2</td>
                         <td>0.8</td>
                         <div class="alerta-status">
-                            <td>Alerta</td>
+                            <td class="td-purple"><span>Alerta</span></td>
                         </div>
                     </tr>
                     <tr>
@@ -152,7 +154,7 @@
                         <td>22.8</td>
                         <td>1.2</td>
                         <div class="alerta-status">
-                            <td>Risco</td>
+                            <td class="td-red"><span>Risco</span></td>
                         </div>
                     </tr>
                     <tr>
@@ -162,8 +164,8 @@
                         <td>75</td>
                         <td>20</td>
                         <td>5</td>
-                        <div class="alerta-status">
-                            <td>Atenção</td>
+                        <div class="alerta-status  filter-yellow">
+                            <td class="td-yellow"><span>Atenção</span></td>
                         </div>
                     </tr>
                     <tr>
@@ -174,7 +176,7 @@
                         <td>17</td>
                         <td>6</td>
                         <div class="alerta-status">
-                            <td>Atenção</td>
+                            <td class="td-yellow"><span>Atenção</span></td>
                         </div>
                     </tr>
                     <tr>
@@ -185,17 +187,34 @@
                         <td>19.4</td>
                         <td>5.6</td>
                         <div class="alerta-status">
-                            <td>Atenção</td>
+                            <td class="td-yellow"><span>Atenção</span></td>
                         </div>
                     </tr>
                 </table>
             </div>
-         </div>
+        </div>
     </div>
 </body>
+
 </html>
 <script>
-    function change(){
-        
+    function change(classe) {
+        const linhas = document.querySelectorAll('#tabelaAlertas tr')
+
+        linhas.forEach(linha => {
+            if (classe == 'todos') {
+                linha.style.display = '';
+                return;
+            }
+
+            if (linha.querySelector('.' + classe)) {
+                linha.style.display = ''; // mostra
+            } else {
+                if (linha.querySelector('td')) {
+                    linha.style.display = 'none'; // Oculta
+                }
+            }
+        })
+
     }
 </script>

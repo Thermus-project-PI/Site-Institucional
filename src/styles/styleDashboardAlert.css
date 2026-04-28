@@ -78,6 +78,7 @@
     border-radius: 20px;
     
     transition: all 200ms ease;
+    cursor: pointer;
 }
 
 .filter:hover{
@@ -106,3 +107,23 @@
     font-size: 1.5rem;
 }
 
+.td-purple span {
+    background-color: #7715802f;
+    color: #53005B;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+.td-yellow span {
+    background-color: #efaf004f;
+    color: #BE8C02;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+.td-red span {
+    background-color: #FDE8E8;
+    color: #FF0000;
+    padding: 5px 10px;
+    border-radius: 20px;
+}

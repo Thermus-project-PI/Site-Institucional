@@ -20,7 +20,6 @@ html, body{
 .content{
     display: grid;
     grid-template-columns: 250px 1fr;
-    width: 100%;
     height: 100%;
 }
 
@@ -157,8 +156,11 @@ main{
     height: 100vh;
 
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
-    justify-content: space-around;
+
+    gap: 10vh;
 }
 
 .right{
@@ -166,18 +168,18 @@ main{
     height: 100vh;
 
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    margin-top: 3.5vh;
 }
 
 .cards-container{
     width: 100%;
     height: 20%;
 
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 equal columns */
-    place-items: center;
-    gap: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1vw;
 }
 
 .card{
@@ -187,8 +189,8 @@ main{
     align-items: flex-start;
     flex-direction: column;
 
-    padding:20px;
-    gap: 20px;
+    padding:2vh;
+    gap: 1vw;
 
     background-color: white;
     border-radius: 25px;
