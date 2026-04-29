@@ -413,7 +413,10 @@ footer{
     color: white;
 }
 
-
+.botoes_calculadora button:focus {
+    background-color: #2f4f5f;
+    color: white;
+}
 .botao_calcular {
     margin-top: 30px;
     padding: 15px 30px;
