@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "nome": "Gustavo",
+        "email": "gustavo@gmail.com",
+        "senha": "Dado1807#",
+        "cnpj": "12345678901234",
+        "instituicao": "Museu de Arte Moderna"
+    },
+    {
+        "id": 2,
+        "nome": "Samuel",
+        "email": "Samuel@gmail.com",
+        "senha": "Dado1807#",
+        "cnpj": "12345678901234",
+        "instituicao": "Museu de Arte Moderna"
+    }
+]
