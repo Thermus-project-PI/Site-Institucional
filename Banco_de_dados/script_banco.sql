@@ -70,3 +70,53 @@ references museu(id),
 constraint fk_chefe foreign key (fk_chefe) references funcionarios(id)
 );
 
+-- Lista todos os sensores com o nome do museu.
+SELECT 
+    s.id AS sensor_id,
+    s.quadroNome,
+    s.localizacao,
+    m.museuNome
+FROM sensor s
+JOIN museu m ON s.fk_museu = m.id;
+
+-- dados coletados pelos sensores.
+SELECT 
+    l.id AS leitura_id,
+    s.quadroNome,
+    l.temperatura,
+    l.umidade,
+    l.pontoOrvalho,
+    l.dataHora
+FROM leitura l
+JOIN sensor s ON l.fk_sensor = s.id;
+
+
+-- alertas com o sensor
+SELECT 
+    a.id AS alerta_id,
+    s.quadroNome,
+    a.descricao,
+    a.resolvido,
+    a.criadoEM
+FROM alerta a
+JOIN sensor s ON a.fk_sensor = s.id;
+
+-- Funcionários + Chefe
+SELECT 
+    f.nome AS funcionario,
+    c.nome AS chefe
+FROM funcionarios f
+LEFT JOIN funcionarios c ON f.fk_chefe = c.id;
+
+
+-- Sensor + Museu + Leituras
+SELECT 
+    m.museuNome,
+    s.quadroNome,
+    l.temperatura,
+    l.umidade,
+    l.dataHora
+FROM leitura l
+JOIN sensor s ON l.fk_sensor = s.id
+JOIN museu m ON s.fk_museu = m.id;
+

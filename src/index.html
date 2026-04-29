@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/src/styles/styleIndex.css">
+    <link rel="stylesheet" href="../src/styles/styleIndex.css">
     <title>Thermus</title>
 </head>
 <body>
@@ -11,8 +11,8 @@
         <div class="container">
             <div class="navbar">
                     <div class="logo">
-                        <img src="/src/img/logo.svg" alt="Logo Thermus">
-                        <img src="/src/img/THERMUS.svg">
+                        <img src="../src/img/logo.svg" alt="Logo Thermus">
+                        <img src="../src/img/THERMUS.svg">
                     </div>
                     <div class="links">
                         <a href="/src/index.html">Inicial</a>
@@ -48,7 +48,7 @@
                    A Thermus nasce para  <spam>proteger aquilo que o tempo insiste em apagar</spam>. Em museus, onde cada obra carrega história e significado, pequenas variações de temperatura e umidade podem gerar o orvalho — silencioso, mas capaz de causar danos irreversíveis.Com sensores que monitoram essas condições, a Thermus antecipa riscos e preserva a integridade das obras. 
           
                 </p>
-                <img src="/src/img/quemsomos.png">
+                <img src="../src/img/quemsomos.png">
             </div>
             <div id="subtexto">
                 <p> 
@@ -63,17 +63,17 @@
             </p>
             <div class="cards">
                 <div class="card">
-                    <div class="circle"><img src="/src/img/banco.svg"></div>
+                    <div class="circle"><img src="../src/img/banco.svg"></div>
                     <div class="titulo">Impactos da condensação</div>
                     <p>O orvalho gera umidade em superfícies, favorecendo fungos, mofo e oxidação..</p>
                 </div>
                 <div class="card">
-                    <div class="circle"><img src="/src/img/image.svg"></div>
+                    <div class="circle"><img src="../src/img/image.svg"></div>
                     <div class="titulo">Danos estruturais aos materiais</div>
                     <p>A umidade causa expansão e contração, levando a deformações e craquelamento.</p>
                 </div>
                 <div class="card">
-                    <div class="circle"><img src="/src/img/law.svg"></div>
+                    <div class="circle"><img src="../src/img/law.svg"></div>
                     <div class="titulo">Degradação <br>irreversível</div>
                     <p>Esses efeitos resultam na deterioração permanente das obras, tornando essencial a prevenção.</p>
                 </div>
@@ -87,24 +87,86 @@
                 Nossa solução oferece uma visualização clara e intuitiva por meio de gráficos detalhados, permitindo o monitoramento em tempo real de uma ou mais seções do acervo. Com essa funciona classade, o cliente pode acompanhar as variações climáticas de setores específicos ou de todo o museu simultaneamente, facilitando a classentificação de áreas críticas e garantindo uma gestão de preservação baseada em dados precisos.
             </p>
             <div class="images">
-                <img src="/src/img/dashboard.png">
-                <img src="/src/img/dashboard.png">
-                <img src="/src/img/dashboard.png">
+                <img src="../src/img/dashboard.png">
+                <img src="../src/img/dashboard.png">
+                <img src="../src/img/dashboard.png">
             </div>
         </div>
   
     </div>
-    <div class="container">
-        <div class="calculadora">
-            <p class="titulo">Planejamento e Economia: <br> Sua Calculadora Thermus</p>
-            <p class="texto">Estimativa clara do investimento necessário em sensores e infraestrutura, comparando-o aos altos custos médios de restauração de obras de arte. O Thermus protege não apenas o seu acervo, mas também o orçamento da sua instituição contra gastos emergenciais e danos permanentes.</p>
+    <p class="titulo">
+    Planejamento e Economia: <br>
+    Sua Calculadora Thermus
+</p>
+
+<p class="texto_calculadora">
+    Estimativa clara do investimento necessário em sensores e infraestrutura, comparando-o aos altos custos médios de restauração de obras de arte. O Thermus protege não apenas o seu acervo, mas também o orçamento da sua instituição contra gastos emergenciais e danos permanentes.
+</p>
+
+
+   <div class="calculadora_container">
+
+    <div class="calculadora">
+
+        <p class="titulo_blue">Quantidade de Obras</p>
+
+        <input class="texto_input" id="valor" type="number" value="100" oninput="atualizarRange()">
+
+        <input type="range" id="range_obras" min="0" max="10000" value="100" oninput="atualizarValor()">
+
+        <p class="titulo_blue">Perfil do Acervo</p>
+
+        <div class="botoes_calculadora">
+            <div class="tooltip">
+    <button onclick="selecionarPerfil(50000)">ALTO</button>
+    <span class="tooltip_text">R$ 50.000</span>
+</div>
+
+<div class="tooltip">
+    <button onclick="selecionarPerfil(15000)">MÉDIO</button>
+    <span class="tooltip_text">R$ 15.000</span>
+</div>
+
+<div class="tooltip">
+    <button onclick="selecionarPerfil(3000)">BAIXO</button>
+    <span class="tooltip_text">R$ 3.000</span>
+</div>
         </div>
-        <div class="content">
-            <div class="fomulario"></div>
-            <div class="resultado"></div>
-        </div>
+
+        <button class="botao_calcular" onclick="calcular()">
+            Calcular Economia ➔
+        </button>
+
     </div>
-</body>
+
+    <div class="linha"></div>
+
+    <div class="resultado">
+
+        <div class="caixa">
+            <p>CUSTO ESTIMADO DO ACERVO</p>
+            <p id="resultado_acervo">R$ 0</p>
+        </div>
+
+        <div class="caixa">
+            <p>RISCO DE RESTAURO (20%)</p>
+            <p id="resultado_risco">R$ 0</p>
+        </div>
+
+        <div class="caixa">
+            <p>INVESTIMENTO EM MONITORAMENTO</p>
+            <p id="resultado_investimento">R$ 0</p>
+        </div>
+
+        <div class="caixa caixa_azul">
+            <p>ECONOMIA GERADA — ROI</p>
+            <p id="resultado_economia">R$ 0</p>
+        </div>
+
+    </div>
+  
+
+</div>
 <footer>
         <div class="footer">
             <div class="info">
@@ -118,3 +180,34 @@
         </div>
 </footer>
 </html>
+<script>
+    let valorObra = 0;
+
+function atualizarValor() {
+    valor.value = range_obras.value;
+}
+
+function atualizarRange() {
+    range_obras.value = valor.value;
+}
+
+function selecionarPerfil(valorSelecionado) {
+    valorObra = valorSelecionado;
+}
+
+function calcular() {
+    let quantidade = Number(valor.value);
+
+    let acervo = valorObra * quantidade;
+    let risco = acervo * 0.2;
+    let investimento = 57.5 * quantidade;
+    let economia = risco - investimento;
+
+    resultado_acervo.innerText = "R$ " + acervo.toFixed(2);
+    resultado_risco.innerText = "R$ " + risco.toFixed(2);
+    resultado_investimento.innerText = "R$ " + investimento.toFixed(2);
+    resultado_economia.innerText = "R$ " + economia.toFixed(2);
+}
+
+
+</script>

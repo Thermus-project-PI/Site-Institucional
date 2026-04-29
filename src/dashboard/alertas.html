@@ -1,44 +1,47 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/src/styles/stylesDashboard.css">
-    <link rel="stylesheet" href="/src/styles/styleDashboardAlert.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../styles/stylesDashboard.css">
+    <link rel="stylesheet" href="../styles/styleDashboardAlert.css">
     <title>Dashboard - Alertas</title>
 </head>
+
 <body>
     <div class="content">
         <aside>
-                 <div class="top">
-                     <div class="logo-container">
-                         <img src="/src/img/logo-fina.svg" alt="logo" class="logo">
+            <div class="top">
+                <div class="logo-container">
+                    <img src="../img/logo-fina.svg" alt="logo" class="logo">
+                </div>
+                <div class="links-container">
+                    <div class="link">
+                        <a href="index.html">Dashboard</a>
                     </div>
-                    <div class="links-container">
-                         <div class="link">
-                             <a href="/src/dashboard/index.html">Dashboard</a>
-                         </div>
-                         <div class="link">
-                             <a href="/src/dashboard/sensores.html">Sensores</a>
-                         </div>
-                         <div class="link selected">
-                             <a href="/src/dashboard/alertas.html">Alertas</a>
-                         </div>
-                         <div class="link">
-                             <a href="/src/dashboard/relatorios.html">Relatórios</a>
-                         </div>
+                    <div class="link">
+                        <a href="sensores.html">Sensores</a>
                     </div>
-                 </div>
-                 <div class="bottom">
-                     <div class="btn-container" href="/src/index.html">
-                          <button class="btn">
-                             <span>Sair</span>
-                             <i class="fa-solid fa-arrow-right-from-bracket" class="btn-icon-logout"></i>
-                         </button>
-                     </div>
-                 </div>
-         </aside> 
-         <div class="main">
+                    <div class="link selected">
+                        <a href="alertas.html">Alertas</a>
+                    </div>
+                    <div class="link">
+                        <a href="relatorios.html">Relatórios</a>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom">
+                <div class="btn-container">
+                    <button class="btn" onclick="window.location.href='../index.html'">
+                        <span>Sair</span>
+                        <i class="fa-solid fa-arrow-right-from-bracket btn-icon-logout"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+        <div class="main">
             <div class="kpis">
                 <div class="kpi">
                     <div class="kpi-title">
@@ -80,16 +83,16 @@
                         <p onclick="change('todos')">Todos</p>
                     </div>
                     <div class="filter filter-yellow">
-                        <p onclick="change('atencao')">Atenção</p>
+                        <p onclick="change('td-yellow')">Atenção</p>
                     </div>
                     <div class="filter filter-red">
-                        <p onclick="change('risco')">Risco</p>
+                        <p onclick="change('td-red')">Risco</p>
                     </div>
                     <div class="filter filter-purple">
-                        <p onclick="change('alerta')">Alerta</p>
+                        <p onclick="change('td-purple')">Alerta</p>
                     </div>
                 </div>
-                <table class="alertas">
+                <table class="alertas" id="tabelaAlertas">
                     <tr>
                         <th>Data/hora</th>
                         <th>Sensor</th>
@@ -101,144 +104,117 @@
                     </tr>
                     <tr>
                         <td>02/04 10:00</td>
-                        <td>Noite Estrelada</td>
-                        <td>20</td>
-                        <td>92</td>
-                        <td>18.4</td>
-                        <td>1.6</td>
+                        <td>O Grito</td>
+                        <td>23</td>
+                        <td>95</td>
+                        <td>22</td>
+                        <td>1</td>
                         <div class="alerta-status">
-                            <td>Risco</td>
+                            <td class="td-purple"><span>Alerta</span></td>
                         </div>
                     </tr>
                     <tr>
-                        <td>02/04 10:00</td>
-                        <td>Noite Estrelada</td>
-                        <td>20</td>
-                        <td>92</td>
-                        <td>18.4</td>
-                        <td>1.6</td>
-                        <div class="alerta-status">
-                            <td>Risco</td>
+                        <td>02/04 12:00</td>
+                        <td>Monalisa</td>
+                        <td>25</td>
+                        <td>97</td>
+                        <td>24.4</td>
+                        <td>0.6</td>
+                        <div class="alerta-status ">
+                            <td class="td-purple"><span>Alerta</span></td>
                         </div>
                     </tr>
                     <tr>
-                        <td>02/04 10:00</td>
+                        <td>02/04 12:00</td>
                         <td>Noite Estrelada</td>
-                        <td>20</td>
-                        <td>92</td>
-                        <td>18.4</td>
-                        <td>1.6</td>
+                        <td>22</td>
+                        <td>93</td>
+                        <td>20.6</td>
+                        <td>1.4</td>
                         <div class="alerta-status">
-                            <td>Risco</td>
+                            <td class="td-red"><span>Risco</span></td>
                         </div>
                     </tr>
                     <tr>
-                        <td>02/04 10:00</td>
-                        <td>Noite Estrelada</td>
-                        <td>20</td>
-                        <td>92</td>
-                        <td>18.4</td>
-                        <td>1.6</td>
+                        <td>02/04 12:00</td>
+                        <td>O Grito</td>
+                        <td>26</td>
+                        <td>96</td>
+                        <td>25.2</td>
+                        <td>0.8</td>
                         <div class="alerta-status">
-                            <td>Risco</td>
+                            <td class="td-purple"><span>Alerta</span></td>
                         </div>
                     </tr>
                     <tr>
-                        <td>02/04 10:00</td>
-                        <td>Noite Estrelada</td>
-                        <td>20</td>
-                        <td>92</td>
-                        <td>18.4</td>
-                        <td>1.6</td>
+                        <td>02/04 14:00</td>
+                        <td>Monalisa</td>
+                        <td>24</td>
+                        <td>94</td>
+                        <td>22.8</td>
+                        <td>1.2</td>
                         <div class="alerta-status">
-                            <td>Risco</td>
+                            <td class="td-red"><span>Risco</span></td>
                         </div>
                     </tr>
                     <tr>
-                        <td>02/04 10:00</td>
-                        <td>Noite Estrelada</td>
+                        <td>02/04 14:00</td>
+                        <td>O Grito</td>
+                        <td>25</td>
+                        <td>75</td>
                         <td>20</td>
-                        <td>92</td>
-                        <td>18.4</td>
-                        <td>1.6</td>
-                        <div class="alerta-status">
-                            <td>Risco</td>
+                        <td>5</td>
+                        <div class="alerta-status  filter-yellow">
+                            <td class="td-yellow"><span>Atenção</span></td>
                         </div>
                     </tr>
                     <tr>
-                        <td>02/04 10:00</td>
-                        <td>Noite Estrelada</td>
-                        <td>20</td>
-                        <td>92</td>
-                        <td>18.4</td>
-                        <td>1.6</td>
+                        <td>02/04 16:00</td>
+                        <td>O Grito</td>
+                        <td>23</td>
+                        <td>70</td>
+                        <td>17</td>
+                        <td>6</td>
                         <div class="alerta-status">
-                            <td>Risco</td>
+                            <td class="td-yellow"><span>Atenção</span></td>
                         </div>
                     </tr>
                     <tr>
-                        <td>02/04 10:00</td>
-                        <td>Noite Estrelada</td>
-                        <td>20</td>
-                        <td>92</td>
-                        <td>18.4</td>
-                        <td>1.6</td>
+                        <td>01/04 10:00</td>
+                        <td>O Grito</td>
+                        <td>25</td>
+                        <td>72</td>
+                        <td>19.4</td>
+                        <td>5.6</td>
                         <div class="alerta-status">
-                            <td>Risco</td>
-                        </div>
-                    </tr>
-                    <tr>
-                        <td>02/04 10:00</td>
-                        <td>Noite Estrelada</td>
-                        <td>20</td>
-                        <td>92</td>
-                        <td>18.4</td>
-                        <td>1.6</td>
-                        <div class="alerta-status">
-                            <td>Risco</td>
-                        </div>
-                    </tr>
-                    <tr>
-                        <td>02/04 10:00</td>
-                        <td>Noite Estrelada</td>
-                        <td>20</td>
-                        <td>92</td>
-                        <td>18.4</td>
-                        <td>1.6</td>
-                        <div class="alerta-status">
-                            <td>Risco</td>
-                        </div>
-                    </tr>
-                    <tr>
-                        <td>02/04 10:00</td>
-                        <td>Noite Estrelada</td>
-                        <td>20</td>
-                        <td>92</td>
-                        <td>18.4</td>
-                        <td>1.6</td>
-                        <div class="alerta-status">
-                            <td>Risco</td>
-                        </div>
-                    </tr>
-                    <tr>
-                        <td>02/04 10:00</td>
-                        <td>Noite Estrelada</td>
-                        <td>20</td>
-                        <td>92</td>
-                        <td>18.4</td>
-                        <td>1.6</td>
-                        <div class="alerta-status">
-                            <td>Risco</td>
+                            <td class="td-yellow"><span>Atenção</span></td>
                         </div>
                     </tr>
                 </table>
             </div>
-         </div>
+        </div>
     </div>
 </body>
+
 </html>
 <script>
-    function change(){
-        
+    function change(classe) {
+        const linhas = document.querySelectorAll('#tabelaAlertas tr')
+
+        linhas.forEach(linha => {
+            if (classe == 'todos') {
+                linha.style.display = '';
+                return;
+            }
+
+            if (linha.querySelector('.' + classe)) {
+                linha.style.display = ''; // mostra
+            } else {
+                if (linha.querySelector('td')) {
+                    linha.style.display = 'none'; // Oculta
+                }
+            }
+        })
+
     }
 </script>

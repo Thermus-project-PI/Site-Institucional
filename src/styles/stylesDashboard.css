@@ -20,7 +20,6 @@ html, body{
 .content{
     display: grid;
     grid-template-columns: 250px 1fr;
-    width: 100%;
     height: 100%;
 }
 
@@ -94,6 +93,10 @@ aside{
     color: white;
 }
 
+.link a:hover{
+    color: rgb(154, 153, 153);
+}
+
 .bottom{
     width: 100%;
     height: 10%;
@@ -109,24 +112,26 @@ aside{
 }
 
 .btn{
-    width: 60%;
-    height: 60%;
+    width: 65%;
+    height: 70%;
 
     border: none;
     border-radius: 10rem;
 
     font-size: 1.5rem;
+    gap: 1vh;
     color: #21516C;
 
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10%;
+
+    cursor: pointer;
 }
 
-.btn-icon-logout{
-    width: 70%;
-    height: 70%;
+.btn:hover{
+    background-color: rgb(175, 174, 174);
+    color: #142f3e;
 }
 
 /* main */
@@ -151,8 +156,11 @@ main{
     height: 100vh;
 
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
-    justify-content: space-around;
+
+    gap: 10vh;
 }
 
 .right{
@@ -160,18 +168,18 @@ main{
     height: 100vh;
 
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    margin-top: 3.5vh;
 }
 
 .cards-container{
     width: 100%;
     height: 20%;
 
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 equal columns */
-    place-items: center;
-    gap: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1vw;
 }
 
 .card{
@@ -181,8 +189,8 @@ main{
     align-items: flex-start;
     flex-direction: column;
 
-    padding:20px;
-    gap: 20px;
+    padding:2vh;
+    gap: 1vw;
 
     background-color: white;
     border-radius: 25px;
@@ -210,6 +218,7 @@ main{
 .icon-green{color:#348A6F; background-color: #E8F7F1;}
 .icon-blue{color:#2E6AA3; background-color: #E6F0FA;}
 .icon-red{color:#D24848; background-color: #FDE8E8;}
+.icon-yellow{color: rgb(255, 191, 0);background-color: rgb(250, 246, 179);}
 
 .card-title{
     font-size: 0.6rem;
@@ -222,12 +231,28 @@ main{
 .main-info-green{color:#348A6F;}
 .main-info-blue{color:#2E6AA3;}
 .main-info-red{color:#D24848;}
+.main-info-yellow{color:rgb(255, 191, 0);}
 
 .sub-info{
     display: flex;
     gap: 5px;
 
     font-size: 0.5rem;
+}
+
+.point-risc p{
+    margin: 0;
+    font-size: 1rem;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.point-risc span{
+    font-weight: 600;
+    color: #E6B800;
+    background-color: #FFFBE6;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 5px;
 }
 
 /*  Gráficos  */
@@ -381,6 +406,10 @@ main{
     justify-content: center;
 
     border-radius: 20px;
+
+}
+td{
+    text-align: center;
 }
 
 .alert-status-red{color:#D24848; background-color: #FDE8E8; border: solid 1px #D24848;}
