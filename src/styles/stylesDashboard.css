@@ -218,6 +218,7 @@ main{
 .icon-green{color:#348A6F; background-color: #E8F7F1;}
 .icon-blue{color:#2E6AA3; background-color: #E6F0FA;}
 .icon-red{color:#D24848; background-color: #FDE8E8;}
+.icon-yellow{color: rgb(255, 191, 0);background-color: rgb(250, 246, 179);}
 
 .card-title{
     font-size: 0.6rem;
@@ -230,12 +231,28 @@ main{
 .main-info-green{color:#348A6F;}
 .main-info-blue{color:#2E6AA3;}
 .main-info-red{color:#D24848;}
+.main-info-yellow{color:rgb(255, 191, 0);}
 
 .sub-info{
     display: flex;
     gap: 5px;
 
     font-size: 0.5rem;
+}
+
+.point-risc p{
+    margin: 0;
+    font-size: 1rem;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.point-risc span{
+    font-weight: 600;
+    color: #E6B800;
+    background-color: #FFFBE6;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 5px;
 }
 
 /*  Gráficos  */
