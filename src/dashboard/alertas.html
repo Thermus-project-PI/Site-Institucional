@@ -79,17 +79,17 @@
             <div class="alertas-container">
                 <div class="filters">
                     <h3>Filtrar:</h3>
-                    <div class="filter filter-blue">
-                        <p onclick="change('todos')">Todos</p>
+                    <div class="filter filter-blue" onclick="montar('todos')">
+                        <p>Todos</p>
                     </div>
-                    <div class="filter filter-yellow">
-                        <p onclick="change('td-yellow')">Atenção</p>
+                    <div class="filter filter-yellow" onclick="montar('atencao')">
+                        <p>Atenção</p>
                     </div>
-                    <div class="filter filter-red">
-                        <p onclick="change('td-red')">Risco</p>
+                    <div class="filter filter-red" onclick="montar('risco')">
+                        <p>Risco</p>
                     </div>
-                    <div class="filter filter-purple">
-                        <p onclick="change('td-purple')">Alerta</p>
+                    <div class="filter filter-purple" onclick="montar('alerta')">
+                        <p>Alerta</p>
                     </div>
                 </div>
                 <table class="alertas" id="tabelaAlertas">
@@ -102,94 +102,6 @@
                         <th>ΔUmidade</th>
                         <th>Status</th>
                     </tr>
-                    <tr>
-                        <td>02/04 10:00</td>
-                        <td>O Grito</td>
-                        <td>23</td>
-                        <td>95</td>
-                        <td>22</td>
-                        <td>1</td>
-                        <div class="alerta-status">
-                            <td class="td-purple"><span>Alerta</span></td>
-                        </div>
-                    </tr>
-                    <tr>
-                        <td>02/04 12:00</td>
-                        <td>Monalisa</td>
-                        <td>25</td>
-                        <td>97</td>
-                        <td>24.4</td>
-                        <td>0.6</td>
-                        <div class="alerta-status ">
-                            <td class="td-purple"><span>Alerta</span></td>
-                        </div>
-                    </tr>
-                    <tr>
-                        <td>02/04 12:00</td>
-                        <td>Noite Estrelada</td>
-                        <td>22</td>
-                        <td>93</td>
-                        <td>20.6</td>
-                        <td>1.4</td>
-                        <div class="alerta-status">
-                            <td class="td-red"><span>Risco</span></td>
-                        </div>
-                    </tr>
-                    <tr>
-                        <td>02/04 12:00</td>
-                        <td>O Grito</td>
-                        <td>26</td>
-                        <td>96</td>
-                        <td>25.2</td>
-                        <td>0.8</td>
-                        <div class="alerta-status">
-                            <td class="td-purple"><span>Alerta</span></td>
-                        </div>
-                    </tr>
-                    <tr>
-                        <td>02/04 14:00</td>
-                        <td>Monalisa</td>
-                        <td>24</td>
-                        <td>94</td>
-                        <td>22.8</td>
-                        <td>1.2</td>
-                        <div class="alerta-status">
-                            <td class="td-red"><span>Risco</span></td>
-                        </div>
-                    </tr>
-                    <tr>
-                        <td>02/04 14:00</td>
-                        <td>O Grito</td>
-                        <td>25</td>
-                        <td>75</td>
-                        <td>20</td>
-                        <td>5</td>
-                        <div class="alerta-status  filter-yellow">
-                            <td class="td-yellow"><span>Atenção</span></td>
-                        </div>
-                    </tr>
-                    <tr>
-                        <td>02/04 16:00</td>
-                        <td>O Grito</td>
-                        <td>23</td>
-                        <td>70</td>
-                        <td>17</td>
-                        <td>6</td>
-                        <div class="alerta-status">
-                            <td class="td-yellow"><span>Atenção</span></td>
-                        </div>
-                    </tr>
-                    <tr>
-                        <td>01/04 10:00</td>
-                        <td>O Grito</td>
-                        <td>25</td>
-                        <td>72</td>
-                        <td>19.4</td>
-                        <td>5.6</td>
-                        <div class="alerta-status">
-                            <td class="td-yellow"><span>Atenção</span></td>
-                        </div>
-                    </tr>
                 </table>
             </div>
         </div>
@@ -198,23 +110,180 @@
 
 </html>
 <script>
-    function change(classe) {
-        const linhas = document.querySelectorAll('#tabelaAlertas tr')
+    const alertas = [
+  {
+    dataHora: "02/04 10:00",
+    sensor: "O Grito",
+    temperatura: 23,
+    umidade: 95,
+    deltaTemp: 22,
+    deltaUmidade: 1,
+    status: "Alerta"
+  },
+  {
+    dataHora: "02/04 12:00",
+    sensor: "Monalisa",
+    temperatura: 25,
+    umidade: 97,
+    deltaTemp: 24.4,
+    deltaUmidade: 0.6,
+    status: "Alerta"
+  },
+  {
+    dataHora: "02/04 12:00",
+    sensor: "Noite Estrelada",
+    temperatura: 22,
+    umidade: 93,
+    deltaTemp: 20.6,
+    deltaUmidade: 1.4,
+    status: "Risco"
+  },
+  {
+    dataHora: "02/04 12:00",
+    sensor: "O Grito",
+    temperatura: 26,
+    umidade: 96,
+    deltaTemp: 25.2,
+    deltaUmidade: 0.8,
+    status: "Alerta"
+  },
+  {
+    dataHora: "02/04 14:00",
+    sensor: "Monalisa",
+    temperatura: 24,
+    umidade: 94,
+    deltaTemp: 22.8,
+    deltaUmidade: 1.2,
+    status: "Risco"
+  },
+  {
+    dataHora: "02/04 14:00",
+    sensor: "O Grito",
+    temperatura: 25,
+    umidade: 75,
+    deltaTemp: 20,
+    deltaUmidade: 5,
+    status: "Atenção"
+  },
+  {
+    dataHora: "02/04 16:00",
+    sensor: "O Grito",
+    temperatura: 23,
+    umidade: 70,
+    deltaTemp: 17,
+    deltaUmidade: 6,
+    status: "Atenção"
+  },
+  {
+    dataHora: "01/04 10:00",
+    sensor: "O Grito",
+    temperatura: 25,
+    umidade: 72,
+    deltaTemp: 19.4,
+    deltaUmidade: 5.6,
+    status: "Atenção"
+  }
+];
 
-        linhas.forEach(linha => {
-            if (classe == 'todos') {
-                linha.style.display = '';
+let alertasContainer = document.getElementById("tabelaAlertas");
+montar("todos");
+function montar(type){
+
+    let alertasContainerLinhas = document.querySelectorAll("#tabelaAlertas #linha");    
+    alertasContainerLinhas.forEach(tr => tr.remove())
+    if(type == "todos"){
+        alertas.forEach(alerta => {
+            let tr = document.createElement("tr");
+            tr.setAttribute('id', 'linha')
+
+            let classTd;
+
+            if(alerta.status == "Alerta"){
+                classTd = "td-purple"
+            }else if(alerta.status == "Risco"){
+                classTd = "td-red"
+            }else if(alerta.status == "Atenção"){
+                classTd = "td-yellow"
+            }
+
+            tr.innerHTML = `
+                <td>${alerta.dataHora}</td>
+                <td>${alerta.sensor}</td>
+                <td>${alerta.temperatura}</td>
+                <td>${alerta.umidade}</td>
+                <td>${alerta.deltaTemp}</td>
+                <td>${alerta.deltaUmidade}</td>
+                <td class="${classTd}"><span>${alerta.status}</span></td>
+            `
+    
+            alertasContainer.appendChild(tr);
+        });
+    }else if(type == "atencao"){
+        alertas.forEach(alerta => {
+            if(alerta.status != "Atenção"){
                 return;
             }
+            let tr = document.createElement("tr");
+            tr.setAttribute('id', 'linha')
 
-            if (linha.querySelector('.' + classe)) {
-                linha.style.display = ''; // mostra
-            } else {
-                if (linha.querySelector('td')) {
-                    linha.style.display = 'none'; // Oculta
-                }
+            let classTd = "td-yellow"
+
+            tr.innerHTML = `
+                <td>${alerta.dataHora}</td>
+                <td>${alerta.sensor}</td>
+                <td>${alerta.temperatura}</td>
+                <td>${alerta.umidade}</td>
+                <td>${alerta.deltaTemp}</td>
+                <td>${alerta.deltaUmidade}</td>
+                <td class="${classTd}"><span>${alerta.status}</span></td>
+            `
+    
+            alertasContainer.appendChild(tr);
+        });
+    }else if(type == "risco"){
+        alertas.forEach(alerta => {
+            if(alerta.status != "Risco"){
+                return;
             }
-        })
+            let tr = document.createElement("tr");
+            tr.setAttribute('id', 'linha')
 
+            let classTd = "td-red"
+
+            tr.innerHTML = `
+                <td>${alerta.dataHora}</td>
+                <td>${alerta.sensor}</td>
+                <td>${alerta.temperatura}</td>
+                <td>${alerta.umidade}</td>
+                <td>${alerta.deltaTemp}</td>
+                <td>${alerta.deltaUmidade}</td>
+                <td class="${classTd}"><span>${alerta.status}</span></td>
+            `
+    
+            alertasContainer.appendChild(tr);
+        });
+    }else if(type == "alerta"){
+        alertas.forEach(alerta => {
+            if(alerta.status != "Alerta"){
+                return;
+            }
+            let tr = document.createElement("tr");
+            tr.setAttribute('id', 'linha')
+
+            let classTd = "td-purple"
+
+            tr.innerHTML = `
+                <td>${alerta.dataHora}</td>
+                <td>${alerta.sensor}</td>
+                <td>${alerta.temperatura}</td>
+                <td>${alerta.umidade}</td>
+                <td>${alerta.deltaTemp}</td>
+                <td>${alerta.deltaUmidade}</td>
+                <td class="${classTd}"><span>${alerta.status}</span></td>
+            `
+    
+            alertasContainer.appendChild(tr);
+        });
     }
+}
 </script>

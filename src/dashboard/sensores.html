@@ -125,7 +125,7 @@ function montar(){
         let s = ultimo.u > 80 || ultimo.t < 22 ? "ALERTA" : "OK";
 
         lista.innerHTML +=
-        `<div class='card' onclick='trocar(${i})'>
+        `<div class='cardSensor' onclick='trocar(${i})'>
             <div class='top-card'>
                 <b>${d.nome}</b>
                 <span class='badge'>${s}</span>
