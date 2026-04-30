@@ -2,29 +2,13 @@
     padding: 0;
     margin: 0;
 }
-html {
+html, body {
     width: 100%;
-    font-size: 16px;
-}
-header{
-    width: 100%;
-    padding: 0;
-    margin: 0; 
-}
-
-body{
-    width: 100%;
-    padding: 0;
-    margin: 0;
-}
-
-footer{
-    padding: 0;
-    margin: 0;
 }
 
 .container{
     width: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
 }
@@ -278,32 +262,41 @@ footer{
 }
 
 /* Área do Cliente*/
+.wave{
+    width: 100vw;
+    height: 39vh;
+}
 
 .areacliente{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    justify-items: center;
-    margin-top: 6vh;
-    margin-top: 6vh;
-    margin: 5vh;
-    border: solid #214B63 5px;
-    border-radius: 25px;
+    justify-items: flex-start;
+
+    height: 100vh;
+
+    color: #e4e4e4;
+    gap:7vh;
+
+    background-color: #19395a;
+}
+
+
+.areacliente .titulo{
+    color: #fff;
 }
 
 .areacliente p{
     text-align: center;
-    font-size: 1.8rem;
-    margin-top: 30px;
-    font-size: 1.8rem;
-    margin-top: 30px;
+    font-size: 3vh;
 }
 
 .areacliente img{
-    width: 25%;
+    width: 50%;
     margin: 5vh;
 }
+
 
 .images{
     display: flex;
@@ -467,9 +460,7 @@ footer{
     text-align: center;
     font-family: 'Playfair Display';
 }
-.footer{
-    background-color: #21516C;
-}
+
 .tooltip {
     position: relative;
     display: inline-block;
@@ -512,10 +503,9 @@ footer{
     justify-content: flex-start;
 
     height: 100%;
-    gap: 1vh;
     
     margin-left: 3%;
-    gap: 1vh;
+    gap: 3vh;
 }
 
 .info p{
@@ -523,7 +513,7 @@ footer{
     text-align: left;
     font-size: 2vh;
 
-    width: 50%;
+    width: 80%;
 }
 
 .footer .titulo{
@@ -531,7 +521,7 @@ footer{
     justify-content: flex-start;
 
     color: white;
-    width: 20vw;
+    width: 100%;
     font-size: 5vh;
     margin: 0;
 }
