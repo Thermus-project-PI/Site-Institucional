@@ -77,32 +77,36 @@
                 </div>
             </div>
             <div class="alertas-container">
-                <div class="filters">
-                    <h3>Filtrar:</h3>
-                    <div class="filter filter-blue" onclick="montar('todos')">
-                        <p>Todos</p>
-                    </div>
-                    <div class="filter filter-yellow" onclick="montar('atencao')">
-                        <p>Atenção</p>
-                    </div>
-                    <div class="filter filter-red" onclick="montar('risco')">
-                        <p>Risco</p>
-                    </div>
-                    <div class="filter filter-purple" onclick="montar('alerta')">
-                        <p>Alerta</p>
+                <div class="topAlertas">
+                    <div class="filters">
+                        <h3>Filtrar:</h3>
+                        <div class="filter filter-blue" onclick="montar('todos')">
+                            <p>Todos</p>
+                        </div>
+                        <div class="filter filter-yellow" onclick="montar('atencao')">
+                            <p>Atenção</p>
+                        </div>
+                        <div class="filter filter-red" onclick="montar('risco')">
+                            <p>Risco</p>
+                        </div>
+                        <div class="filter filter-purple" onclick="montar('alerta')">
+                            <p>Alerta</p>
+                        </div>
                     </div>
                 </div>
-                <table class="alertas" id="tabelaAlertas">
-                    <tr>
-                        <th>Data/hora</th>
-                        <th>Sensor</th>
-                        <th>Temp(°C)>
-                        <th>Umidade(%)</th>
-                        <th>ΔTemp</th>
-                        <th>ΔUmidade</th>
-                        <th>Status</th>
-                    </tr>
-                </table>
+                <div class="bottomAlertas">
+                    <table class="alertas" id="tabelaAlertas">
+                        <tr>
+                            <th>Data/hora</th>
+                            <th>Sensor</th>
+                            <th>Temp(°C)>
+                            <th>Umidade(%)</th>
+                            <th>ΔTemp</th>
+                            <th>ΔUmidade</th>
+                            <th>Status</th>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
