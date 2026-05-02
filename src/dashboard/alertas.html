@@ -86,11 +86,8 @@
                         <div class="filter filter-yellow" onclick="montar('atencao')">
                             <p>Atenção</p>
                         </div>
-                        <div class="filter filter-red" onclick="montar('risco')">
-                            <p>Risco</p>
-                        </div>
-                        <div class="filter filter-purple" onclick="montar('alerta')">
-                            <p>Alerta</p>
+                        <div class="filter filter-red" onclick="montar('critico')">
+                            <p>Crítico</p>
                         </div>
                         <div class="pesquisa"> 
                             <input type="text" placeholder="Buscar por data"> 
@@ -104,8 +101,8 @@
                             <th>Sensor</th>
                             <th>Temp(°C)>
                             <th>Umidade(%)</th>
-                            <th>ΔTemp</th>
-                            <th>ΔUmidade</th>
+                            <th>Limite do orvalho</th>
+                            <th>Diferença entre T° <br> e limite do orvalho</th>
                             <th>Status</th>
                         </tr>
                     </table>
@@ -125,7 +122,7 @@
     umidade: 95,
     deltaTemp: 22,
     deltaUmidade: 1,
-    status: "Alerta"
+    status: "Crítico"
   },
   {
     dataHora: "02/04 12:00",
@@ -134,16 +131,16 @@
     umidade: 97,
     deltaTemp: 24.4,
     deltaUmidade: 0.6,
-    status: "Alerta"
+    status: "Crítico"
   },
   {
     dataHora: "02/04 12:00",
     sensor: "Noite Estrelada",
-    temperatura: 22,
-    umidade: 93,
-    deltaTemp: 20.6,
-    deltaUmidade: 1.4,
-    status: "Risco"
+    temperatura: 27,
+    umidade: 78,
+    deltaTemp: 22.6,
+    deltaUmidade: 4.4,
+    status: "Atenção"
   },
   {
     dataHora: "02/04 12:00",
@@ -152,7 +149,7 @@
     umidade: 96,
     deltaTemp: 25.2,
     deltaUmidade: 0.8,
-    status: "Alerta"
+    status: "Crítico"
   },
   {
     dataHora: "02/04 14:00",
@@ -161,7 +158,7 @@
     umidade: 94,
     deltaTemp: 22.8,
     deltaUmidade: 1.2,
-    status: "Risco"
+    status: "Crítico"
   },
   {
     dataHora: "02/04 14:00",
@@ -175,19 +172,19 @@
   {
     dataHora: "02/04 16:00",
     sensor: "O Grito",
-    temperatura: 23,
-    umidade: 70,
-    deltaTemp: 17,
-    deltaUmidade: 6,
+    temperatura: 27,
+    umidade: 76,
+    deltaTemp: 22.2,
+    deltaUmidade: 4.8,
     status: "Atenção"
   },
   {
     dataHora: "01/04 10:00",
     sensor: "O Grito",
-    temperatura: 25,
-    umidade: 72,
-    deltaTemp: 19.4,
-    deltaUmidade: 5.6,
+    temperatura: 24,
+    umidade: 83,
+    deltaTemp: 20.6,
+    deltaUmidade: 3.4,
     status: "Atenção"
   }
 ];
@@ -205,9 +202,7 @@ function montar(type){
 
             let classTd;
 
-            if(alerta.status == "Alerta"){
-                classTd = "td-purple"
-            }else if(alerta.status == "Risco"){
+            if(alerta.status == "Crítico"){
                 classTd = "td-red"
             }else if(alerta.status == "Atenção"){
                 classTd = "td-yellow"
@@ -247,37 +242,15 @@ function montar(type){
     
             alertasContainer.appendChild(tr);
         });
-    }else if(type == "risco"){
+    }else if(type == "critico"){
         alertas.forEach(alerta => {
-            if(alerta.status != "Risco"){
+            if(alerta.status != "Crítico"){
                 return;
             }
             let tr = document.createElement("tr");
             tr.setAttribute('id', 'linha')
 
             let classTd = "td-red"
-
-            tr.innerHTML = `
-                <td>${alerta.dataHora}</td>
-                <td>${alerta.sensor}</td>
-                <td>${alerta.temperatura}</td>
-                <td>${alerta.umidade}</td>
-                <td>${alerta.deltaTemp}</td>
-                <td>${alerta.deltaUmidade}</td>
-                <td class="${classTd}"><span>${alerta.status}</span></td>
-            `
-    
-            alertasContainer.appendChild(tr);
-        });
-    }else if(type == "alerta"){
-        alertas.forEach(alerta => {
-            if(alerta.status != "Alerta"){
-                return;
-            }
-            let tr = document.createElement("tr");
-            tr.setAttribute('id', 'linha')
-
-            let classTd = "td-purple"
 
             tr.innerHTML = `
                 <td>${alerta.dataHora}</td>

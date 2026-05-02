@@ -133,7 +133,7 @@ function montar(){
         let d = listaDados[i];
         let ultimo = d.dados[d.dados.length-1];
 
-        let s = ultimo.u > 80 || ultimo.t < 22 ? "ALERTA" : "OK";
+        let s = ultimo.u > 80 || ultimo.t < 22 ? "CRÍTICO" : "OK";
 
         lista.innerHTML +=
         `<div class='cardSensor' onclick='trocar(${i})'>
