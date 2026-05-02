@@ -11,16 +11,30 @@ body{
     height: 100vh;
 }
 
+.container-lista{ 
 
+    width:20%; 
+    height: 100vh; 
+    background:#f5f7f9; 
+    padding:15px; 
+    border-right:1px solid #ddd; 
 
+} 
 
-.lista{
-    width:20%;
-    height: 100vh;
-    background:#f5f7f9;
-    padding:15px;
-    border-right:1px solid #ddd;
+.pesquisa{ 
+    width: 100%;
+    border: none; 
+    outline: none; 
+    border-radius: 6px; 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    padding: 13px;
+
 }
+
+.pesquisa:focus{ 
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3); 
+
+} 
 
 
 .cardSensor{
