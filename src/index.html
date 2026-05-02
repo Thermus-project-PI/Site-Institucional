@@ -8,25 +8,22 @@
 </head>
 <body>
     <header>
-        <div class="container">
-            <div class="navbar">
-                    <div class="logo">
-                        <img src="../src/img/logo.svg" alt="Logo Thermus">
-                        <img src="../src/img/THERMUS.svg">
-                    </div>
-                    <div class="links">
-                        <a href="/src/index.html">Inicial</a>
-                        <a href="/src/dashboard/index.html">Área do Cliente</a>
-                        <a href="/src/auth/museu/cadastroMuseu.html">Cadastro</a>
-                        <div class="login">
-                            <a href="/src/auth/museu/login.html" style="color: #21516C;">Login</a> 
-                        </div>
+        <div class="navbar">
+                <div class="logo">
+                    <img src="../src/img/logo.svg" alt="Logo Thermus">
+                    <img src="../src/img/THERMUS.svg">
+                </div>
+                <div class="links">
+                    <a href="/src/index.html">Inicial</a>
+                    <a href="/src/dashboard/index.html">Área do Cliente</a>
+                    <a href="/src/auth/museu/cadastroMuseu.html">Cadastro</a>
+                    <div class="login">
+                        <a href="/src/auth/museu/login.html" style="color: #21516C;">Login</a> 
                     </div>
                 </div>
         </div>
     </header>
-    <div class="container">
-        <div class="banner">
+    <div class="banner">
             <div class="banner-shadow">
                 <div class="banner-content">
                     <div class="subtitulo">
@@ -40,7 +37,6 @@
                 </div>
             </div>
         </div>
-    </div>
     <div class="container">
             <p class="titulo">Quem somos nós</p>
             <div class="content">
@@ -77,7 +73,7 @@
                     <div class="titulo">Degradação <br>irreversível</div>
                     <p>Esses efeitos resultam na deterioração permanente das obras, tornando essencial a prevenção.</p>
                 </div>
-        </div>
+            </div>
         </div>
     </div>
     <div class="container">
@@ -87,87 +83,67 @@
                 Nossa solução oferece uma visualização clara e intuitiva por meio de gráficos detalhados, permitindo o monitoramento em tempo real de uma ou mais seções do acervo. Com essa funciona classade, o cliente pode acompanhar as variações climáticas de setores específicos ou de todo o museu simultaneamente, facilitando a classentificação de áreas críticas e garantindo uma gestão de preservação baseada em dados precisos.
             </p>
             <div class="images">
-                <img src="../src/img/dashboard.png">
-                <img src="../src/img/dashboard.png">
-                <img src="../src/img/dashboard.png">
+                <img src="../src/img/relatorios.png">
+                <img src="../src/img/dashboardIndex.png">
+                <img src="../src/img/sensores.png">
             </div>
         </div>
-  
     </div>
-    <p class="titulo">
-    Planejamento e Economia: <br>
-    Sua Calculadora Thermus
-</p>
-
-<p class="texto_calculadora">
-    Estimativa clara do investimento necessário em sensores e infraestrutura, comparando-o aos altos custos médios de restauração de obras de arte. O Thermus protege não apenas o seu acervo, mas também o orçamento da sua instituição contra gastos emergenciais e danos permanentes.
-</p>
-
-
-   <div class="calculadora_container">
-
-    <div class="calculadora">
-
-        <p class="titulo_blue">Quantidade de Obras</p>
-
-        <input class="texto_input" id="valor" type="number" value="100" oninput="atualizarRange()">
-
-        <input type="range" id="range_obras" min="0" max="10000" value="100" oninput="atualizarValor()">
-
-        <p class="titulo_blue">Perfil do Acervo</p>
-
-        <div class="botoes_calculadora">
-            <div class="tooltip">
-    <button onclick="selecionarPerfil(50000)">ALTO</button>
-    <span class="tooltip_text">R$ 50.000</span>
-</div>
-
-<div class="tooltip">
-    <button onclick="selecionarPerfil(15000)">MÉDIO</button>
-    <span class="tooltip_text">R$ 15.000</span>
-</div>
-
-<div class="tooltip">
-    <button onclick="selecionarPerfil(3000)">BAIXO</button>
-    <span class="tooltip_text">R$ 3.000</span>
-</div>
+    <div class="container">
+        <div class="calculadora_container">
+            <div class="topCalc">
+                <h1 class="titulo">Planejamento e Economia: Sua Calculadora Thermus</h1>
+                <h2 class="texto_calculadora">
+                Estimativa clara do investimento necessário em sensores e infraestrutura, comparando-o aos altos custos médios de restauração de obras de arte. O Thermus protege não apenas o seu acervo, mas também o orçamento da sua instituição contra gastos emergenciais e danos permanentes.
+                </h2>
+            </div>
+            <div class="calculadora">
+                <div class="calculadoraLeft">
+                    <p class="titulo_blue">Quantidade de Obras</p>
+                    <input class="texto_input" id="valor" type="number" value="100" oninput="atualizarRange()">
+                    <input type="range" id="range_obras" min="0" max="10000" value="100" oninput="atualizarValor()">
+                    <p class="titulo_blue">Perfil do Acervo</p>
+                    <div class="botoes_calculadora">
+                        <div class="tooltip">
+                            <button onclick="selecionarPerfil(50000)">ALTO</button>
+                            <span class="tooltip_text">R$ 50.000</span>
+                        </div>
+                        <div class="tooltip">
+                            <button onclick="selecionarPerfil(15000)">MÉDIO</button>
+                            <span class="tooltip_text">R$ 15.000</span>
+                        </div>
+                        <div class="tooltip">
+                            <button onclick="selecionarPerfil(3000)">BAIXO</button>
+                            <span class="tooltip_text">R$ 3.000</span>
+                        </div>
+                    </div>
+                    <button class="botao_calcular" onclick="calcular()">
+                        Calcular Economia ➔
+                    </button>
+                </div>
+                <div class="linha"></div>
+                <div class="calculadoraRigth">
+                    <div class="caixa">
+                        <p>CUSTO ESTIMADO DO ACERVO</p>
+                        <p id="resultado_acervo">R$ 0</p>
+                    </div>
+                    <div class="caixa">
+                        <p>RISCO DE RESTAURO (20%)</p>
+                        <p id="resultado_risco">R$ 0</p>
+                    </div>
+                    <div class="caixa">
+                        <p>INVESTIMENTO EM MONITORAMENTO</p>
+                        <p id="resultado_investimento">R$ 0</p>
+                    </div>
+                    <div class="caixa caixa_azul">
+                        <p>ECONOMIA GERADA — ROI</p>
+                        <p id="resultado_economia">R$ 0</p>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <button class="botao_calcular" onclick="calcular()">
-            Calcular Economia ➔
-        </button>
-
     </div>
-
-    <div class="linha"></div>
-
-    <div class="resultado">
-
-        <div class="caixa">
-            <p>CUSTO ESTIMADO DO ACERVO</p>
-            <p id="resultado_acervo">R$ 0</p>
-        </div>
-
-        <div class="caixa">
-            <p>RISCO DE RESTAURO (20%)</p>
-            <p id="resultado_risco">R$ 0</p>
-        </div>
-
-        <div class="caixa">
-            <p>INVESTIMENTO EM MONITORAMENTO</p>
-            <p id="resultado_investimento">R$ 0</p>
-        </div>
-
-        <div class="caixa caixa_azul">
-            <p>ECONOMIA GERADA — ROI</p>
-            <p id="resultado_economia">R$ 0</p>
-        </div>
-
-    </div>
-  
-
-</div>
-<footer>
+    <footer>
         <div class="footer">
             <div class="info">
                 <p class="titulo">Quer saber mais?</p>
@@ -178,7 +154,7 @@
                 <button>Enviar</button>
             </div>
         </div>
-</footer>
+    </footer>
 </html>
 <script>
     let valorObra = 0;
@@ -193,6 +169,7 @@ function atualizarRange() {
 
 function selecionarPerfil(valorSelecionado) {
     valorObra = valorSelecionado;
+
 }
 
 function calcular() {

@@ -5,133 +5,35 @@ body{
     display:flex;
 }
 
-
-aside{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-items: center;
-    justify-content: space-between;
-
-    background-color: #21516C;
-
-    height: 100%;
-    width: 250px;
-}
-
-.top{
-    display: flex;
-    flex-direction: column;
-
-    width: 100%;
-    height: 60%;
-    gap: 10%;
-    margin-top: 10%;
-}
-
-.logo-container{
-    width: 100%;
-    height: 30%;
-
-    display: flex;
-    justify-content: center;
-}
-
-.logo{
-    fill: white;
-    height: 100%;
-    width: 80%;
-}
-
-.links-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    gap: 10%;
-
-    width: 100%;
-    height: fit-content;
-}
-
-.link{
-    width: 100%;
-
-    font-size: 2rem;
-    padding-bottom: 40px;
-    text-align: center;
-
-    border-bottom: solid #054163 2px;
-}
-
-.selected{
-    font-weight: bold;
-}
-
-.link a{
-    text-decoration: none;
-    text-align: center;
-    color: white;
-}
-
-.bottom{
-    width: 100%;
-    height: 10%;
-}
-
-.btn-container{
-    width: 100%;
-    height: 100%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.btn{
-    width: 60%;
-    height: 60%;
-
-    border: none;
-    border-radius: 10rem;
-
-    font-size: 1.5rem;
-    color: #21516C;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10%;
-}
-
-.btn-icon-logout{
-    width: 70%;
-    height: 70%;
-}
-
 .content{
     display:flex;
-    flex:1;
+    width: 90%;
+    height: 100vh;
 }
+
+
 
 
 .lista{
-    width:260px;
+    width:20%;
+    height: 100vh;
     background:#f5f7f9;
     padding:15px;
     border-right:1px solid #ddd;
 }
 
 
-.card{
+.cardSensor{
+    height: 20%;
     background:white;
     padding:12px;
     margin-top:10px;
     border-radius:10px;
+    font-size: 2vh;
     cursor:pointer;
 }
 
-.card:hover{
+.cardSensor:hover{
     border:1px solid #1a4a5c;
 }
 
@@ -142,15 +44,15 @@ aside{
 .top-card{
     display:flex;
     justify-content:space-between;
-    font-size:12px;
+    font-size: 1.5rem;
 }
 
 .valores{
-    font-size:13px;
+    font-size:1rem;
 }
 
 .hora{
-    font-size:11px;
+    font-size:1rem;
     color:#777;
 }
 

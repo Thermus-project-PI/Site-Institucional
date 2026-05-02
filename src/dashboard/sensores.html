@@ -10,57 +10,51 @@
 </head>
 
 <body>
-    <aside>
-            <div class="top">
-                <div class="logo-container">
-                    <img src="../img/logo-fina.svg" alt="logo" class="logo">
-               </div>
-               <div class="links-container">
-                    <div class="link">
-                        <a href="index.html">Dashboard</a>
-                    </div>
-                    <div class="link selected">
-                        <a href="sensores.html">Sensores</a>
-                    </div>
-                    <div class="link">
-                        <a href="alertas.html">Alertas</a>
-                    </div>
-                    <div class="link">
-                        <a href="relatorios.html">Relatórios</a>
-                    </div>
-               </div>
+
+<aside>
+    <div class="top">
+        <div class="logo-container">
+            <img src="/src/img/logo-fina.svg" class="logo">
+        </div>
+        <div class="links-container">
+            <div class="link" onclick="window.location.href = 'index.html'">
+                <p>Dashboard</p>
             </div>
-            <div class="bottom">
-                <div class="btn-container">
-                     <button class="btn" onclick="window.location.href='../index.html'">
-                         <span>Sair</span>
-                         <i class="fa-solid fa-arrow-right-from-bracket btn-icon-logout"></i>
-                     </button>
-                </div>
+            <div class="link selected" onclick="window.location.href = 'sensores.html'" >
+                <p>Sensores</p>
             </div>
-    </aside>
-    <div class="main">
-        <div class="sensores-container">
-            <div class="sensor">
-                <div class="sensor-top">
-                    <div class="sersor-title"></div>
-                    <h1>Monalisa</h1>
-                    <div class="sensor-status">
-                        <h2>Atenção</h2>
-                    </div>
-                </div>
-                <div class="sensor-main">
-                    <div class="temp">
-                        <h1>23,4°C</h1>
-                    </div>
-                    <div class="umid">
-                        <h1>67%</h1>
-                    </div>
-                </div>
-                <div class="sensor-lastUpdate">
-                    <p>Atualizado em:</p>
-                    <p>16:00</p>
-                </div>
+            <div class="link" onclick="window.location.href = 'alertas.html'">
+                <p>Alertas</p>
+            </div>
+            <div class="link" onclick="window.location.href = 'relatorios.html'">
+                <p>Relatórios</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom">
+        <div class="btn-container">
+            <button class="btn" onclick="window.location = '../index.html'"><span>Sair</span></button>
+        </div>
+    </div>
+</aside>
+
+<div class="content">
+
+    <div class="lista" id="lista"></div>
+
+    <div class="conteudo">
+
+        <div class="topo">
+            <h2 id="nome"></h2>
+            <p id="sala"></p>
+            <p id="status"></p>
+        </div>
+
+        <div class="dados">
+            <div class="caixa">
+                <p>Temp média</p>
+                <h3 id="temp"></h3>
             </div>
 
             <div class="caixa">
@@ -138,7 +132,7 @@ function montar(){
         let s = ultimo.u > 80 || ultimo.t < 22 ? "ALERTA" : "OK";
 
         lista.innerHTML +=
-        `<div class='card' onclick='trocar(${i})'>
+        `<div class='cardSensor' onclick='trocar(${i})'>
             <div class='top-card'>
                 <b>${d.nome}</b>
                 <span class='badge'>${s}</span>

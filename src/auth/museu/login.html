@@ -32,6 +32,35 @@
 
 </html>
 <script>
+async function login(){
+    let email = InEmail.value
+    let senha = InSenha.value
+
+    try {
+        const res = await fetch('./dados.json')
+        const data = await res.json()
+        if(!res.ok){
+            throw new Error();
+        }
+
+            let exists = data.some(user => user.email == email && user.senha == senha)
+            if(exists){
+                div_mensagem.innerText = "Usuário encontrado, redirecionando"
+                setTimeout(div_mensagem.innerText += ".", 1000)
+                setTimeout(div_mensagem.innerText += ".", 1500)
+                setTimeout(div_mensagem.innerText += ".", 2000)
+                setTimeout(window.location.href = '../../dashboard/index.html', 3000)
+            }else{
+                InEmail.value = ''
+                InSenha.value = ''
+                div_mensagem.innerHTML = "<p style='color: red;'>Usuário não encontrado!!, Tente Novamente</p>"
+            }
+
+    } catch (err) {
+        console.log(err)
+    }
+ 
+}
 
 function validar() {
     let email = InEmail.value;
@@ -42,6 +71,7 @@ function validar() {
 
      if (email == '') {
         InEmail.style.border = "solid red 3px";
+        InEmail.style.color = "color: rgba(255, 0, 0, 0.389)";
         emailIn.style.display = "block"
         return;
     }else{
@@ -53,6 +83,7 @@ function validar() {
         posCom != email.length - 4
     ) {
         InEmail.style.border = "solid red 3px";
+        InEmail.style.color = "color: rgba(255, 0, 0, 0.389)";
         emailIn.style.display = "block"
         return;
     }else{
@@ -61,6 +92,7 @@ function validar() {
 
     }if(senha == '') {
         InSenha.style.border = "solid red 3px";
+        InSenha.style.color = "color: rgba(255, 0, 0, 0.389)";
         senhaIn.style.display = "none";
         return;
         
@@ -70,5 +102,7 @@ function validar() {
     }
 
     div_mensagem.innerHTML = 'Login válido';
+
+    login()
 }
 </script>
