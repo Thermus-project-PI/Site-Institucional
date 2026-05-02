@@ -15,7 +15,6 @@
                 </div>
                 <div class="links">
                     <a href="/src/index.html">Inicial</a>
-                    <a href="/src/dashboard/index.html">Área do Cliente</a>
                     <a href="/src/auth/museu/cadastroMuseu.html">Cadastro</a>
                     <div class="login">
                         <a href="/src/auth/museu/login.html" style="color: #21516C;">Login</a> 
@@ -180,10 +179,11 @@ function calcular() {
     let investimento = 57.5 * quantidade;
     let economia = risco - investimento;
 
-    resultado_acervo.innerText = "R$ " + acervo.toFixed(2);
-    resultado_risco.innerText = "R$ " + risco.toFixed(2);
-    resultado_investimento.innerText = "R$ " + investimento.toFixed(2);
-    resultado_economia.innerText = "R$ " + economia.toFixed(2);
+    resultado_acervo.innerText = "R$ " + parseFloat(acervo).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    resultado_risco.innerText = "R$ " + parseFloat(risco).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    resultado_investimento.innerText = "R$ " + parseFloat(investimento).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    resultado_economia.innerText = "R$ " + parseFloat(economia).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
 }
 
 
