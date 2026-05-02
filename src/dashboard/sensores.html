@@ -16,12 +16,19 @@
         <div class="logo-container">
             <img src="/src/img/logo-fina.svg" class="logo">
         </div>
-
         <div class="links-container">
-            <div class="link"><a href="/src/dashboard/index.html">Dashboard</a></div>
-            <div class="link"><a href="/src/dashboard/sensores.html">Sensores</a></div>
-            <div class="link selected"><a href="/src/dashboard/alertas.html">Alertas</a></div>
-            <div class="link"><a href="/src/dashboard/relatorios.html">Relatórios</a></div>
+            <div class="link" onclick="window.location.href = 'index.html'">
+                <p>Dashboard</p>
+            </div>
+            <div class="link selected" onclick="window.location.href = 'sensores.html'" >
+                <p>Sensores</p>
+            </div>
+            <div class="link" onclick="window.location.href = 'alertas.html'">
+                <p>Alertas</p>
+            </div>
+            <div class="link" onclick="window.location.href = 'relatorios.html'">
+                <p>Relatórios</p>
+            </div>
         </div>
     </div>
 
@@ -125,7 +132,7 @@ function montar(){
         let s = ultimo.u > 80 || ultimo.t < 22 ? "ALERTA" : "OK";
 
         lista.innerHTML +=
-        `<div class='card' onclick='trocar(${i})'>
+        `<div class='cardSensor' onclick='trocar(${i})'>
             <div class='top-card'>
                 <b>${d.nome}</b>
                 <span class='badge'>${s}</span>
