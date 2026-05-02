@@ -83,11 +83,12 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
+    gap: 10px; 
 }
 
 .filter{
     width: 20vw;
-    height: 2vh;
+    height: 2.6vh;
 
     display: flex;
     align-items: center;
@@ -103,14 +104,57 @@
     transform: scale(1.05);
 }
 
-.filter-blue{color: #21516C; background-color: #3c98ce52;}
-.filter-blue:hover{border: solid 1px #21516C;}
-.filter-yellow{color: #BE8C02; background-color: #efaf004f;}
-.filter-yellow:hover{border: solid 1px #BE8C02;}
-.filter-red{color: #FF0000; background-color: #FDE8E8;}
-.filter-red:hover{border: solid 1px #FF0000;}
-.filter-purple{color: #53005B; background-color: #7715802f;}
-.filter-purple:hover{border: solid 1px #53005B;}
+.filter-blue{
+    color: #21516C; 
+    background-color: #3c98ce52;
+}
+
+.filter-blue:hover{
+    border: solid 1px #21516C;
+}
+
+.filter-yellow{
+    color: #BE8C02; 
+    background-color: #efaf004f;
+}
+
+.filter-yellow:hover{
+    border: solid 1px #BE8C02;
+}
+
+.filter-red{
+    color: #FF0000; 
+    background-color: #FDE8E8;
+}
+
+.filter-red:hover{
+    border: solid 1px #FF0000;
+}
+
+.filter-purple{
+    color: #53005B; 
+    background-color: #7715802f;
+}
+
+.filter-purple:hover{
+    border: solid 1px #53005B;
+}
+
+.pesquisa input{ 
+    
+    height: 2.9vh;
+    margin-left: 80%; 
+    border: none; 
+    outline: none; 
+    border-radius: 6px; 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+
+} 
+
+.pesquisa input:focus{ 
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3); 
+
+} 
 
 .alertas{
     width: 100%;
