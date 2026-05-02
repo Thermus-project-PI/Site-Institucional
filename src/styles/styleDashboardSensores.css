@@ -1,23 +1,106 @@
-.main{
-    width: 100%;
-    height: 100%;
-
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-
-    background-color: #F4F6F8;
+body{
+    margin:0;
+    font-family: Arial;
+    background:#eef1f4;
+    display:flex;
 }
 
-.sensores-container{
-    width: 100%;
-    
-    display: flex;
-    flex-direction: column;
-}
-
-.sensor{
+.content{
+    display:flex;
     width: 90%;
-    height: 25%;
-
-    background-color: white;
+    height: 100vh;
 }
+
+
+
+
+.lista{
+    width:20%;
+    height: 100vh;
+    background:#f5f7f9;
+    padding:15px;
+    border-right:1px solid #ddd;
+}
+
+
+.cardSensor{
+    height: 20%;
+    background:white;
+    padding:12px;
+    margin-top:10px;
+    border-radius:10px;
+    font-size: 2vh;
+    cursor:pointer;
+}
+
+.cardSensor:hover{
+    border:1px solid #1a4a5c;
+}
+
+.selecionado{
+    border:2px solid #1a4a5c;
+}
+
+.top-card{
+    display:flex;
+    justify-content:space-between;
+    font-size: 1.5rem;
+}
+
+.valores{
+    font-size:1rem;
+}
+
+.hora{
+    font-size:1rem;
+    color:#777;
+}
+
+
+.conteudo{
+    flex:1;
+    padding:20px;
+}
+
+
+.topo{
+    background:white;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:10px;
+}
+
+
+.badge{
+    padding:5px 10px;
+    border-radius:8px;
+    font-size:12px;
+}
+
+.ok{ background:#e1f5ee; color:#085041; }
+.alerta-b{ background:#fbeaf0; color:#72243e; }
+
+
+.dados{
+    display:flex;
+    gap:10px;
+}
+
+.caixa{
+    background:white;
+    padding:15px;
+    flex:1;
+    border-radius:10px;
+}
+
+.grafico{
+    background:white;
+    margin-top:10px;
+    padding:15px;
+    border-radius:10px;
+}
+
+
+.temp{ color:#09a07a; }
+.umi{ color:#185fa5; }
+.alerta{ color:#a32d2d; }

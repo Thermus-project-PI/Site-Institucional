@@ -20,7 +20,6 @@ html, body{
 .content{
     display: grid;
     grid-template-columns: 250px 1fr;
-    width: 100%;
     height: 100%;
 }
 
@@ -68,7 +67,6 @@ aside{
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    gap: 10%;
 
     width: 100%;
     height: fit-content;
@@ -76,23 +74,31 @@ aside{
 
 .link{
     width: 100%;
+    height: 12vh;
 
-    font-size: 2rem;
-    padding-bottom: 40px;
-    text-align: center;
+    font-size: 3vh;
+    padding-bottom: 10%;
+    text-align: center; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     border-bottom: solid #054163 2px;
 }
 
-.selected{
-    font-weight: bold;
+.link:hover{
+    background-color: #032335;
+    border-bottom: #021925;
 }
 
-.link a{
+.selected{background-color: #053049;}
+
+.link p{
     text-decoration: none;
     text-align: center;
     color: white;
 }
+
 
 .bottom{
     width: 100%;
@@ -109,80 +115,81 @@ aside{
 }
 
 .btn{
-    width: 60%;
-    height: 60%;
+    width: 65%;
+    height: 70%;
 
     border: none;
     border-radius: 10rem;
 
     font-size: 1.5rem;
+    gap: 1vh;
     color: #21516C;
 
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10%;
+
+    cursor: pointer;
 }
 
-.btn-icon-logout{
-    width: 70%;
-    height: 70%;
+.btn:hover{
+    background-color: rgb(175, 174, 174);
+    color: #142f3e;
 }
 
 /* main */
 
 main{
-    width: 1fr;
-    height: 100vh;
-    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    display: grid;
-    grid-template-columns: 1fr 300px;
-    flex-direction: column;
-
-    padding: 0px 30px 0px 30px;
-    gap: 30px;
+    padding: 0px 30px;
+    gap: 2vw;   
 
     background-color: #F4F6F8;
 }
 
 .left{
-    width: 1fr;
+    width: 80%;
     height: 100vh;
 
     display: flex;
+    justify-content: space-evenly;
+    align-items: center;
     flex-direction: column;
-    justify-content: space-around;
 }
 
 .right{
-    width: 300px;
+    width: 20%;
     height: 100vh;
 
     display: flex;
     align-items: center;
-    justify-content: center;
-}
+}   
 
 .cards-container{
     width: 100%;
-    height: 20%;
+    height: 30%;
 
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 equal columns */
-    place-items: center;
-    gap: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 1vw;
 }
 
 .card{
-    width: 100%;
+    flex: 1;
 
+    height: 75%;
+    padding: 20px;
     display: flex;
     align-items: flex-start;
     flex-direction: column;
 
-    padding:20px;
-    gap: 20px;
+    gap: 1vh;
+
 
     background-color: white;
     border-radius: 25px;
@@ -195,8 +202,8 @@ main{
 }
 
 .icon-container{
-    width:50px;
-    height: 50px;
+    width:3vw;
+    height: 5vh;
 
     display: flex;
     align-items: center;
@@ -204,48 +211,62 @@ main{
 
     border-radius: 10px;
 
-    font-size: 1.5rem;
+    font-size: 2.5vh;
 }
 
 .icon-green{color:#348A6F; background-color: #E8F7F1;}
 .icon-blue{color:#2E6AA3; background-color: #E6F0FA;}
 .icon-red{color:#D24848; background-color: #FDE8E8;}
+.icon-yellow{color: rgb(255, 191, 0);background-color: rgb(250, 246, 179);}
 
 .card-title{
-    font-size: 0.6rem;
+    font-size: 0.8vh;
 }
 
 .main-info{
-    font-size: 1.6rem;
+    font-size: 2.5vh;
 }
 
 .main-info-green{color:#348A6F;}
 .main-info-blue{color:#2E6AA3;}
 .main-info-red{color:#D24848;}
+.main-info-yellow{color:rgb(255, 191, 0);}
 
 .sub-info{
     display: flex;
-    gap: 5px;
+    gap: 0.4vw;
 
-    font-size: 0.5rem;
+    margin: 0;
+    font-size: 1vh;
+    color: rgba(0, 0, 0, 0.6);
 }
+
+.point-risc span{   
+    display: flex;
+    align-self: center;
+
+    font-weight: 600; ;
+    font-size: 1vh;
+    padding: 0.5vh;
+    color: #E6B800;
+    background-color: #FFFBE6;
+    border-radius: 10px;
+}   
 
 /*  Gráficos  */
 
 .charts{
     width: 100%;
-    height: 55%;
+    height: 60%;
 
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
+    gap: 2vh;
 }
 
 .chart{
     width: 100%;
-    height: 100%;
+    height: 90%;
 
     background-color: white;
     border-radius: 25px;
@@ -265,12 +286,12 @@ main{
 
 .buttons{
     width: 100%;
-    height: 40px;
+    height: fit-content;
 
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 10px;
+    gap: 2vh;
 }
 
 .buttons h1{
@@ -280,7 +301,7 @@ main{
 
 .btn-chart{
     width: 18%;
-    height: 100%;
+    height: 2vh;
 
     border: none;
     border-radius: 50px;
@@ -381,6 +402,10 @@ main{
     justify-content: center;
 
     border-radius: 20px;
+
+}
+td{
+    text-align: center;
 }
 
 .alert-status-red{color:#D24848; background-color: #FDE8E8; border: solid 1px #D24848;}

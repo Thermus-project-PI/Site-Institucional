@@ -1,47 +1,49 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="/src/styles/stylesDashboard.css">
+    <link rel="stylesheet" href="../styles/stylesDashboard.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Dashboard</title>
 </head>
+
 <body>
     <div class="content">
-       <aside>
+        <aside>
             <div class="top">
                 <div class="logo-container">
-                    <img src="/src/img/logo-fina.svg" alt="logo" class="logo">
-               </div>
-               <div class="links-container">
-                    <div class="link selected">
-                        <a href="/src/dashboard/index.html">Dashboard</a>
+                    <img src="../img/logo-fina.svg" alt="logo" class="logo">
+                </div>
+                <div class="links-container">
+                    <div class="link selected" onclick="window.location.href = 'index.html'">
+                        <p>Dashboard</p>
                     </div>
-                    <div class="link">
-                        <a href="/src/dashboard/sensores.html">Sensores</a>
+                    <div class="link" onclick="window.location.href = 'sensores.html'" >
+                        <p>Sensores</p>
                     </div>
-                    <div class="link">
-                        <a href="/src/dashboard/alertas.html">Alertas</a>
+                    <div class="link" onclick="window.location.href = 'alertas.html'">
+                        <p>Alertas</p>
                     </div>
-                    <div class="link">
-                        <a href="/src/dashboard/relatorios.html">Relatórios</a>
+                    <div class="link" onclick="window.location.href = 'relatorios.html'">
+                        <p>Relatórios</p>
                     </div>
-               </div>
+                </div>
             </div>
             <div class="bottom">
                 <div class="btn-container">
-                     <button class="btn" href="/src/index.html">
-                         <span>Sair</span>
-                         <i class="fa-solid fa-arrow-right-from-bracket" class="btn-icon-logout"></i>
+                    <button class="btn" onclick="window.location.href='../index.html'">
+                        <span>Sair</span>
+                        <i class="fa-solid fa-arrow-right-from-bracket btn-icon-logout"></i>
                     </button>
                 </div>
             </div>
-       </aside>
-       <main>
+        </aside>
+        <main>
             <div class="left">
-                 <div class="cards-container">
+                <div class="cards-container">
                     <div class="card">
                         <div class="icon-container icon-green">
                             <i class="fa-solid fa-temperature-full"></i>
@@ -53,7 +55,7 @@
                             <h1>23,4°C</h1>
                         </div>
                         <div class="sub-info">
-                            <h2>Hoje ·</h2>
+                            <h2>Hoje - 04/05/2026</h2>
                             <h2>todos os sensores</h2>
                         </div>
                     </div>
@@ -64,35 +66,52 @@
                         <div class="card-title">
                             <h1>Umidade média</h1>
                         </div>
-                            <div class="main-info main-info-blue">
-                                <h1>67%</h1>
-                            </div>
-                            <div class="sub-info">
-                                <h2>Hoje ·</h2>
-                                <h2>todos os sensores</h2>
-                            </div>
+                        <div class="main-info main-info-blue">
+                            <h1>67%</h1>
+                        </div>
+                        <div class="sub-info">
+                            <h2>Hoje - 04/05/2026</h2>
+                            <h2>todos os sensores</h2>
+                        </div>
                     </div>
-                    <div class="card">
+                    <div class="card" onclick="window.location.href='./alertas.html'" style="cursor: pointer;">
                         <div class="icon-container icon-red">
-                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            <i class="fa-solid fa-triangle-exclamation"></i>
                         </div>
                         <div class="card-title">
                             <h1>Alertas Hoje</h1>
                         </div>
-                            <div class="main-info main-info-red">
-                                <h1>4</h1>
-                            </div>
-                            <div class="sub-info">
-                                <h2>2 risco ·</h2>
-                                <h2>2 alerta</h2>
-                            </div>
+                        <div class="main-info main-info-red">
+                            <h1>4</h1>
+                        </div>
+                        <div class="sub-info">
+                            <h2>2 atenções</h2>
+                            <h2>2 críticos</h2>
+                        </div>
                     </div>
+                    <div class="card">
+                            <div class="icon-container icon-yellow">
+                                <i class="fa-solid fa-circle-exclamation"></i>
+                            </div>
+                            
+                        <div class="card-title">
+                            <h1>Proximidade do Orvalho</h1>
+                        </div>
+                        <div class="main-info main-info-yellow">
+                            <h1>4,4</h1>
+                        </div>
+                        <div class="sub-info point-risc">
+                           <h2>Risco de orvalho atual: </h2>
+                           <span>ATENCÃO</span> 
+                        </div>
                     </div>
+                </div>
                 <div class="charts">
                     <div class="buttons">
                         <h1>filtros:</h1>
                         <button class="btn-chart btn-chart-umidity" onclick="change('humidity')">Umidade</button>
-                        <button class="btn-chart btn-chart-temperature" onclick="change('temperature')">Temperatura</button>
+                        <button class="btn-chart btn-chart-temperature"
+                            onclick="change('temperature')">Temperatura</button>
                     </div>
                     <div class="chart flex" id="umid-div">
                         <canvas id="chart"></canvas>
@@ -114,7 +133,7 @@
                                 <h2>Temp 20°C</h2>
                             </div>
                             <div class="alert-status alert-status-red">
-                                <h1>RISCO</h1>
+                                <h1>CRÍTICO</h1>
                             </div>
                         </div>
                         <div class="alert">
@@ -126,7 +145,7 @@
                                 <h2>Temp 20°C</h2>
                             </div>
                             <div class="alert-status alert-status-red">
-                                <h1>RISCO</h1>
+                                <h1>CRÍTICO</h1>
                             </div>
                         </div>
                         <div class="alert">
@@ -138,7 +157,7 @@
                                 <h2>Temp 20°C</h2>
                             </div>
                             <div class="alert-status alert-status-red">
-                                <h1>RISCO</h1>
+                                <h1>CRÍTICO</h1>
                             </div>
                         </div>
                         <div class="alert">
@@ -150,7 +169,7 @@
                                 <h2>Temp 20°C</h2>
                             </div>
                             <div class="alert-status alert-status-red">
-                                <h1>RISCO</h1>
+                                <h1>CRÍTICO</h1>
                             </div>
                         </div>
                         <div class="alert">
@@ -162,7 +181,7 @@
                                 <h2>Temp 20°C</h2>
                             </div>
                             <div class="alert-status alert-status-red">
-                                <h1>RISCO</h1>
+                                <h1>CRÍTICO</h1>
                             </div>
                         </div>
                         <div class="alert">
@@ -174,7 +193,7 @@
                                 <h2>Temp 20°C</h2>
                             </div>
                             <div class="alert-status alert-status-red">
-                                <h1>RISCO</h1>
+                                <h1>CRÍTICO</h1>
                             </div>
                         </div>
                         <div class="alert">
@@ -186,79 +205,105 @@
                                 <h2>Temp 20°C</h2>
                             </div>
                             <div class="alert-status alert-status-red">
-                                <h1>RISCO</h1>
+                                <h1>CRÍTICO</h1>
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
-            </div>
-       </main>
+        </main>
     </div>
 </body>
 <script>
 
+    const labels = [
+        '14:00','16:00','18:00','20:00','22:00',
+        '00:00','02:00','04:00','06:00','08:00'
+    ];
+
+
     const humidity = {
-                    label: 'Umidade',
-                    data: [69, 61, 59, 50, 58, 98, 97, 60, 56, 60],
-                    borderWidth: 1,
-                    borderColor:"#2E6AA3",
-                    backgroundColor: "#2E6AA320",
-                    fill: true
-                }
+        label: 'Umidade',
+        data: [69, 61, 59, 50, 58, 98, 97, 60, 56, 60],
+        borderColor: "#2E6AA3",
+        backgroundColor: "#2E6AA320",
+        fill: true,
+        tension: 0.3
+    };
 
     const temperature = {
-                    label: 'Temperatura',
-                    data: [24, 23, 22, 21, 22, 20, 22, 25, 24, 25],
-                    borderWidth: 1,
-                    borderColor:"#348A6F",
-                    backgroundColor: "#348A6F20",
-                    fill:true
+        label: 'Temperatura',
+        data: [24, 23, 22, 21, 22, 20, 22, 25, 24, 25],
+        borderColor: "#348A6F",
+        backgroundColor: "#348A6F20",
+        fill: true,
+        tension: 0.3
+    };
+
+
+    function createLine(value, color, label) {
+        return {
+            label: label,
+            data: Array(labels.length).fill(value),
+            borderColor: color,
+            borderDash: [6,6],
+            borderWidth: 2,
+            pointRadius: 0,
+            fill: false
+        };
+    }
+
+
+    const chart = document.getElementById("chart");
+
+    const graf = new Chart(chart, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                humidity,
+                createLine(40, "#2E6AA3", "Mín Ideal"),
+                createLine(70, "#2E6AA3", "Máx Ideal")
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    min: 0,
+                    max: 100,
+                    ticks: {
+                        stepSize: 10
+                    }
                 }
+            }
+        }
+    });
 
-    let dataset = humidity;
+    function change(tipo) {
 
-    function change(data){
-        if(data == "temperature"){
-            dataset = temperature;
-            graf.data.datasets[0] = dataset;
-        }else if(data == "humidity"){
-            dataset = humidity;
-            graf.data.datasets[0] = dataset;
+        if (tipo == "humidity") {
+            graf.data.datasets = [
+                humidity,
+                createLine(40, "#2E6AA3", "Mín Ideal"),
+                createLine(70, "#2E6AA3", "Máx Ideal")
+            ];
+
+            graf.options.scales.y.max = 100;
+        }
+
+        if (tipo == "temperature") {
+            graf.data.datasets = [
+                temperature,
+                createLine(16, "#348A6F", "Mín Ideal"),
+                createLine(20, "#348A6F", "Máx Ideal")
+            ];
+
+            graf.options.scales.y.max = 30;
         }
 
         graf.update();
     }
 
-    const chart = document.getElementById("chart");
-    const graf = new Chart(chart, {
-        type: 'line',
-        data: {
-        labels: [
-            '14:00', 
-            '16:00', 
-            '18:00', 
-            '20:00', 
-            '22:00',
-            '00:00',
-            '02:00',
-            '04:00', 
-            '06:00', 
-            '08:00',
-        ],
-            datasets: [dataset]
-        },
-        options: {
-        scales: {
-            y: {
-            min: 0,
-            max:100,
-            beginAtZero: true,
-            ticks:{
-                stepSize: 10
-            }
-            }
-        }
-        }
-    });
 </script>
+
 </html>

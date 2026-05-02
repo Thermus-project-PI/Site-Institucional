@@ -1,46 +1,30 @@
-
 *{
     padding: 0;
     margin: 0;
 }
-html {
+html, body {
     width: 100%;
-    font-size: 16px;
-}
-header{
-    width: 100%;
-    padding: 0;
-    margin: 0; 
-}
-
-body{
-    width: 100%;
-    padding: 0;
-    margin: 0;
-}
-
-footer{
-    padding: 0;
-    margin: 0;
+    color: #383838;
+    overflow-x: hidden;
 }
 
 .container{
     width: 100%;
-    height: fit-content;
+    height: 100vh;
+
+    margin-top: 5vh;
+
     display: flex;
     flex-direction: column;
 }
 
 .titulo{
-    font-size: 60px;
-    font-weight: 300;
-    font-size: 60px;
-    font-weight: 300;
+    font-size: 7vh;
+    font-weight: bold;
     display: flex;
-    align-items: center;
-    margin-top: 2vh;
-    margin-top: 2vh;
     justify-content: center;
+    align-items: center;
+
     color: #214B63;
     width: 100%;
 }
@@ -60,35 +44,38 @@ footer{
 }
 
 .logo{
+    padding: 1vh;
+    width: 20vw;
+    height: 8vh;
+
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
-    padding: 30px;
-    width: 20%;
-    height: 110%;
-    gap: 10px;
+    align-items: center;  
 }
 
 .logo img{
     width: 50%;
-    height: 60%;
+    height: 100%;
 }
 
 .links{
+    height: 100%;
+    width: 50%;
+
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
-    gap: 40px;
-    padding: 40px;
+
+    gap: 5vw;
+    padding-right: 2vw;
 }
 
 .links a{
     text-decoration: none;
     color: white;
-    font-size: 1.4rem;
-    font-size: 1.4rem;
+    font-size: 2.5vh;
 }
 
 .links a:hover{
@@ -97,7 +84,13 @@ footer{
 
 .login{
     background-color: white;
-    padding: 10px 20px;
+    width: 6vw;
+    height: 5vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     border-radius: 30px;
 }
 
@@ -110,32 +103,35 @@ footer{
 
 .banner{
     width: 100%;
-    height: fit-content;
+    height: 89vh;
     display: flex;
     flex: row;
     align-items: center;
     justify-content: flex-start;
-    background-image: url("/src/img/banner.png");
+    background-image: url("../img/banner.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .banner-shadow{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     height: 100%;
     width: 80%;
     background: linear-gradient(to right, rgba(0, 0, 0, 0.89) 50%, transparent);
 }
 
 .banner-content{
-    margin-top: 40px;
     display: flex;
-    flex-direction: column;
     justify-items: center;
     justify-content: center;
+    flex-direction: column;
     align-items: flex-start;
-    padding-left: 40px;
-}
+
+    margin-left: 5vw;
+} 
 
 .subtitulo{
     display: flex;
@@ -143,31 +139,28 @@ footer{
     justify-items: center;
     align-items: center;
 
-    width: 300px;
-    height: 10px;
+    width: 55%;
+    height: 10%;
 
     background-color: #214B63;
     color: white;
 
-    font-size: 0.6rem;
+    font-size: 1.5vh;
     font-weight: bold;
     border-radius: 50px;
-    padding: 5px 10px;
+    padding: 1vh 1vw;
 }
 
 .banner .titulo{
-    padding: 10px;
+    padding: 5vh;
     display: flex;
+    text-align: left;
     color: white;
-    font-size: 4rem;
-    width: 40%;
+    font-size: 8vh;
+    width: 80%;
 }
 
-.banner p{
-    margin-top: 10px;
-}
-
-.titulo spam{
+.banner spam{
     color: #214B63;
 }
 
@@ -176,15 +169,13 @@ footer{
 .quemsomos{
     width: 100%;
     height: fit-content;
+
     display: flex;
-    margin-top: 2%;
-    gap: 3vh;
-    margin-top: 2%;
-    gap: 3vh;
     flex-direction: column;
     justify-content: center;
-    justify-items: center;
     align-items: center;
+
+    gap: 3vh;   
 }
 
 .content{
@@ -200,13 +191,10 @@ footer{
 .content img{
     width:40%;
     margin-left: 28px;
-    width:40%;
-    margin-left: 28px;
 }
 
 .texto{
-    font-size: 1.9rem;
-    font-size: 1.9rem;
+    font-size: 3.2vh;
     width: 50%;
 }
 
@@ -217,7 +205,7 @@ footer{
 
 #subtexto{
     align-self: center;
-    font-size: 3rem;
+    font-size: 4vh;
     width: 80%;
     height: fit-content;
     margin-top: 4%;
@@ -232,8 +220,8 @@ footer{
 /*  Qual a Importancia */
 
 .cards{
+    margin-top: 10vh;
     display: flex;
-    margin: 0 10% 0 10%;
     justify-content: space-around;
     gap: 5%;
 }
@@ -243,24 +231,20 @@ footer{
     justify-content: center;
     justify-items: center;
     align-items: center;
-    padding: 20px;
-    padding: 20px;
-    width: 30%;
+    padding: 5vh;
+    width: 25vw;
     gap: 3vh;
-    height: auto;
-    height: auto;
     border: solid #214B63 3px;
     border-radius: 35px;
 }
 
 .card .titulo{
     text-align: center;
-    font-size: 3rem;
+    font-size: 5vh;
 }
 
 .card p{
-    font-size: 1rem;
-    font-size: 1rem;
+    font-size: 3vh;
     text-align: center;
 }
 
@@ -269,58 +253,289 @@ footer{
     justify-content: center;
     align-items: center;
     background-color: #214B63;
-    height: 10vh;
-    width: 20%;
+    height: 15vh;
+    width: 15vh;
     border-radius: 100%;
 }
 
 /* Área do Cliente*/
-
 .areacliente{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    justify-items: center;
-    margin-top: 6vh;
-    margin-top: 6vh;
-    margin: 5vh;
-    border: solid #214B63 5px;
-    border-radius: 25px;
+    justify-items: flex-start;
+
+    height: 100vh;
+
+    color: #e4e4e4;
+    gap: 10vh;
+
+    background-color: #19395a;
+}
+
+
+.areacliente .titulo{
+    color: #fff;
 }
 
 .areacliente p{
     text-align: center;
-    font-size: 1.8rem;
-    margin-top: 30px;
-    font-size: 1.8rem;
-    margin-top: 30px;
+    font-size: 3vh;
 }
 
 .areacliente img{
-    width: 25%;
+    width: 50%;
     margin: 5vh;
 }
 
+
 .images{
     display: flex;
-    justify-content: center;
-    align-items: center;
+  gap: 0.5vw;
+  margin-bottom: 20px;
+}
+
+.images img{
+    width: 28vw;
+    height: 30vh;
 }
 
 /* Calculadora */
+.calculadora_container{
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    gap: 3vh;
+
+    margin-bottom: 10vh;
+}
+
+.topCalc{
+    width: 100%;
+    height: 30vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    gap: 3vh;
+}
+
+.topCalc h1{
+    width: 60%;
+}
+
+.texto_calculadora {
+    width: 80%;
+    color: #383838;
+    text-align: center;
+    font-family: 'Playfair Display';
+    font-size: 2vh;
+}
+
 
 .calculadora{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: space-between;
+
+    width: 80%;
+    height: 50vh;
+    border-radius: 40px;
+    padding: 5vh;
+    border: solid 0.5vh #19395a;
 }
 
-.calculadora .texto{
+.calculadoraLeft {
+    width: 40%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.linha {
+    width: 0.2vw;
+    height: 100%;
+    background-color: #2f4f5f;
+}
+
+.calculadoraRigth {
+    width: 50%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.titulo_blue {
+    color: #2f4f5f;
+    font-weight: bold;
+    font-size: 3vh;
+    font-family: 'Playfair Display';
     text-align: center;
-    width: 80%;
-    font-size: 2rem;
+}
+
+
+.texto_input {
+    width: 20vw;
+    height: 5vh;
+
+    background-color: #b7c6cd;
+    color: #132a37;
+
+    font-size: 3vh;
+    text-align: center;
+
+    border: 2px solid #2f4f5f;
+    border-radius: 5px;
+}
+
+
+#range_obras {
+    width: 30vw;
+    height: 4vh;
+}
+
+
+.botoes_calculadora {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 2vw;
+}
+
+.botoes_calculadora button {
+    border-radius: 25px;
+    border: 0.2vh solid #2f4f5f;
+
+    background-color: #e6e6e6;
+    color: #275570;
+
+    font-size: 1.5vh;
+
+    padding: 1vh 2vw;
+    font-family: 'Playfair Display';
+}
+
+.botoes_calculadora button:hover {
+    background-color: #2f4f5f;
+    color: white;
+}
+
+.botoes_calculadora button:focus {
+    background-color: #2f4f5f;
+    color: white;
+}
+.botao_calcular {
+    margin-top: 30px;
+    padding: 15px 30px;
+    border-radius: 20px;
+    border: none;
+    background-color: #2f4f5f;
+    color: white;
+}
+
+.botao_calcular {
+    padding: 1vh 2vw;
+    border-radius: 20px;
+    border: none;
+
+    width: 20vw;
+    height: 5vh;
+
+    background-color: #2f4f5f;
+    color: white;
+
+    font-size: 2vh;
+    font-family: 'Playfair Display';
+}
+
+.botao_calcular:hover {
+    background-color: #1f3a47;
+}
+
+.caixa {
+    background-color: #e6e6e6;
+
+    width: 100%;
+    height: 5vh;
+
+    padding: 2vh;
+    font-size: 1.5vh;
+    border-radius: 25px;
+    font-family: 'Playfair Display';
+}
+
+.caixa_azul {
+    background-color: #2f4f5f;
+    color: white;
+}
+
+.cliente{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+}
+.cliente a{
+    background-color: #2f4f5f;
+    display: flex;
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    border-radius: 15px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5vh;
+}
+
+.cliente a:hover{
+        background-color: #1f3a47;
+
+}
+
+.titulo_quer{
+    color: #ffffff;
+    font-size: 2vh;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Playfair Display';
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip_text {
+    visibility: hidden;
+    background-color: #2f4f5f;
+    color: white;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 8px;
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+}
+
+.tooltip:hover .tooltip_text {
+    visibility: visible;
 }
 
 /* Footer */
@@ -329,35 +544,39 @@ footer{
     display: flex;
     justify-content: center;
     align-items: center;
-    justify-self: center;
-    height: fit-content;
-    height: fit-content;
     width: 100%;
+    height: 15vh;
     background-color: #214B63;
+
+    padding: 5vh 0;
 }
 
 .info{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+
+    height: 100%;
+    
     margin-left: 3%;
-    margin-left: 3%;
+    gap: 3vh;
 }
 
 .info p{
     color: white;
     text-align: left;
-    font-size: 1rem;
-    width: 50%;
-    margin-left: 3%;
+    font-size: 2vh;
 
-    margin-left: 3%;
-
+    width: 80%;
 }
 
 .footer .titulo{
+    display: flex;
+    justify-content: flex-start;
+
     color: white;
-    font-size: 3rem;
+    width: 100%;
+    font-size: 5vh;
     margin: 0;
 }
 
@@ -374,22 +593,20 @@ footer{
 }
 
 .contato input{
-    width: 40%;
+    width: 20vw;
     border: none;
     border-radius: 25px;
-    height: 5vh;
-    height: 5vh;
+    height: 5.5vh;
     text-align: center;
+    font-size:2vh;
 }
 
 .contato button{
+    height: 5vh;
     border: none;
-    height: 5vh;
-    height: 5vh;
     border-radius: 25px;
-    width: 20%;
+    width: 8vw;
     color: #132a37;
-    font-weight: 700;
-    color: #132a37;
+    font-size: 1.5vh;
     font-weight: 700;
 }

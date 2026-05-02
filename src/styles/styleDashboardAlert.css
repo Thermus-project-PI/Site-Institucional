@@ -59,8 +59,26 @@
     justify-content: space-around;
 }
 
+.topAlertas{
+    width: 100%;
+    height: 3vh;
+
+    display: flex;
+
+}
+
+.bottomAlertas{
+    width: 100%;
+    height: 80vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
 .filters{
-    width: 40%;
+    width: 50%;
 
     display: flex;
     align-items: center;
@@ -68,8 +86,8 @@
 }
 
 .filter{
-    width: 80px;
-    height: 25px;
+    width: 20vw;
+    height: 2vh;
 
     display: flex;
     align-items: center;
@@ -78,6 +96,7 @@
     border-radius: 20px;
     
     transition: all 200ms ease;
+    cursor: pointer;
 }
 
 .filter:hover{
@@ -97,12 +116,42 @@
     width: 100%;
     height: 90%;
 
+    table-layout: fixed;
+
     background-color: white;
 
-    border-radius:25px;
+    border-radius:25px; 
 
-    margin-bottom:30px;
-
-    font-size: 1.5rem;
+    font-size: 2.2vh;
 }
 
+th, td {
+    width: 20%;
+    height: 5vh;
+
+    overflow: hidden;   
+    text-overflow: ellipsis; 
+    white-space: nowrap;  
+    padding: 10px;
+}
+
+.td-purple span {
+    background-color: #7715802f;
+    color: #53005B;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+.td-yellow span {
+    background-color: #efaf004f;
+    color: #BE8C02;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+.td-red span {
+    background-color: #FDE8E8;
+    color: #FF0000;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
