@@ -65,7 +65,6 @@
 
     display: flex;
 
-    border: solid 1px red;
 }
 
 .bottomAlertas{
@@ -76,7 +75,6 @@
     align-items: center;
     justify-content: center;
 
-    border: solid 1px red;
 }
 
 .filters{
