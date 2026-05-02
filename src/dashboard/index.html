@@ -216,62 +216,61 @@
 </body>
 <script>
 
+    const labels = [
+        '14:00','16:00','18:00','20:00','22:00',
+        '00:00','02:00','04:00','06:00','08:00'
+    ];
+
+
     const humidity = {
         label: 'Umidade',
         data: [69, 61, 59, 50, 58, 98, 97, 60, 56, 60],
-        borderWidth: 1,
         borderColor: "#2E6AA3",
         backgroundColor: "#2E6AA320",
-        fill: true
-    }
+        fill: true,
+        tension: 0.3
+    };
 
     const temperature = {
         label: 'Temperatura',
         data: [24, 23, 22, 21, 22, 20, 22, 25, 24, 25],
-        borderWidth: 1,
         borderColor: "#348A6F",
         backgroundColor: "#348A6F20",
-        fill: true
+        fill: true,
+        tension: 0.3
+    };
+
+
+    function createLine(value, color, label) {
+        return {
+            label: label,
+            data: Array(labels.length).fill(value),
+            borderColor: color,
+            borderDash: [6,6],
+            borderWidth: 2,
+            pointRadius: 0,
+            fill: false
+        };
     }
 
-    let dataset = humidity;
-
-    function change(data) {
-        if (data == "temperature") {
-            dataset = temperature;
-            graf.data.datasets[0] = dataset;
-        } else if (data == "humidity") {
-            dataset = humidity;
-            graf.data.datasets[0] = dataset;
-        }
-
-        graf.update();
-    }
 
     const chart = document.getElementById("chart");
+
     const graf = new Chart(chart, {
         type: 'line',
         data: {
-            labels: [
-                '14:00',
-                '16:00',
-                '18:00',
-                '20:00',
-                '22:00',
-                '00:00',
-                '02:00',
-                '04:00',
-                '06:00',
-                '08:00',
-            ],
-            datasets: [dataset]
+            labels: labels,
+            datasets: [
+                humidity,
+                createLine(40, "#2E6AA3", "Mín Ideal"),
+                createLine(70, "#2E6AA3", "Máx Ideal")
+            ]
         },
         options: {
             scales: {
                 y: {
                     min: 0,
                     max: 100,
-                    beginAtZero: true,
                     ticks: {
                         stepSize: 10
                     }
@@ -279,6 +278,32 @@
             }
         }
     });
+
+    function change(tipo) {
+
+        if (tipo == "humidity") {
+            graf.data.datasets = [
+                humidity,
+                createLine(40, "#2E6AA3", "Mín Ideal"),
+                createLine(70, "#2E6AA3", "Máx Ideal")
+            ];
+
+            graf.options.scales.y.max = 100;
+        }
+
+        if (tipo == "temperature") {
+            graf.data.datasets = [
+                temperature,
+                createLine(16, "#348A6F", "Mín Ideal"),
+                createLine(20, "#348A6F", "Máx Ideal")
+            ];
+
+            graf.options.scales.y.max = 30;
+        }
+
+        graf.update();
+    }
+
 </script>
 
 </html>
