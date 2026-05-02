@@ -5,6 +5,7 @@
 html, body {
     width: 100%;
     color: #383838;
+    overflow-x: hidden;
 }
 
 .container{
@@ -64,7 +65,7 @@ html, body {
 
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
 
     gap: 5vw;
@@ -268,7 +269,7 @@ html, body {
     height: 100vh;
 
     color: #e4e4e4;
-    gap:7vh;
+    gap: 10vh;
 
     background-color: #19395a;
 }
@@ -291,8 +292,13 @@ html, body {
 
 .images{
     display: flex;
-    justify-content: center;
-    align-items: center;
+  gap: 0.5vw;
+  margin-bottom: 20px;
+}
+
+.images img{
+    width: 28vw;
+    height: 30vh;
 }
 
 /* Calculadora */
@@ -473,10 +479,32 @@ html, body {
     font-family: 'Playfair Display';
 }
 
-
 .caixa_azul {
     background-color: #2f4f5f;
     color: white;
+}
+
+.cliente{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+}
+.cliente a{
+    background-color: #2f4f5f;
+    display: flex;
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    border-radius: 15px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5vh;
+}
+
+.cliente a:hover{
+        background-color: #1f3a47;
+
 }
 
 .titulo_quer{
