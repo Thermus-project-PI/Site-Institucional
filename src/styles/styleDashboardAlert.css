@@ -82,11 +82,12 @@
 
     display: flex;
     align-items: center;
-    justify-content: space-around;
+ 
+    gap: 1VW;
 }
 
 .filter{
-    width: 20vw;
+    width: 5vw;
     height: 2vh;
 
     display: flex;
