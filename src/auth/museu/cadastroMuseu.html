@@ -26,7 +26,7 @@
                 <input type="text" class="campo" placeholder="Intituição" id="InInstituicao">
                 <p style="display: none; color: red;" id="instituicaoIn">instituição Inválida</p>
                 <input type="text" class="campo" placeholder="CNPJ" id="InCnpj" maxlength="14">
-                <p style="display: none; color: red;" id="cnpjIn">instituição Inválida</p>
+                <p style="display: none; color: red;" id="InCnpj">instituição Inválida</p>
                 <button class="botao" onclick="cadastrar()">Cadastrar</button>
                 <p class="mensagem">Ja possui uma conta? <a href="/src/auth/museu/login.html">Clique aqui</a></p>
                 <div class="aviso" id="div_mensagem"></div>
@@ -100,21 +100,24 @@
 
     if (cnpj == '') {
         InCnpj.style.border = "solid red 3px";
-        cnpjin.style.border = "block";
+        InCnpj.style.border = "block";
     }else{
         InCnpj.style.border = "none";
-        cnpjin.style.border = "none";
+        InCnpj.style.border = "none";
     }
 
     if (cnpj.length != 14) {
         InCnpj.style.border = "solid red 3px";
-        cnpjin.style.display = "block";
+        InCnpj.style.display = "block";
         return;
     } else{
         InCnpj.style.border = "none";
-        cnpjin.style.border = "none";
+        InCnpj.style.border = "none";
     }
 
     div_mensagem.innerHTML = 'Cadastro realizado com sucesso';
+    setTimeout(() => {
+        window.location.href = './login.html'
+    })
 }
 </script>
