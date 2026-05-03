@@ -194,8 +194,9 @@ html, body {
 }
 
 .texto{
-    font-size: 3.2vh;
+    font-size: 4vh;
     width: 50%;
+    text-align: justify;
 }
 
 .texto spam{
@@ -205,10 +206,10 @@ html, body {
 
 #subtexto{
     align-self: center;
-    font-size: 4vh;
+    font-size: 5vh;
     width: 80%;
     height: fit-content;
-    margin-top: 4%;
+    padding: 5vh;
     font-weight: bold;
     text-align: center;
 }
@@ -330,6 +331,7 @@ html, body {
 
 .topCalc h1{
     width: 60%;
+    text-align: center;
 }
 
 .texto_calculadora {
@@ -337,7 +339,7 @@ html, body {
     color: #383838;
     text-align: center;
     font-family: 'Playfair Display';
-    font-size: 2vh;
+    font-size: 3vh;
 }
 
 
@@ -424,7 +426,7 @@ html, body {
     background-color: #e6e6e6;
     color: #275570;
 
-    font-size: 1.5vh;
+    font-size: 1.8vh;
 
     padding: 1vh 2vw;
     font-family: 'Playfair Display';
@@ -459,7 +461,7 @@ html, body {
     background-color: #2f4f5f;
     color: white;
 
-    font-size: 2vh;
+    font-size: 2.1vh;
     font-family: 'Playfair Display';
 }
 
@@ -474,7 +476,7 @@ html, body {
     height: 5vh;
 
     padding: 2vh;
-    font-size: 1.5vh;
+    font-size: 1.8vh;
     border-radius: 25px;
     font-family: 'Playfair Display';
 }
