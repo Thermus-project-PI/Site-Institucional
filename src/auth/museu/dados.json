@@ -14,5 +14,14 @@
         "senha": "Dado1807#",
         "cnpj": "12345678901234",
         "instituicao": "Museu de Arte Moderna"
+    },
+    {
+        "id": 3,
+        "nome": "Julia",
+        "email": "julia@gmail.com",
+        "senha": "12345678",
+        "cnpj": "12345678901234",
+        "instituicao": "Museu de Arte Moderna"
     }
+
 ]
