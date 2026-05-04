@@ -8,7 +8,7 @@
 <body>
     <div class="container">
         <div class="content">
-            <a href="../../index.html"><img src="../../img/seta.png" class="seta"></a>
+            <a href="../../dashboard/index.html"><img src="../../img/seta.png" class="seta"></a>
             <div class="logo">
                 <img src="../../img/logo.png" alt="Logo Thermus">
                 <img src="../../img/THERMUS.png">
@@ -20,12 +20,9 @@
                     <p style="display: none; color: red;" id="emailIn">Email Inválido</p>
                     <input type="password" class="campo" placeholder="Senha" id="InSenha">
                     <p style="display: none; color: red;" id="senhaIn">Senha Inválida</p>
-                    <input type="text" class="campo" placeholder="Intituição" id="InInstituicao">
-                    <p style="display: none; color: red;" id="instituicaoIn">instituição Inválida</p>
                     <input type="text" class="campo" placeholder="Cargo" id="InCargo">
                     <p style="display: none; color: red;" id="cargoIn">Cargo Inválido</p>
                     <button class="botao" onclick="cadastrar()">Cadastrar</button>
-                    <p class="mensagem">Ja possui uma conta? <a href="/src/auth/museu/login.html">Clique aqui</a></p>
                     <div class="aviso" id="div_mensagem"></div>
             </div>
             </div>
@@ -37,7 +34,6 @@
 function cadastrar() {
     let nome = InNome.value;
     let email = InEmail.value;
-    let instituicao = InInstituicao.value;
     let cargo = InCargo.value;
 
     let posArroba = email.indexOf('@');
@@ -76,15 +72,6 @@ function cadastrar() {
         emailIn.style.display = "none";
     }
 
-    if (instituicao == '') {
-       InInstituicao.style.border = "solid red 3px";
-       instituicaoIn.style.display = "block"
-        return;
-    } else{
-        InInstituicao.style.border = "none";
-       instituicaoIn.style.display = "none"
-
-    }
 
     if (cargo == '') {
        InCargo.style.border = "solid red 3px";
