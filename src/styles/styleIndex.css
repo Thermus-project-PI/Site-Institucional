@@ -540,6 +540,33 @@ html, body {
     visibility: visible;
 }
 
+.container-cliente{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3%;
+}
+
+.botao-cliente{
+    padding: 15px 30px;
+    border-radius: 8px;
+    border: none;
+    background-color: #2f4f5f;
+}
+
+.botao-cliente:hover{
+    background-color: #1f3a47;
+}
+
+.botao-cliente a{
+    text-decoration: none;
+    color: #ffffff;
+    font-family: 'Playfair Display';
+    font-weight: 800;
+    font-size: 2.2vh;
+}
+
+
 /* Footer */
 
 .footer{
