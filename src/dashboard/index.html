@@ -21,7 +21,7 @@
                     <div class="link selected" onclick="window.location.href = 'index.html'">
                         <p>Dashboard</p>
                     </div>
-                    <div class="link" onclick="window.location.href = 'sensores.html'" >
+                    <div class="link" onclick="window.location.href = 'sensores.html'">
                         <p>Sensores</p>
                     </div>
                     <div class="link" onclick="window.location.href = 'alertas.html'">
@@ -90,10 +90,10 @@
                         </div>
                     </div>
                     <div class="card">
-                            <div class="icon-container icon-yellow">
-                                <i class="fa-solid fa-circle-exclamation"></i>
-                            </div>
-                            
+                        <div class="icon-container icon-yellow">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                        </div>
+
                         <div class="card-title">
                             <h1>Proximidade do Orvalho</h1>
                         </div>
@@ -101,8 +101,8 @@
                             <h1>4,4</h1>
                         </div>
                         <div class="sub-info point-risc">
-                           <h2>Risco de orvalho atual: </h2>
-                           <span>ATENCÃO</span> 
+                            <h2>Risco de orvalho atual: </h2>
+                            <span>ATENCÃO</span>
                         </div>
                     </div>
                 </div>
@@ -156,8 +156,8 @@
                                 <h2>Umidade 1,6%</h2>
                                 <h2>Temp 20°C</h2>
                             </div>
-                            <div class="alert-status alert-status-red">
-                                <h1>CRÍTICO</h1>
+                            <div class="alert-status alert-status-yellow">
+                                <h1>ATENÇÃO</h1>
                             </div>
                         </div>
                         <div class="alert">
@@ -168,44 +168,8 @@
                                 <h2>Umidade 1,6%</h2>
                                 <h2>Temp 20°C</h2>
                             </div>
-                            <div class="alert-status alert-status-red">
-                                <h1>CRÍTICO</h1>
-                            </div>
-                        </div>
-                        <div class="alert">
-                            <div class="circle"></div>
-                            <div class="alert-title">Noite Estrelada</div>
-                            <div class="alert-info">
-                                <h2>9:12</h2>
-                                <h2>Umidade 1,6%</h2>
-                                <h2>Temp 20°C</h2>
-                            </div>
-                            <div class="alert-status alert-status-red">
-                                <h1>CRÍTICO</h1>
-                            </div>
-                        </div>
-                        <div class="alert">
-                            <div class="circle"></div>
-                            <div class="alert-title">Noite Estrelada</div>
-                            <div class="alert-info">
-                                <h2>9:12</h2>
-                                <h2>Umidade 1,6%</h2>
-                                <h2>Temp 20°C</h2>
-                            </div>
-                            <div class="alert-status alert-status-red">
-                                <h1>CRÍTICO</h1>
-                            </div>
-                        </div>
-                        <div class="alert">
-                            <div class="circle"></div>
-                            <div class="alert-title">Noite Estrelada</div>
-                            <div class="alert-info">
-                                <h2>9:12</h2>
-                                <h2>Umidade 1,6%</h2>
-                                <h2>Temp 20°C</h2>
-                            </div>
-                            <div class="alert-status alert-status-red">
-                                <h1>CRÍTICO</h1>
+                            <div class="alert-status alert-status-yellow">
+                                <h1>ATENÇÃO</h1>
                             </div>
                         </div>
                     </div>
@@ -217,8 +181,8 @@
 <script>
 
     const labels = [
-        '04:00','06:00','08:00','10:00','12:00',
-        '14:00','16:00','18:00','20:00','22:00'
+        '04:00', '06:00', '08:00', '10:00', '12:00',
+        '14:00', '16:00', '18:00', '20:00', '22:00'
     ];
 
 
@@ -246,7 +210,7 @@
             label: label,
             data: Array(labels.length).fill(value),
             borderColor: color,
-            borderDash: [6,6],
+            borderDash: [6, 6],
             borderWidth: 2,
             pointRadius: 0,
             fill: false
