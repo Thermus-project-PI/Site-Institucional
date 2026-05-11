@@ -1,62 +1,125 @@
--- Arquivo de apoio, caso você queira criar tabelas como as aqui criadas para a API funcionar.
--- Você precisa executar os comandos no banco de dados para criar as tabelas,
--- ter este arquivo aqui não significa que a tabela em seu BD estará como abaixo!
+create database thermus;
+use thermus;
 
-/*
-comandos para mysql server
-*/
-
-CREATE DATABASE aquatech;
-
-USE aquatech;
-
-CREATE TABLE empresa (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	razao_social VARCHAR(50),
-	cnpj CHAR(14),
-	codigo_ativacao VARCHAR(50)
+create table museu(
+id int primary key auto_increment,
+museuNome varchar(100),
+email varchar(100),
+cnpj char(14),
+criadoEm datetime default current_timestamp(),
+ativo tinyint
 );
 
-CREATE TABLE usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+create table sensor(
+id int auto_increment,
+quadroNome varchar(100),
+localizacao varchar(100),
+salaId int,
+fk_museu int,
+instaladoEm datetime default current_timestamp(),
+status varchar(20),
+
+primary key(id, fk_museu),
+
+constraint fk_museu_sensor 
+foreign key (fk_museu) references museu(id),
+
+constraint chk_status
+CHECK (status IN ('ativo', 'inativo'))
 );
 
-CREATE TABLE aviso (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
-	fk_usuario INT,
-	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
+
+create table alerta(
+id int auto_increment,
+fk_sensor int,
+descricao varchar(255),
+resolvido tinyint,
+criadoEM datetime default current_timestamp(),
+primary key(id, fk_sensor),
+constraint fk_sensor_alerta foreign key (fk_sensor) references sensor(id)
 );
 
-create table aquario (
-/* em nossa regra de negócio, um aquario tem apenas um sensor */
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	descricao VARCHAR(300),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+create table leitura(
+id int auto_increment,
+fk_sensor int,
+temperatura decimal(5,2),
+umidade decimal(5,2),
+pontoOrvalho decimal(5,2),
+dataHora datetime default current_timestamp,
+
+primary key(id, fk_sensor),
+
+constraint fk_sensor_leitura foreign key (fk_sensor) references sensor(id)
 );
 
-/* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
+create table funcionarios(
+id int auto_increment,
+nome varchar(100),
+cargo varchar(100),
+email varchar(100),
+senha varchar(100),
+fk_museu int,
+fk_chefe int,
+cadastradoEm datetime default current_timestamp(),
 
-create table medida (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	dht11_umidade DECIMAL,
-	dht11_temperatura DECIMAL,
-	luminosidade DECIMAL,
-	lm35_temperatura DECIMAL,
-	chave TINYINT,
-	momento DATETIME,
-	fk_aquario INT,
-	FOREIGN KEY (fk_aquario) REFERENCES aquario(id)
+primary key(id, fk_museu),
+
+constraint fk_museu_funcionarios foreign key (fk_museu) 
+references museu(id),
+
+constraint fk_chefe foreign key (fk_chefe) references funcionarios(id)
 );
 
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 1', 'ED145B');
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 2', 'A1B2C3');
-insert into aquario (descricao, fk_empresa) values ('Aquário de Estrela-do-mar', 1);
-insert into aquario (descricao, fk_empresa) values ('Aquário de Peixe-dourado', 2);
+
+-- Lista todos os sensores com o nome do museu.
+SELECT 
+    s.id AS sensor_id,
+    s.quadroNome,
+    s.localizacao,
+    m.museuNome
+FROM sensor s
+JOIN museu m ON s.fk_museu = m.id;
+
+-- dados coletados pelos sensores.
+SELECT 
+    l.id AS leitura_id,
+    s.quadroNome,
+    l.temperatura,
+    l.umidade,
+    l.pontoOrvalho,
+    l.dataHora
+FROM leitura l
+JOIN sensor s ON l.fk_sensor = s.id;
+
+
+-- alertas com o sensor
+SELECT 
+    a.id AS alerta_id,
+    s.quadroNome,
+    a.descricao,
+    a.resolvido,
+    a.criadoEM
+FROM alerta a
+JOIN sensor s ON a.fk_sensor = s.id;
+
+-- Funcionários + Chefe
+SELECT 
+    f.nome AS funcionario,
+    c.nome AS chefe
+FROM funcionarios f
+LEFT JOIN funcionarios c ON f.fk_chefe = c.id;
+
+
+-- Sensor + Museu + Leituras - View
+create view sensor_museu_leitura_vw as
+SELECT 
+    m.museuNome,
+    s.quadroNome,
+    l.temperatura,
+    l.umidade,
+    l.dataHora
+FROM leitura l
+JOIN sensor s ON l.fk_sensor = s.id
+JOIN museu m ON s.fk_museu = m.id;
+
+select * from sensor_museu_leitura_vw;
