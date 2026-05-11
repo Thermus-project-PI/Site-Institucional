@@ -1,10 +1,13 @@
 create database thermus;
 use thermus;
 
+
+
 create table museu(
 id int primary key auto_increment,
 museuNome varchar(100),
 email varchar(100),
+senha varchar(100),
 cnpj char(14),
 criadoEm datetime default current_timestamp(),
 ativo tinyint
@@ -70,7 +73,6 @@ references museu(id),
 constraint fk_chefe foreign key (fk_chefe) references funcionarios(id)
 );
 
-
 -- Lista todos os sensores com o nome do museu.
 SELECT 
     s.id AS sensor_id,
@@ -110,8 +112,7 @@ FROM funcionarios f
 LEFT JOIN funcionarios c ON f.fk_chefe = c.id;
 
 
--- Sensor + Museu + Leituras - View
-create view sensor_museu_leitura_vw as
+-- Sensor + Museu + Leituras
 SELECT 
     m.museuNome,
     s.quadroNome,
@@ -122,4 +123,3 @@ FROM leitura l
 JOIN sensor s ON l.fk_sensor = s.id
 JOIN museu m ON s.fk_museu = m.id;
 
-select * from sensor_museu_leitura_vw;
