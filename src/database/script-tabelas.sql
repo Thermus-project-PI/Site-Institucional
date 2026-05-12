@@ -10,7 +10,7 @@ email varchar(100),
 senha varchar(100),
 cnpj char(14),
 criadoEm datetime default current_timestamp(),
-ativo tinyint
+ativo tinyint(1) default 1
 );
 
 create table sensor(
