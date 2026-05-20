@@ -55,10 +55,10 @@
                             <h1>Temperatura média</h1>
                         </div>
                         <div class="main-info main-info-green">
-                            <h1>27°C</h1>
+                            <h1 id="temperaturaMediaHT"></h1>
                         </div>
                         <div class="sub-info">
-                            <h2>Hoje - 04/05/2026</h2>
+                            <h2 id="data_atual_temp">Hoje - 04/05/2026</h2>
                             <h2>todos os sensores</h2>
                         </div>
                     </div>
@@ -70,10 +70,10 @@
                             <h1>Umidade média</h1>
                         </div>
                         <div class="main-info main-info-blue">
-                            <h1>78%</h1>
+                            <h1 id="umidadeMediaHT"></h1>
                         </div>
                         <div class="sub-info">
-                            <h2>Hoje - 04/05/2026</h2>
+                            <h2 id="data_atual_umid">Hoje - 04/05/2026</h2>
                             <h2>todos os sensores</h2>
                         </div>
                     </div>
@@ -85,11 +85,10 @@
                             <h1>Alertas Hoje</h1>
                         </div>
                         <div class="main-info main-info-red">
-                            <h1>4</h1>
+                            <h1 id="alertasHojeHT"></h1>
                         </div>
                         <div class="sub-info">
-                            <h2>2 atenções</h2>
-                            <h2>2 críticos</h2>
+                            <h2 id="legendasAlertasHT"></h2>
                         </div>
                     </div>
                     <div class="card">
@@ -101,11 +100,11 @@
                             <h1>Proximidade do Orvalho</h1>
                         </div>
                         <div class="main-info main-info-yellow">
-                            <h1>4,4</h1>
+                            <h1 id="pontoOrvalhoHT"></h1>
                         </div>
                         <div class="sub-info point-risc">
                             <h2>Risco de orvalho atual: </h2>
-                            <span>ATENCÃO</span>
+                            <span>OK</span>
                         </div>
                     </div>
                 </div>
@@ -182,7 +181,105 @@
     </div>
 </body>
 <script>
+    window.onload = function () {
 
+        function atualizarDatasParaHoje() {
+            var hoje = new Date();
+
+            var dataFormatada = hoje.toLocaleDateString('pt-BR');
+
+            document.getElementById("data_atual_temp").innerHTML = `Hoje - ${dataFormatada}`;
+            document.getElementById("data_atual_umid").innerHTML = `Hoje - ${dataFormatada}`;
+        }
+        atualizarDatasParaHoje()
+
+        fetch(`/indexDash/temperaturaMedia/${sessionStorage.ID_USUARIO}`)
+            .then(function (resposta) {
+
+                if (!resposta.ok) {
+                    throw new Error("Erro na API");
+                }
+
+                return resposta.json();
+
+            })
+            .then(function (dados) {
+
+                temperaturaMediaHT.innerHTML = `${dados[0].temperatura_media} °C`;
+
+            })
+            .catch(function (erro) {
+
+                console.log("Erro:", erro);
+
+            });
+
+        fetch(`/indexDash/umidadeMedia/${sessionStorage.ID_USUARIO}`)
+            .then(function (resposta) {
+
+                if (!resposta.ok) {
+                    throw new Error("Erro na API");
+                }
+
+                return resposta.json();
+
+            })
+            .then(function (dados) {
+
+                umidadeMediaHT.innerHTML = `${dados[0].umidade_media}%`;
+
+            })
+            .catch(function (erro) {
+
+                console.log("Erro:", erro);
+
+            });
+
+        fetch(`/indexDash/pontoOrvalho/${sessionStorage.ID_USUARIO}`)
+            .then(function (resposta) {
+
+                if (!resposta.ok) {
+                    throw new Error("Erro na API");
+                }
+
+                return resposta.json();
+
+            })
+            .then(function (dados) {
+
+                pontoOrvalhoHT.innerHTML = `${dados[0].ponto_orvalho}`;
+
+            })
+            .catch(function (erro) {
+
+                console.log("Erro:", erro);
+
+            });
+
+        fetch(`/indexDash/alertas/${sessionStorage.ID_USUARIO}`)
+            .then(function (resposta) {
+
+                if (!resposta.ok) {
+                    throw new Error("Erro na API");
+                }
+
+                return resposta.json();
+
+            })
+            .then(function (dados) {
+
+                alertasHojeHT.innerHTML = dados[0].total_alertas;
+
+                legendasAlertasHT.innerHTML = `${dados[0].pendentes} pendentes`;
+
+            })
+            .catch(function (erro) {
+
+                console.log("Erro:", erro);
+
+            });
+
+    }
     const labels = [
         '04:00', '06:00', '08:00', '10:00', '12:00',
         '14:00', '16:00', '18:00', '20:00', '22:00'
