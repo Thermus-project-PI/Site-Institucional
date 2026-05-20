@@ -39,6 +39,7 @@
 </html>
 <script>
  function cadastrar() {
+
     let nome = InNome.value;
     let email = InEmail.value;
     let senha = InSenha.value;
@@ -118,7 +119,27 @@ if (cnpj.length != 14) {
     cnpjIn.style.display = "none";
 }
 
-    div_mensagem.innerHTML = 'Cadastro realizado com sucesso';
-        window.location.href = 'login.html'
+
+        fetch("http://localhost:8080/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeServer: nome,
+                emailServer: email,
+                senhaServer: senha,
+                cnpjServer : cnpj
+            })
+        }).then(function (resposta) {
+            console.log("Estou no then do cadastrar")
+            if (resposta.ok) {
+                div_mensagem.innerHTML = 'Cadastro realizado com sucesso';
+                window.location = "./login.html"
+            }
+        }).catch(function (resposta) {
+            console.log("ERRO: ", resposta)
+        })
 }
+ 
 </script>
