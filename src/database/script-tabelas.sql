@@ -19,6 +19,7 @@ quadroNome varchar(100),
 localizacao varchar(100),
 salaId int,
 fk_museu int,
+tipoAlerta varchar(30),
 instaladoEm datetime default current_timestamp(),
 status varchar(20),
 
@@ -28,7 +29,10 @@ constraint fk_museu_sensor
 foreign key (fk_museu) references museu(id),
 
 constraint chk_status
-CHECK (status IN ('ativo', 'inativo'))
+CHECK (status IN ('ativo', 'inativo')),
+
+constraint chk_tipoAlerta check (tipoAlerta in ('atenção', 'crítico', 'ok'))
+
 );
 
 
