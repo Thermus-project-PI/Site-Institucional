@@ -473,21 +473,34 @@ html, body {
 
 .caixa {
     background-color: #e6e6e6;
-
     width: 100%;
     height: 5vh;
-
     padding: 2vh;
-    font-size: 1.8vh;
+    font-size: 2vh;
     border-radius: 25px;
     font-family: 'Playfair Display';
 }
 
 .caixa_azul {
-    background-color: #2f4f5f;
-    color: white;
+    background-color:  #e6e6e6;
+    color:#214B63;
+   border: solid #214B63 3px;
+   height: 9.5vh;
+}
+.caixa_azul p {
+ font-weight: bolder;
+ font-size: 20px;
 }
 
+.caixa_azul a {
+    color: #214B63;
+    font-size: 22px;
+    list-style: none;
+}
+.economia {
+    color: #214B63;
+    list-style: none;
+}
 .cliente{
     width: 100%;
     height: fit-content;

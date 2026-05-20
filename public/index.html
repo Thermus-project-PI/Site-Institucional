@@ -127,7 +127,7 @@
                         <p id="resultado_acervo">R$ 0</p>
                     </div>
                     <div class="caixa">
-                        <p>RISCO DE RESTAURO (20%) Canadian Conservation Institute - CCI</p>
+                        <p>RISCO DE RESTAURO (20%)</p>
                         <p id="resultado_risco">R$ 0</p>
                     </div>
                     <div class="caixa">
@@ -135,8 +135,8 @@
                         <p id="resultado_investimento">R$ 0</p>
                     </div>
                     <div class="caixa caixa_azul">
-                        <p>ECONOMIA GERADA — ROI</p>
-                        <p id="resultado_economia">R$ 0</p>
+                        <p>ECONOMIA GERADA — <a href="https://www.canada.ca/en/conservation-institute/services/conservation-preservation-publications/canadian-conservation-institute-notes.html"> Canadian Conservation Institute</a></p>
+                        <br><p class="economia" id="resultado_economia">R$ 0</p>
                     </div>
                 </div>
             </div>
@@ -184,10 +184,12 @@ function calcular() {
     let investimento = 57.5 * quantidade;
     let economia = risco - investimento;
 
-    resultado_acervo.innerText = "R$ " + parseFloat(acervo).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    resultado_risco.innerText = "R$ " + parseFloat(risco).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    resultado_investimento.innerText = "R$ " + parseFloat(investimento).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    resultado_economia.innerText = "R$ " + parseFloat(economia).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+   
+    resultado_acervo.innerHTML = `<span style="color: black;">R$ ${parseFloat(acervo).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</span>`;
+    resultado_risco.innerHTML = `<span style="color: red;">R$ ${parseFloat(risco).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</span>`;
+    resultado_investimento.innerHTML = `<span style="color: black;">R$ ${parseFloat(investimento).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</span>`;
+    resultado_economia.innerHTML = `<span style="color: green;">R$ ${parseFloat(economia).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</span>`;
+
 
 }
 
