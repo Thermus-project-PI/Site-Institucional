@@ -52,9 +52,53 @@ function buscarAlertas(req, res) {
         });
 }
 
+function buscarGraficoTemp(req, res) {
+  var idUsuario = req.params.idUsuario;
+
+  indexDashModel.graficoTemp(idUsuario)
+        .then(function(resultado){
+            res.json(resultado);
+        })
+        .catch(function(erro){
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+function buscarGraficoUmidade(req, res) {
+  var idUsuario = req.params.idUsuario;
+
+  indexDashModel.graficoUmidade(idUsuario)
+        .then(function(resultado){
+            res.json(resultado);
+        })
+        .catch(function(erro){
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+function buscarUltimosAlertas(req, res) {
+  var idUsuario = req.params.idUsuario;
+
+  indexDashModel.ultimosAlertas(idUsuario)
+        .then(function(resultado){
+            res.json(resultado);
+        })
+        .catch(function(erro){
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+
+
 module.exports = {
   buscarTemperaturaMedia,
   buscarUmidadeMedia,
   buscarPontoOrvalho,
-  buscarAlertas
+  buscarAlertas,
+  buscarGraficoTemp,
+  buscarGraficoUmidade
+  
 };

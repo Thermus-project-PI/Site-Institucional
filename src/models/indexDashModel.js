@@ -20,11 +20,27 @@ function alertas(id) {
   return database.executar(instrucaoSql);
 }
 
+function graficoTemp(id) {
+  var instrucaoSql = `select * from grafico_temperatura_vw;`;
+  return database.executar(instrucaoSql);
+}
+
+function graficoUmidade(id) {
+  var instrucaoSql = `select * from grafico_umidade_vw;`;
+  return database.executar(instrucaoSql);
+}
+
+function ultimosAlertas(id) {
+  var instrucaoSql = `select * from `;
+  return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
   temperaturaMedia,
   umidadeMedia,
   pontoOrvalho,
-  alertas
-  
+  alertas,
+  graficoTemp,
+  graficoUmidade
 };

@@ -111,9 +111,12 @@
                 <div class="charts">
                     <div class="buttons">
                         <h1>filtros:</h1>
+
                         <button class="btn-chart btn-chart-umidity" onclick="change('humidity')">Umidade</button>
+
                         <button class="btn-chart btn-chart-temperature"
                             onclick="change('temperature')">Temperatura</button>
+
                     </div>
                     <div class="chart flex" id="umid-div">
                         <canvas id="chart"></canvas>
@@ -279,94 +282,150 @@
 
             });
 
-    }
-    const labels = [
-        '04:00', '06:00', '08:00', '10:00', '12:00',
-        '14:00', '16:00', '18:00', '20:00', '22:00'
-    ];
 
 
-    const humidity = {
-        label: 'Umidade',
-        data: [69, 61, 59, 50, 58, 98, 97, 60, 56, 60],
-        borderColor: "#2E6AA3",
-        backgroundColor: "#2E6AA320",
-        fill: true,
-        tension: 0.3
-    };
+        const ctx = document.getElementById('chart').getContext('2d');
 
-    const temperature = {
-        label: 'Temperatura',
-        data: [24, 23, 22, 21, 22, 20, 22, 25, 24, 25],
-        borderColor: "#348A6F",
-        backgroundColor: "#348A6F20",
-        fill: true,
-        tension: 0.3
-    };
-
-
-    function createLine(value, color, label) {
-        return {
-            label: label,
-            data: Array(labels.length).fill(value),
-            borderColor: color,
-            borderDash: [6, 6],
-            borderWidth: 2,
-            pointRadius: 0,
-            fill: false
-        };
-    }
-
-
-    const chart = document.getElementById("chart");
-
-    const graf = new Chart(chart, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [
-                humidity,
-                createLine(40, "#2E6AA3", "Mín Ideal"),
-                createLine(70, "#2E6AA3", "Máx Ideal")
-            ]
-        },
-        options: {
-            scales: {
-                y: {
-                    min: 0,
-                    max: 100,
-                    ticks: {
-                        stepSize: 10
+        const graf = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [
+                    {
+                        label: 'Dados',
+                        data: [],
+                        borderColor: "#348A6F",
+                        fill: true
+                    },
+                    {
+                        label: 'Mín Ideal',
+                        data: [],
+                        borderDash: [6, 6]
+                    },
+                    {
+                        label: 'Máx Ideal',
+                        data: [],
+                        borderDash: [6, 6]
                     }
-                }
+                ]
             }
+        });
+
+        let tipoAtual = 'temperature';
+
+        function carregarTemperatura() {
+            fetch(`/indexDash/graficoTemp/${sessionStorage.ID_USUARIO}`)
+                .then(function (resposta) {
+                    if (!resposta.ok) throw new Error("Erro na API");
+                    return resposta.json();
+                })
+                .then(function (dados) {
+
+                    if (!dados.length) return;
+
+                    const novoRegistro = dados[dados.length - 1];
+                    const novaTemperatura = novoRegistro.temperatura_media;
+                    const novaHora = `${novoRegistro.hora}:00`;
+
+                    graf.data.labels.push(novaHora);
+                    graf.data.datasets[0].data.push(novaTemperatura);
+
+                    if (graf.data.labels.length > 10) {
+                        graf.data.labels.shift();
+                        graf.data.datasets[0].data.shift();
+                    }
+
+                    const tamanhoAtual = graf.data.labels.length;
+                    graf.data.datasets[1].data = Array(tamanhoAtual).fill(16);
+                    graf.data.datasets[2].data = Array(tamanhoAtual).fill(20);
+
+                    graf.update();
+                })
+                .catch(function (erro) {
+                    console.log("Erro:", erro);
+                });
         }
-    });
 
-    function change(tipo) {
+        function carregarUmidade() {
+            fetch(`/indexDash/graficoUmidade/${sessionStorage.ID_USUARIO}`)
+                .then(function (resposta) {
+                    if (!resposta.ok) throw new Error("Erro na API");
+                    return resposta.json();
+                })
+                .then(function (dados) {
 
-        if (tipo == "humidity") {
-            graf.data.datasets = [
-                humidity,
-                createLine(40, "#2E6AA3", "Mín Ideal"),
-                createLine(70, "#2E6AA3", "Máx Ideal")
-            ];
+                    if (!dados.length) return;
 
-            graf.options.scales.y.max = 100;
+                    const novoRegistro = dados[dados.length - 1];
+                    const valor = novoRegistro.umidade_media;
+                    const hora = `${novoRegistro.hora}:00`;
+
+                    graf.data.labels.push(hora);
+                    graf.data.datasets[0].data.push(valor);
+
+                    if (graf.data.labels.length > 10) {
+                        graf.data.labels.shift();
+                        graf.data.datasets[0].data.shift();
+                    }
+
+                    const tamanhoAtual = graf.data.labels.length;
+                    graf.data.datasets[1].data = Array(tamanhoAtual).fill(40);
+                    graf.data.datasets[2].data = Array(tamanhoAtual).fill(70);
+
+                    graf.update();
+                })
+                .catch(function (erro) {
+                    console.log("Erro:", erro);
+                });
         }
 
-        if (tipo == "temperature") {
-            graf.data.datasets = [
-                temperature,
-                createLine(16, "#348A6F", "Mín Ideal"),
-                createLine(20, "#348A6F", "Máx Ideal")
-            ];
+        setInterval(() => {
 
-            graf.options.scales.y.max = 30;
-        }
+            if (tipoAtual === 'temperature') {
+                carregarTemperatura();
+            } else {
+                carregarUmidade();
+            }
 
-        graf.update();
+        }, 3000);
+
+        
+        window.change = function (tipo) {
+
+            tipoAtual = tipo;
+
+            graf.data.labels = [];
+            graf.data.datasets[0].data = [];
+
+            if (tipo === "humidity") {
+
+                graf.data.datasets[0].label = 'Umidade';
+                graf.data.datasets[0].borderColor = "#2E6AA3";
+
+                graf.options.scales.y.max = 100;
+                graf.options.scales.y.min = 0;
+
+
+                carregarUmidade();
+
+            } else {
+
+                graf.data.datasets[0].label = 'Temperatura';
+                graf.data.datasets[0].borderColor = "#348A6F";
+
+                graf.options.scales.y.max = 50;
+                graf.options.scales.y.min = 0;
+
+                carregarTemperatura();
+            }
+
+            graf.update();
+        };
+
+        change('temperature');
     }
+
+
 
 </script>
 

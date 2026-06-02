@@ -19,4 +19,17 @@ router.get("/alertas/:idUsuario", function (req, res) {
   indexDashController.buscarAlertas(req, res);
 });
 
+router.get("/graficoTemp/:idUsuario", function (req, res) {
+  indexDashController.buscarGraficoTemp(req, res);
+});
+
+router.get("/graficoumidade/:idUsuario", function (req, res) {
+  indexDashController.buscarGraficoUmidade(req, res);
+});
+
+router.get("/ultimosAlertas/:idUsuario", function (req, res) {
+  indexDashController.buscarGraficoUmidade(req, res);
+});
+
+
 module.exports = router;
