@@ -3,6 +3,7 @@ var alertasModel = require("../models/alertasModel");
 function buscarTotalAlertas(req, res) {
 
     var id = req.params.id;
+    console.log("valor recebido:" + id)
 
     if (id == undefined) {
 
@@ -10,7 +11,7 @@ function buscarTotalAlertas(req, res) {
 
     } else {
 
-        alertasModel.buscarTotalAlertas(id_usuario)
+        alertasModel.buscarTotalAlertas(id)
             .then(function(resultado) {
 
                 res.json(resultado);

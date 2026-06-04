@@ -129,15 +129,90 @@
   </body>
 </html>
 <script>
+    const alertas = [
+  {
+    dataHora: "02/04 10:00",
+    sensor: "O Grito",
+    temperatura: 23,
+    umidade: 95,
+    deltaTemp: 22,
+    deltaUmidade: 1,
+    status: "Crítico"
+  },
+  {
+    dataHora: "02/04 12:00",
+    sensor: "Monalisa",
+    temperatura: 25,
+    umidade: 97,
+    deltaTemp: 24.4,
+    deltaUmidade: 0.6,
+    status: "Crítico"
+  },
+  {
+    dataHora: "02/04 12:00",
+    sensor: "Noite Estrelada",
+    temperatura: 27,
+    umidade: 78,
+    deltaTemp: 22.6,
+    deltaUmidade: 4.4,
+    status: "Atenção"
+  },
+  {
+    dataHora: "02/04 12:00",
+    sensor: "O Grito",
+    temperatura: 26,
+    umidade: 96,
+    deltaTemp: 25.2,
+    deltaUmidade: 0.8,
+    status: "Crítico"
+  },
+  {
+    dataHora: "02/04 14:00",
+    sensor: "Monalisa",
+    temperatura: 24,
+    umidade: 94,
+    deltaTemp: 22.8,
+    deltaUmidade: 1.2,
+    status: "Crítico"
+  },
+  {
+    dataHora: "02/04 14:00",
+    sensor: "O Grito",
+    temperatura: 25,
+    umidade: 75,
+    deltaTemp: 20,
+    deltaUmidade: 5,
+    status: "Atenção"
+  },
+  {
+    dataHora: "02/04 16:00",
+    sensor: "O Grito",
+    temperatura: 27,
+    umidade: 76,
+    deltaTemp: 22.2,
+    deltaUmidade: 4.8,
+    status: "Atenção"
+  },
+  {
+    dataHora: "01/04 10:00",
+    sensor: "O Grito",
+    temperatura: 24,
+    umidade: 83,
+    deltaTemp: 20.6,
+    deltaUmidade: 3.4,
+    status: "Atenção"
+  }
+];
+
     let alertasContainer = document.getElementById("tabelaAlertas");
 
-    fetch(`/alertas/buscarTotalAlertas/:${sessionStorage.ID_USUARIO}`)
+    fetch(`/alertas/buscarTotalAlertas/${sessionStorage.ID_USUARIO}`)
     .then(function (resposta){
         return resposta.json()
     }).then(function (dados){
         console.log(dados);
 
-        kpi_total_registros.innerHTML = dados[0];
+        kpi_total_registros.innerHTML = dados[0].total_alertas;
     })
 
 
