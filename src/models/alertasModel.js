@@ -10,6 +10,37 @@ function buscarTotalAlertas(id){
     return database.executar(instrucaoSql);
 }
 
+function buscarAlertasAtencao(id){
+    console.log("Acessei a função buscarAlertasAtencao em alertasModel");
+    var instrucaoSql = `
+    SELECT 
+    COUNT(*) as alertas_atencao
+    FROM status_sensores_vw
+    WHERE status_atual = 'atencao'
+    AND DATE(criadoEm) = CURDATE()
+    AND id = ${id};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function buscarAlertasCriticos(id){
+    console.log("Acessei a função buscarAlertasCriticos em alertasModel");
+    var instrucaoSql = `
+    SELECT 
+    COUNT(*) as alertas_criticos
+    FROM status_sensores_vw
+    WHERE status_atual = 'critico'
+    AND DATE(criadoEm) = CURDATE()
+    AND id = ${id};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+};
+
+
 module.exports = {
-    buscarTotalAlertas
+    buscarTotalAlertas,
+    buscarAlertasAtencao,
+    buscarAlertasCriticos
 }

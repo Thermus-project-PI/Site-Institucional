@@ -213,10 +213,25 @@
         console.log(dados);
 
         kpi_total_registros.innerHTML = dados[0].total_alertas;
+    });
+
+    fetch(`/alertas/buscarAlertasAtencao/${sessionStorage.ID_USUARIO}`)
+    .then(function (resposta){
+        return resposta.json()
+    }).then(function (dados){
+        console.log(dados);
+
+        kpi_atencao.innerHTML = dados[0].alertas_atencao;
+    });
+
+    fetch(`/alertas/buscarAlertasCriticos/${sessionStorage.ID_USUARIO}`)
+    .then(function (resposta){
+        return resposta.json()
+    }).then(function (dados){
+        console.log(dados);
+
+        kpi_critico.innerHTML = dados[0].alertas_criticos;
     })
-
-
-
 
     montar("todos");
     function montar(type) {
@@ -248,7 +263,7 @@
             `;
 
           alertasContainer.innerHTML += tr;
-        });
+        })
       } else if (type == "atencao") {
         alertas.forEach((alerta) => {
           if (alerta.status != "Atenção") {

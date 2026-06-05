@@ -7,4 +7,12 @@ router.get("/buscarTotalAlertas/:id", function (req, res) {
     alertasController.buscarTotalAlertas(req, res);
 });
 
+router.get("/buscarAlertasAtencao/:id", function (req, res) {
+    alertasController.buscarAlertasAtencao(req, res);
+});
+
+router.get("/buscarAlertasCriticos/:id", function(req, res){
+    alertasController.buscarAlertasCriticos(req, res);
+});
+
 module.exports = router;
