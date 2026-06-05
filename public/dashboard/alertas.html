@@ -1,264 +1,228 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../styles/stylesDashboard.css">
-    <link rel="stylesheet" href="../styles/styleDashboardAlert.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../styles/stylesDashboard.css" />
+    <link rel="stylesheet" href="../styles/styleDashboardAlert.css" />
     <title>Dashboard - Alertas</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="content">
-        <aside>
-            <div class="top">
-                <div class="logo-container">
-                    <img src="../img/logo-fina.svg" alt="logo" class="logo">
-                </div>
-                <div class="links-container">
-                    <div class="link" onclick="window.location.href = 'index.html'">
-                        <p>Dashboard</p>
-                    </div>
-                    <div class="link" onclick="window.location.href = 'obras.html'" >
-                        <p>Obras</p>
-                    </div>
-                    <div class="link selected" onclick="window.location.href = 'alertas.html'">
-                        <p>Alertas</p>
-                    </div>
-                    <div class="link" onclick="window.location.href = 'relatorios.html'">
-                        <p>Relatórios</p>
-                    </div>
-                </div>
+      <aside>
+        <div class="top">
+          <div class="logo-container">
+            <img src="../img/logo-fina.svg" alt="logo" class="logo" />
+          </div>
+          <div class="links-container">
+            <div class="link" onclick="window.location.href = 'index.html'">
+              <p>Dashboard</p>
             </div>
-            <div class="bottom">
-                <div class="btn-container">
-                    <button class="btn" onclick="window.location.href='../auth/funcionario/cadastroUser.html'">
-                        <span>Cadastrar funcionário</span>
-                    </button>
-                    <button class="btn" onclick="window.location.href='../index.html'">
-                        <span>Sair</span>
-                        <i class="fa-solid fa-arrow-right-from-bracket btn-icon-logout"></i>
-                    </button>
-                </div>
+            <div class="link" onclick="window.location.href = 'sensores.html'">
+              <p>Obras</p>
             </div>
-        </aside>
-        <div class="main">
-            <div class="kpis">
-                <div class="kpi">
-                    <div class="kpi-title">
-                        <h2>Total de registros</h2>
-                    </div>
-                    <div class="kpi-main">
-                        <h1>8</h1>
-                    </div>
-                </div>
-                <div class="kpi">
-                    <div class="kpi-title">
-                        <h2>Atenção</h2>
-                    </div>
-                    <div class="kpi-main kpi-main-yellow">
-                        <h1>4</h1>
-                    </div>
-                </div>
-                <div class="kpi">
-                    <div class="kpi-title">
-                        <h2>Crítico</h2>
-                    </div>
-                    <div class="kpi-main kpi-main-red">
-                        <h1>4</h1>
-                    </div>
-                </div>
+            <div
+              class="link selected"
+              onclick="window.location.href = 'alertas.html'"
+            >
+              <p>Alertas</p>
             </div>
-            <div class="alertas-container">
-                <div class="topAlertas">
-                    <div class="filters">
-                        <h3>Filtrar:</h3>
-                        <div class="filter filter-blue" onclick="montar('todos')">
-                            <p>Todos</p>
-                        </div>
-                        <div class="filter filter-yellow" onclick="montar('atencao')">
-                            <p>Atenção</p>
-                        </div>
-                        <div class="filter filter-red" onclick="montar('critico')">
-                            <p>Crítico</p>
-                        </div>
-                        <div class="pesquisa"> 
-                            <input type="text" placeholder="Buscar por data"> 
-                        </div> 
-                    </div>
-                </div>
-                <div class="bottomAlertas">
-                    <table class="alertas" id="tabelaAlertas">
-                        <tr>
-                            <th>Data/hora</th>
-                            <th>Sensor</th>
-                            <th>Temp(°C)>
-                            <th>Umidade(%)</th>
-                            <th>Limite do orvalho</th>
-                            <th>Diferença entre T° <br> e limite do orvalho</th>
-                            <th>Status</th>
-                        </tr>
-                    </table>
-                </div>
+            <div
+              class="link"
+              onclick="window.location.href = 'relatorios.html'"
+            >
+              <p>Relatórios</p>
             </div>
+          </div>
         </div>
+        <div class="bottom">
+          <div class="btn-container">
+            <button
+              class="btn"
+              onclick="
+                window.location.href = '../auth/funcionario/cadastroUser.html'
+              "
+            >
+              <span>Cadastrar funcionário</span>
+            </button>
+            <button
+              class="btn"
+              onclick="window.location.href = '../index.html'"
+            >
+              <span>Sair</span>
+              <i
+                class="fa-solid fa-arrow-right-from-bracket btn-icon-logout"
+              ></i>
+            </button>
+          </div>
+        </div>
+      </aside>
+      <div class="main">
+        <div class="kpis">
+          <div class="kpi">
+            <div class="kpi-title">
+              <h2>Total de registros</h2>
+            </div>
+            <div class="kpi-main">
+              <h1 id="kpi_total_registros"></h1>
+            </div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-title">
+              <h2>Atenção</h2>
+            </div>
+            <div class="kpi-main kpi-main-yellow">
+              <h1 id="kpi_atencao"></h1>
+            </div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-title">
+              <h2>Crítico</h2>
+            </div>
+            <div class="kpi-main kpi-main-red">
+              <h1 id="kpi_critico"></h1>
+            </div>
+          </div>
+        </div>
+        <div class="alertas-container">
+          <div class="topAlertas">
+            <div class="filters">
+              <h3>Filtrar:</h3>
+              <div class="filter filter-blue" onclick="montar('todos')">
+                <p>Todos</p>
+              </div>
+              <div class="filter filter-yellow" onclick="montar('atencao')">
+                <p>Atenção</p>
+              </div>
+              <div class="filter filter-red" onclick="montar('critico')">
+                <p>Crítico</p>
+              </div>
+            </div>
+            <div class="pesquisa">
+              <input type="date" id="ipt_busca" />
+              <button onclick="buscar()">Buscar</button>
+            </div>
+          </div>
+          <div class="bottomAlertas">
+            <table class="alertas" id="tabelaAlertas">
+              <tr>
+                <th>Data/hora</th>
+                <th>Sensor</th>
+                <th>Temp(°C)></th>
+                <th>Umidade(%)</th>
+                <th>Limite do orvalho</th>
+                <th>
+                  Diferença entre T° <br />
+                  e limite do orvalho
+                </th>
+                <th>Status</th>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>
 <script>
-    const alertas = [
-  {
-    dataHora: "02/04 10:00",
-    sensor: "O Grito",
-    temperatura: 23,
-    umidade: 95,
-    deltaTemp: 22,
-    deltaUmidade: 1,
-    status: "Crítico"
-  },
-  {
-    dataHora: "02/04 12:00",
-    sensor: "Monalisa",
-    temperatura: 25,
-    umidade: 97,
-    deltaTemp: 24.4,
-    deltaUmidade: 0.6,
-    status: "Crítico"
-  },
-  {
-    dataHora: "02/04 12:00",
-    sensor: "Noite Estrelada",
-    temperatura: 27,
-    umidade: 78,
-    deltaTemp: 22.6,
-    deltaUmidade: 4.4,
-    status: "Atenção"
-  },
-  {
-    dataHora: "02/04 12:00",
-    sensor: "O Grito",
-    temperatura: 26,
-    umidade: 96,
-    deltaTemp: 25.2,
-    deltaUmidade: 0.8,
-    status: "Crítico"
-  },
-  {
-    dataHora: "02/04 14:00",
-    sensor: "Monalisa",
-    temperatura: 24,
-    umidade: 94,
-    deltaTemp: 22.8,
-    deltaUmidade: 1.2,
-    status: "Crítico"
-  },
-  {
-    dataHora: "02/04 14:00",
-    sensor: "O Grito",
-    temperatura: 25,
-    umidade: 75,
-    deltaTemp: 20,
-    deltaUmidade: 5,
-    status: "Atenção"
-  },
-  {
-    dataHora: "02/04 16:00",
-    sensor: "O Grito",
-    temperatura: 27,
-    umidade: 76,
-    deltaTemp: 22.2,
-    deltaUmidade: 4.8,
-    status: "Atenção"
-  },
-  {
-    dataHora: "01/04 10:00",
-    sensor: "O Grito",
-    temperatura: 24,
-    umidade: 83,
-    deltaTemp: 20.6,
-    deltaUmidade: 3.4,
-    status: "Atenção"
-  }
-];
+  fetch(`/alertas/buscarTotalAlertas/${sessionStorage.ID_USUARIO}`)
+    .then(function (resposta) {
+      return resposta.json();
+    })
+    .then(function (dados) {
+      console.log(dados);
 
-let alertasContainer = document.getElementById("tabelaAlertas");
-montar("todos");
-function montar(type){
+      kpi_total_registros.innerHTML = dados[0].total_alertas;
+    });
 
-    let alertasContainerLinhas = document.querySelectorAll("#tabelaAlertas #linha");    
-    alertasContainerLinhas.forEach(tr => tr.remove())
-    if(type == "todos"){
-        alertas.forEach(alerta => {
-            let tr = document.createElement("tr");
-            tr.setAttribute('id', 'linha')
+  fetch(`/alertas/buscarAlertasAtencao/${sessionStorage.ID_USUARIO}`)
+    .then(function (resposta) {
+      return resposta.json();
+    })
+    .then(function (dados) {
+      console.log(dados);
 
-            let classTd;
+      kpi_atencao.innerHTML = dados[0].alertas_atencao;
+    });
 
-            if(alerta.status == "Crítico"){
-                classTd = "td-red"
-            }else if(alerta.status == "Atenção"){
-                classTd = "td-yellow"
-            }
+  fetch(`/alertas/buscarAlertasCriticos/${sessionStorage.ID_USUARIO}`)
+    .then(function (resposta) {
+      return resposta.json();
+    })
+    .then(function (dados) {
+      console.log(dados);
 
-            tr.innerHTML = `
-                <td>${alerta.dataHora}</td>
-                <td>${alerta.sensor}</td>
-                <td>${alerta.temperatura}</td>
-                <td>${alerta.umidade}</td>
-                <td>${alerta.deltaTemp}</td>
-                <td>${alerta.deltaUmidade}</td>
-                <td class="${classTd}"><span>${alerta.status}</span></td>
-            `
-    
-            alertasContainer.appendChild(tr);
-        });
-    }else if(type == "atencao"){
-        alertas.forEach(alerta => {
-            if(alerta.status != "Atenção"){
-                return;
-            }
-            let tr = document.createElement("tr");
-            tr.setAttribute('id', 'linha')
+      kpi_critico.innerHTML = dados[0].alertas_criticos;
+    });
 
-            let classTd = "td-yellow"
+  let alertasContainer = document.getElementById("tabelaAlertas");
+  let dadosDoBanco = [];
 
-            tr.innerHTML = `
-                <td>${alerta.dataHora}</td>
-                <td>${alerta.sensor}</td>
-                <td>${alerta.temperatura}</td>
-                <td>${alerta.umidade}</td>
-                <td>${alerta.deltaTemp}</td>
-                <td>${alerta.deltaUmidade}</td>
-                <td class="${classTd}"><span>${alerta.status}</span></td>
-            `
-    
-            alertasContainer.appendChild(tr);
-        });
-    }else if(type == "critico"){
-        alertas.forEach(alerta => {
-            if(alerta.status != "Crítico"){
-                return;
-            }
-            let tr = document.createElement("tr");
-            tr.setAttribute('id', 'linha')
+  fetch(`/alertas/buscarAlertasAtuais/${sessionStorage.ID_USUARIO}`)
+    .then(function (resposta) {
+      return resposta.json();
+    })
+    .then(function (dados) {
+      dadosDoBanco = dados;
+      montar("todos");
+    });
 
-            let classTd = "td-red"
+  function buscar() {
+    console.log("chamou a função buscar");
+    let dataDigitada = document.getElementById("ipt_busca").value;
 
-            tr.innerHTML = `
-                <td>${alerta.dataHora}</td>
-                <td>${alerta.sensor}</td>
-                <td>${alerta.temperatura}</td>
-                <td>${alerta.umidade}</td>
-                <td>${alerta.deltaTemp}</td>
-                <td>${alerta.deltaUmidade}</td>
-                <td class="${classTd}"><span>${alerta.status}</span></td>
-            `
-    
-            alertasContainer.appendChild(tr);
-        });
+    if (dataDigitada == "") {
+      alert("Digite uma data!");
+      return;
     }
-}
+
+    fetch(
+      `/alertas/buscarAlertasPorData/${sessionStorage.ID_USUARIO}/${dataDigitada}`,
+    )
+      .then(function (resposta) {
+        return resposta.json();
+      })
+      .then(function (dados) {
+        dadosDoBanco = dados;
+        montar("todos");
+      });
+  }
+
+  function montar(type) {
+    document
+      .querySelectorAll("#tabelaAlertas #linha")
+      .forEach((tr) => tr.remove());
+
+    let lista = dadosDoBanco;
+
+    if (type == "atencao") {
+      lista = dadosDoBanco.filter((a) => a.status_atual == "atencao");
+    } else if (type == "critico") {
+      lista = dadosDoBanco.filter((a) => a.status_atual == "critico");
+    }
+
+    lista.forEach(function (alerta) {
+      let classTd = alerta.status_atual == "critico" ? "td-red" : "td-yellow";
+      let statusLabel =
+        alerta.status_atual == "critico" ? "Crítico" : "Atenção";
+
+      let tr = `
+            <tr id="linha">
+                <td>${alerta.dataHora}</td>
+                <td>${alerta.quadroNome}</td>
+                <td>${alerta.temperatura}</td>
+                <td>${alerta.umidade}</td>
+                <td>${alerta.pontoOrvalho}</td>
+                <td>${alerta.diferenca}</td>
+                <td class="${classTd}"><span>${statusLabel}</span></td>
+            </tr>
+        `;
+      alertasContainer.innerHTML += tr;
+    });
+  }
 </script>
