@@ -19,5 +19,9 @@ router.get("/obterTotalAlerta/:idMuseu/:nomeQuadro", function (req, res) {
     obrasController.obterTotalAlerta(req, res);
 });
 
+router.get("/obterGraficosObras/:idMuseu/:nomeQuadro", function (req, res) {
+    obrasController.obterGraficosObras(req, res);
+});
+
 
 module.exports = router;

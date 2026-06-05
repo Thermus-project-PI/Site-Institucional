@@ -95,8 +95,7 @@
                 function (resposta) {
                     resposta.json().then(function (obras) {
                         for (let i = 0; i < obras.length; i++) {
-                            if (nomeQuadro == "" || obras[i].quadroNome.includes(nomeQuadro)) {
-
+                            if (nomeQuadro == "" || obras[i].quadroNome.toLowerCase().includes(nomeQuadro.toLowerCase())) {
 
                                 fetch("/obras/obterStatusQuadro/" + sessionStorage.ID_USUARIO + "/" + obras[i].quadroNome)
                                     .then(function (respostaStatus) {
@@ -111,6 +110,9 @@
                                                 <div class='valores'>${statusResposta[0].temperatura}°C | ${statusResposta[0].umidade}%</div>
                                                 <div class='hora'>${data.toLocaleTimeString()}</div>
                                             </div>`;
+                                            if(i == 0) {
+                                                trocar(`${obras[i].quadroNome}`)
+                                            }
                                         })
                                     })
                             }
@@ -149,49 +151,48 @@
                 })
 
 
-            // grafico.innerHTML = "<canvas></canvas>";
-            // const ctx = grafico.querySelector("canvas");
+            fetch("/obras/obterGraficosObras/" + sessionStorage.ID_USUARIO + "/" + nomeQuadro)
+                .then(function (resposta) {
+                    resposta.json().then(function (graficos) {
 
+                        let horas = [];
+                        let temperatura = [];
+                        let umidade = [];
 
-            // const humidity = {
-            //     label: 'Umidade',
-            //     data: umis,
-            //     borderWidth: 1,
-            //     borderColor: "#2E6AA3",
-            //     backgroundColor: "#2E6AA320",
-            //     fill: true
-            // };
+                        for (let i = 0; i < graficos.length; i++) {
+                            horas.push(graficos[i].hora);
+                            temperatura.push(graficos[i].temperatura);
+                            umidade.push(graficos[i].umidade);
+                        }
 
-            // const temperature = {
-            //     label: 'Temperatura',
-            //     data: temps,
-            //     borderWidth: 1,
-            //     borderColor: "#348A6F",
-            //     backgroundColor: "#348A6F20",
-            //     fill: true
-            // };
+                        grafico.innerHTML = "<canvas></canvas>";
+                        const ctx = grafico.querySelector("canvas");
 
-            // let dataset = temperature;
+                        new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: horas,
+                                datasets: [
+                                    {
+                                        label: 'Temperatura',
+                                        data: temperatura,
+                                        borderColor: "#348A6F",
+                                        backgroundColor: "#348A6F20",
+                                        fill: true
+                                    },
+                                    {
+                                        label: 'Umidade',
+                                        data: umidade,
+                                        borderColor: "#2E6AA3",
+                                        backgroundColor: "#2E6AA320",
+                                        fill: true
+                                    }
+                                ]
+                            }
+                        });
 
-            // graf = new Chart(ctx, {
-            //     type: 'line',
-            //     data: {
-            //         labels: horas,
-            //         datasets: [temperature, humidity]
-            //     },
-            //     options: {
-            //         scales: {
-            //             y: {
-            //                 min: 0,
-            //                 max: 100,
-            //                 beginAtZero: true,
-            //                 ticks: {
-            //                     stepSize: 10
-            //                 }
-            //             }
-            //         }
-            //     }
-            // });
+                    });
+                });
 
 
             // window.change = function (tipo) {

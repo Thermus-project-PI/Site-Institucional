@@ -35,9 +35,19 @@ function obterTotalAlerta(req, res) {
   });
 }
 
+function obterGraficosObras(req, res) {
+  var idMuseu = req.params.idMuseu;
+  var nomeQuadro = req.params.nomeQuadro;
+
+  obrasModel.obterGraficosObras(nomeQuadro,idMuseu).then((resultado) => {
+    res.status(200).json(resultado);
+  });
+}
+
 module.exports = {
     obterQuadros,
     obterStatusQuadro,
     obterMediaQuadro,
-    obterTotalAlerta
+    obterTotalAlerta,
+    obterGraficosObras
 };

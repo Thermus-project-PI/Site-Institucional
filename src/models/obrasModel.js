@@ -49,10 +49,30 @@ function obterTotalAlerta(nomeQuadro,idMuseu) {
     return database.executar(instrucaoSql);
 }
 
+function obterGraficosObras(nomeQuadro,idMuseu) {
+
+    var instrucaoSql = `
+    SELECT
+        quadroNome,
+        HOUR(dataHora) AS hora,
+        ROUND(AVG(temperatura),1) AS temperatura,
+        ROUND(AVG(umidade),0) AS umidade
+    FROM status_leituras_vw
+    WHERE id = ${idMuseu}
+    AND quadroNome = '${nomeQuadro}'
+    AND dataHora >= CURDATE()
+    GROUP BY quadroNome, HOUR(dataHora)
+    ORDER BY hora;`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
     obterQuadros,
     obterStatusQuadro,
     obterMediaQuadro,
-    obterTotalAlerta
+    obterTotalAlerta,
+    obterGraficosObras
 }
