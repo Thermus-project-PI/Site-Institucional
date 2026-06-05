@@ -15,4 +15,8 @@ router.get("/buscarAlertasCriticos/:id", function(req, res){
     alertasController.buscarAlertasCriticos(req, res);
 });
 
+router.get("/buscarAlertasAtuais/:id", function(req, res){
+    alertasController.buscarAlertasAtuais(req, res);
+});
+
 module.exports = router;
