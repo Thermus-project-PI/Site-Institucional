@@ -49,7 +49,8 @@
     <div class="content">
 
         <div class="container-lista">
-            <input oninput="filtrarQuadros()" id="ipt_filtroQuadro" type="text" class="pesquisa" placeholder="Buscar quadro">
+            <input oninput="filtrarQuadros()" id="ipt_filtroQuadro" type="text" class="pesquisa"
+                placeholder="Buscar quadro">
             <div class="lista" id="lista"></div>
         </div>
 
@@ -87,18 +88,6 @@
 
     <script>
 
-        const lista = document.querySelector("#lista");
-        const nome = document.querySelector("#nome");
-        const sala = document.querySelector("#sala");
-        const status = document.querySelector("#status");
-        const temp = document.querySelector("#temp");
-        const umi = document.querySelector("#umi");
-        const alerta = document.querySelector("#alerta");
-        const grafico = document.querySelector("#grafico");
-
-        let graf;
-
-
         function montar(nomeQuadro) {
             lista.innerHTML = "";
 
@@ -114,13 +103,13 @@
                                         respostaStatus.json().then(function (status) {
                                             let data = new Date(status[0].dataHora)
                                             lista.innerHTML +=
-                                                `<div class='cardSensor' onclick='trocar(${obras[i].quadroNome})'>
+                                                `<div class='cardSensor' onclick='trocar("${obras[i].quadroNome}")'>
                                                 <div class='top-card'>
                                                     <b>${obras[i].quadroNome}</b>
                                                     <span class='badge'>${status[0].status_atual}</span>
                                                 </div>
                                                 <div class='valores'>${status[0].temperatura}°C | ${status[0].umidade}%</div>
-                                                <div class='hora'>${data.toLocaleDateString()} | ${data.toLocaleTimeString()}</div>
+                                                <div class='hora'>${data.toLocaleTimeString()}</div>
                                             </div>`;
                                         })
                                     })
@@ -132,93 +121,73 @@
 
         }
 
-        function trocar(i) {
-            let d = listaDados[i];
+        function trocar(nomeQuadro) {
 
-            nome.innerHTML = d.nome;
-            sala.innerHTML = d.sala;
+            fetch("/obras/obterStatusQuadro/" + sessionStorage.ID_USUARIO + "/" + nomeQuadro)
+                .then(function (respostaStatus) {
+                    respostaStatus.json().then(function (status) {
+                        let data = new Date(status[0].dataHora)
+                        nome.innerHTML = nomeQuadro
+                        sala.innerHTML = status[0].localizacao
+                        status.innerHTML = status[0].status_atual
+                    })
+                })
 
-            let somaT = 0;
-            let somaU = 0;
-            let alertas = 0;
+                
 
-            let temps = [];
-            let umis = [];
-            let horas = [];
-
-            for (let j = 0; j < d.dados.length; j++) {
-                somaT += d.dados[j].t;
-                somaU += d.dados[j].u;
-
-                temps.push(d.dados[j].t);
-                umis.push(d.dados[j].u);
-                horas.push(d.dados[j].h);
-
-                if (d.dados[j].u > 80) {
-                    alertas++;
-                }
-            }
-
-            temp.innerHTML = (somaT / d.dados.length).toFixed(1) + "°C";
-            umi.innerHTML = (somaU / d.dados.length).toFixed(0) + "%";
-            alerta.innerHTML = alertas;
-
-            status.innerHTML = alertas > 0 ? "ALERTA" : "OK";
+            // grafico.innerHTML = "<canvas></canvas>";
+            // const ctx = grafico.querySelector("canvas");
 
 
-            grafico.innerHTML = "<canvas></canvas>";
-            const ctx = grafico.querySelector("canvas");
+            // const humidity = {
+            //     label: 'Umidade',
+            //     data: umis,
+            //     borderWidth: 1,
+            //     borderColor: "#2E6AA3",
+            //     backgroundColor: "#2E6AA320",
+            //     fill: true
+            // };
+
+            // const temperature = {
+            //     label: 'Temperatura',
+            //     data: temps,
+            //     borderWidth: 1,
+            //     borderColor: "#348A6F",
+            //     backgroundColor: "#348A6F20",
+            //     fill: true
+            // };
+
+            // let dataset = temperature;
+
+            // graf = new Chart(ctx, {
+            //     type: 'line',
+            //     data: {
+            //         labels: horas,
+            //         datasets: [temperature, humidity]
+            //     },
+            //     options: {
+            //         scales: {
+            //             y: {
+            //                 min: 0,
+            //                 max: 100,
+            //                 beginAtZero: true,
+            //                 ticks: {
+            //                     stepSize: 10
+            //                 }
+            //             }
+            //         }
+            //     }
+            // });
 
 
-            const humidity = {
-                label: 'Umidade',
-                data: umis,
-                borderWidth: 1,
-                borderColor: "#2E6AA3",
-                backgroundColor: "#2E6AA320",
-                fill: true
-            };
-
-            const temperature = {
-                label: 'Temperatura',
-                data: temps,
-                borderWidth: 1,
-                borderColor: "#348A6F",
-                backgroundColor: "#348A6F20",
-                fill: true
-            };
-
-            let dataset = temperature;
-
-            graf = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: horas,
-                    datasets: [temperature, humidity]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            min: 0,
-                            max: 100,
-                            beginAtZero: true,
-                            ticks: {
-                                stepSize: 10
-                            }
-                        }
-                    }
-                }
-            });
-
-
-            window.change = function (tipo) {
-                if (tipo === "temperature") {
-                    graf.data.datasets[0] = temperature;
-                } else if (tipo === "humidity") {
-                    graf.data.datasets[0] = humidity;
-                }
-                graf.update();
-            }
+            // window.change = function (tipo) {
+            //     if (tipo === "temperature") {
+            //         graf.data.datasets[0] = temperature;
+            //     } else if (tipo === "humidity") {
+            //         graf.data.datasets[0] = humidity;
+            //     }
+            //     graf.update();
+            // }
         }
 
         function filtrarQuadros() {
