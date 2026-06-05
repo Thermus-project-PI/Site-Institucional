@@ -1,8 +1,6 @@
 create database thermus;
 use thermus;
 
-
-
 create table museu(
 id int primary key auto_increment,
 museuNome varchar(100),
