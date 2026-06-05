@@ -110,7 +110,7 @@
                                                 <div class='valores'>${statusResposta[0].temperatura}°C | ${statusResposta[0].umidade}%</div>
                                                 <div class='hora'>${data.toLocaleTimeString()}</div>
                                             </div>`;
-                                            if(i == 0) {
+                                            if (i == 0) {
                                                 trocar(`${obras[i].quadroNome}`)
                                             }
                                         })
@@ -120,7 +120,6 @@
                     })
                 }
             )
-
         }
 
         function trocar(nomeQuadro) {
@@ -193,25 +192,13 @@
 
                     });
                 });
-
-
-            // window.change = function (tipo) {
-            //     if (tipo === "temperature") {
-            //         graf.data.datasets[0] = temperature;
-            //     } else if (tipo === "humidity") {
-            //         graf.data.datasets[0] = humidity;
-            //     }
-            //     graf.update();
-            // }
         }
 
         function filtrarQuadros() {
             montar(ipt_filtroQuadro.value);
         }
 
-
         montar("");
-        // trocar(0);
 
     </script>
 
