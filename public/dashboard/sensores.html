@@ -100,15 +100,15 @@
 
                                 fetch("/obras/obterStatusQuadro/" + sessionStorage.ID_USUARIO + "/" + obras[i].quadroNome)
                                     .then(function (respostaStatus) {
-                                        respostaStatus.json().then(function (status) {
-                                            let data = new Date(status[0].dataHora)
+                                        respostaStatus.json().then(function (statusResposta) {
+                                            let data = new Date(statusResposta[0].dataHora)
                                             lista.innerHTML +=
                                                 `<div class='cardSensor' onclick='trocar("${obras[i].quadroNome}")'>
                                                 <div class='top-card'>
                                                     <b>${obras[i].quadroNome}</b>
-                                                    <span class='badge'>${status[0].status_atual}</span>
+                                                    <span class='badge'>${statusResposta[0].status_atual}</span>
                                                 </div>
-                                                <div class='valores'>${status[0].temperatura}°C | ${status[0].umidade}%</div>
+                                                <div class='valores'>${statusResposta[0].temperatura}°C | ${statusResposta[0].umidade}%</div>
                                                 <div class='hora'>${data.toLocaleTimeString()}</div>
                                             </div>`;
                                         })
@@ -125,15 +125,29 @@
 
             fetch("/obras/obterStatusQuadro/" + sessionStorage.ID_USUARIO + "/" + nomeQuadro)
                 .then(function (respostaStatus) {
-                    respostaStatus.json().then(function (status) {
-                        let data = new Date(status[0].dataHora)
+                    respostaStatus.json().then(function (statusResposta) {
+                        let data = new Date(statusResposta[0].dataHora)
                         nome.innerHTML = nomeQuadro
-                        sala.innerHTML = status[0].localizacao
-                        status.innerHTML = status[0].status_atual
+                        sala.innerHTML = statusResposta[0].localizacao
+                        document.getElementById("status").innerHTML = statusResposta[0].status_atual
                     })
                 })
 
-                
+            fetch("/obras/obterMediaQuadro/" + sessionStorage.ID_USUARIO + "/" + nomeQuadro)
+                .then(function (resposta) {
+                    resposta.json().then(function (medias) {
+                        temp.innerHTML = medias[0].temperaturaMedia + " °C"
+                        umi.innerHTML = medias[0].umidadeMedia + " %"
+                    })
+                })
+
+            fetch("/obras/obterTotalAlerta/" + sessionStorage.ID_USUARIO + "/" + nomeQuadro)
+                .then(function (resposta) {
+                    resposta.json().then(function (alertas) {
+                        alerta.innerHTML = alertas[0].total_alertas
+                    })
+                })
+
 
             // grafico.innerHTML = "<canvas></canvas>";
             // const ctx = grafico.querySelector("canvas");

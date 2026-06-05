@@ -23,8 +23,36 @@ function obterStatusQuadro(nomeQuadro,idMuseu) {
     return database.executar(instrucaoSql);
 }
 
+function obterMediaQuadro(nomeQuadro,idMuseu) {
+
+    var instrucaoSql = `
+    SELECT ROUND(AVG(temperatura),1) AS temperaturaMedia, 
+    ROUND(AVG(umidade),0) AS umidadeMedia 
+    FROM status_leituras_vw 
+    WHERE id = ${idMuseu} 
+    AND quadroNome = '${nomeQuadro}';`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function obterTotalAlerta(nomeQuadro,idMuseu) {
+
+    var instrucaoSql = `
+    SELECT COUNT(*) AS total_alertas
+    FROM status_leituras_vw 
+    WHERE id = ${idMuseu} 
+    AND quadroNome = '${nomeQuadro}' 
+    AND status_atual <> 'OK';`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
     obterQuadros,
-    obterStatusQuadro
+    obterStatusQuadro,
+    obterMediaQuadro,
+    obterTotalAlerta
 }

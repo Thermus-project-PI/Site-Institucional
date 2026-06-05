@@ -9,7 +9,7 @@ function obterQuadros(req, res) {
 }
 
 function obterStatusQuadro(req, res) {
-    var idMuseu = req.params.idMuseu;
+  var idMuseu = req.params.idMuseu;
   var nomeQuadro = req.params.nomeQuadro;
 
   obrasModel.obterStatusQuadro(nomeQuadro,idMuseu).then((resultado) => {
@@ -17,7 +17,27 @@ function obterStatusQuadro(req, res) {
   });
 }
 
+function obterMediaQuadro(req, res) {
+  var idMuseu = req.params.idMuseu;
+  var nomeQuadro = req.params.nomeQuadro;
+
+  obrasModel.obterMediaQuadro(nomeQuadro,idMuseu).then((resultado) => {
+    res.status(200).json(resultado);
+  });
+}
+
+function obterTotalAlerta(req, res) {
+  var idMuseu = req.params.idMuseu;
+  var nomeQuadro = req.params.nomeQuadro;
+
+  obrasModel.obterTotalAlerta(nomeQuadro,idMuseu).then((resultado) => {
+    res.status(200).json(resultado);
+  });
+}
+
 module.exports = {
     obterQuadros,
-    obterStatusQuadro
+    obterStatusQuadro,
+    obterMediaQuadro,
+    obterTotalAlerta
 };

@@ -11,5 +11,13 @@ router.get("/obterStatusQuadro/:idMuseu/:nomeQuadro", function (req, res) {
     obrasController.obterStatusQuadro(req, res);
 });
 
+router.get("/obterMediaQuadro/:idMuseu/:nomeQuadro", function (req, res) {
+    obrasController.obterMediaQuadro(req, res);
+});
+
+router.get("/obterTotalAlerta/:idMuseu/:nomeQuadro", function (req, res) {
+    obrasController.obterTotalAlerta(req, res);
+});
+
 
 module.exports = router;
