@@ -55,10 +55,10 @@
                             <h1>Temperatura média</h1>
                         </div>
                         <div class="main-info main-info-green">
-                            <h1>27°C</h1>
+                            <h1 id="temperaturaMediaHT"></h1>
                         </div>
                         <div class="sub-info">
-                            <h2>Hoje - 04/05/2026</h2>
+                            <h2 id="data_atual_temp">Hoje - 04/05/2026</h2>
                             <h2>todos os sensores</h2>
                         </div>
                     </div>
@@ -70,10 +70,10 @@
                             <h1>Umidade média</h1>
                         </div>
                         <div class="main-info main-info-blue">
-                            <h1>78%</h1>
+                            <h1 id="umidadeMediaHT"></h1>
                         </div>
                         <div class="sub-info">
-                            <h2>Hoje - 04/05/2026</h2>
+                            <h2 id="data_atual_umid"></h2>
                             <h2>todos os sensores</h2>
                         </div>
                     </div>
@@ -85,11 +85,10 @@
                             <h1>Alertas Hoje</h1>
                         </div>
                         <div class="main-info main-info-red">
-                            <h1>4</h1>
+                            <h1 id="alertasHojeHT"></h1>
                         </div>
                         <div class="sub-info">
-                            <h2>2 atenções</h2>
-                            <h2>2 críticos</h2>
+                            <h2 id="legendasAlertasHT"></h2>
                         </div>
                     </div>
                     <div class="card">
@@ -101,20 +100,23 @@
                             <h1>Proximidade do Orvalho</h1>
                         </div>
                         <div class="main-info main-info-yellow">
-                            <h1>4,4</h1>
+                            <h1 id="pontoOrvalhoHT"></h1>
                         </div>
                         <div class="sub-info point-risc">
                             <h2>Risco de orvalho atual: </h2>
-                            <span>ATENCÃO</span>
+                            <span id="statusOrvalho"></span>
                         </div>
                     </div>
                 </div>
                 <div class="charts">
                     <div class="buttons">
                         <h1>filtros:</h1>
+
                         <button class="btn-chart btn-chart-umidity" onclick="change('humidity')">Umidade</button>
+
                         <button class="btn-chart btn-chart-temperature"
                             onclick="change('temperature')">Temperatura</button>
+
                     </div>
                     <div class="chart flex" id="umid-div">
                         <canvas id="chart"></canvas>
@@ -126,54 +128,11 @@
                     <div class="last-alerts-title">
                         <h1>Últimos alertas do dia</h1>
                     </div>
-                    <div class="alerts">
-                        <div class="alert">
-                            <div class="circle"></div>
-                            <div class="alert-title">Noite Estrelada</div>
-                            <div class="alert-info">
-                                <h2>9:12</h2>
-                                <h2>Umidade 1,6%</h2>
-                                <h2>Temp 20°C</h2>
-                            </div>
-                            <div class="alert-status alert-status-red">
-                                <h1>CRÍTICO</h1>
-                            </div>
+                    <div class="last-alerts">
+                        <div class="last-alerts-title">
+                            <h1>Últimos alertas do dia</h1>
                         </div>
-                        <div class="alert">
-                            <div class="circle"></div>
-                            <div class="alert-title">Noite Estrelada</div>
-                            <div class="alert-info">
-                                <h2>9:12</h2>
-                                <h2>Umidade 1,6%</h2>
-                                <h2>Temp 20°C</h2>
-                            </div>
-                            <div class="alert-status alert-status-red">
-                                <h1>CRÍTICO</h1>
-                            </div>
-                        </div>
-                        <div class="alert">
-                            <div class="circle"></div>
-                            <div class="alert-title">Noite Estrelada</div>
-                            <div class="alert-info">
-                                <h2>9:12</h2>
-                                <h2>Umidade 1,6%</h2>
-                                <h2>Temp 20°C</h2>
-                            </div>
-                            <div class="alert-status alert-status-yellow">
-                                <h1>ATENÇÃO</h1>
-                            </div>
-                        </div>
-                        <div class="alert">
-                            <div class="circle"></div>
-                            <div class="alert-title">Noite Estrelada</div>
-                            <div class="alert-info">
-                                <h2>9:12</h2>
-                                <h2>Umidade 1,6%</h2>
-                                <h2>Temp 20°C</h2>
-                            </div>
-                            <div class="alert-status alert-status-yellow">
-                                <h1>ATENÇÃO</h1>
-                            </div>
+                        <div class="alerts" id="containerAlertas">
                         </div>
                     </div>
                 </div>
@@ -182,94 +141,289 @@
     </div>
 </body>
 <script>
+    window.onload = function () {
 
-    const labels = [
-        '04:00', '06:00', '08:00', '10:00', '12:00',
-        '14:00', '16:00', '18:00', '20:00', '22:00'
-    ];
+        function atualizarDatasParaHoje() {
+            var hoje = new Date();
 
+            var dataFormatada = hoje.toLocaleDateString('pt-BR');
 
-    const humidity = {
-        label: 'Umidade',
-        data: [69, 61, 59, 50, 58, 98, 97, 60, 56, 60],
-        borderColor: "#2E6AA3",
-        backgroundColor: "#2E6AA320",
-        fill: true,
-        tension: 0.3
-    };
+            document.getElementById("data_atual_temp").innerHTML = `Hoje - ${dataFormatada}`;
+            document.getElementById("data_atual_umid").innerHTML = `Hoje - ${dataFormatada}`;
+        }
+        atualizarDatasParaHoje()
 
-    const temperature = {
-        label: 'Temperatura',
-        data: [24, 23, 22, 21, 22, 20, 22, 25, 24, 25],
-        borderColor: "#348A6F",
-        backgroundColor: "#348A6F20",
-        fill: true,
-        tension: 0.3
-    };
+        fetch(`/indexDash/temperaturaMedia/${sessionStorage.ID_USUARIO}`)
+            .then(function (resposta) {
 
-
-    function createLine(value, color, label) {
-        return {
-            label: label,
-            data: Array(labels.length).fill(value),
-            borderColor: color,
-            borderDash: [6, 6],
-            borderWidth: 2,
-            pointRadius: 0,
-            fill: false
-        };
-    }
-
-
-    const chart = document.getElementById("chart");
-
-    const graf = new Chart(chart, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [
-                humidity,
-                createLine(40, "#2E6AA3", "Mín Ideal"),
-                createLine(70, "#2E6AA3", "Máx Ideal")
-            ]
-        },
-        options: {
-            scales: {
-                y: {
-                    min: 0,
-                    max: 100,
-                    ticks: {
-                        stepSize: 10
-                    }
+                if (!resposta.ok) {
+                    throw new Error("Erro na API");
                 }
+
+                return resposta.json();
+
+            })
+            .then(function (dados) {
+
+                temperaturaMediaHT.innerHTML = `${dados[0].temperatura_media} °C`;
+
+            })
+            .catch(function (erro) {
+
+                console.log("Erro:", erro);
+
+            });
+
+        fetch(`/indexDash/umidadeMedia/${sessionStorage.ID_USUARIO}`)
+            .then(function (resposta) {
+
+                if (!resposta.ok) {
+                    throw new Error("Erro na API");
+                }
+
+                return resposta.json();
+
+            })
+            .then(function (dados) {
+
+                umidadeMediaHT.innerHTML = `${dados[0].umidade_media}%`;
+
+            })
+            .catch(function (erro) {
+
+                console.log("Erro:", erro);
+
+            });
+
+        fetch(`/indexDash/pontoOrvalho/${sessionStorage.ID_USUARIO}`)
+            .then(resposta => resposta.json())
+            .then(dados => {
+                let valor = dados[0].ponto_orvalho;
+                let elementoValor = document.getElementById("pontoOrvalhoHT");
+                let spanStatus = document.getElementById("statusOrvalho");
+                let iconContainer = document.querySelector(".icon-container.icon-yellow");
+
+                elementoValor.innerHTML = `${valor}°C`;
+
+                iconContainer.className = "icon-container";
+
+                if (valor <= 4) {
+                    elementoValor.className = "main-info main-info-red";
+                    iconContainer.classList.add("icon-red");
+                    spanStatus.innerHTML = "CRÍTICO";
+                    spanStatus.style.color = "#D24848";
+                } else if (valor <= 7) {
+                    elementoValor.className = "main-info main-info-yellow";
+                    iconContainer.classList.add("icon-yellow");
+                    spanStatus.innerHTML = "ATENÇÃO";
+                    spanStatus.style.color = "rgb(255, 191, 0)";
+                } else {
+                    elementoValor.className = "main-info main-info-green";
+                    iconContainer.classList.add("icon-green");
+                    spanStatus.innerHTML = "OK";
+                    spanStatus.style.color = "#348A6F";
+                }
+            })
+            .catch(erro => console.log("Erro no Orvalho:", erro));
+
+        fetch(`/indexDash/alertas/${sessionStorage.ID_USUARIO}`)
+            .then(function (resposta) {
+
+                if (!resposta.ok) {
+                    throw new Error("Erro na API");
+                }
+
+                return resposta.json();
+
+            })
+            .then(function (dados) {
+
+                console.log("ALERTAS:", dados);
+
+                let total = dados[0].total_alertas;
+                let criticos = dados[0].total_criticos;
+                let atencao = dados[0].total_atencao;
+
+                alertasHojeHT.innerHTML = total;
+                legendasAlertasHT.innerHTML = `${criticos} Críticos / ${atencao} Atenção`;
+            })
+            .catch(function (erro) {
+
+                console.log("Erro:", erro);
+
+            });
+
+        fetch(`/indexDash/ultimosAlertas/${sessionStorage.ID_USUARIO}`)
+            .then(resposta => resposta.json())
+            .then(listaAlertas => {
+                console.log(listaAlertas)
+                containerAlertas.innerHTML = "";
+
+                for (let i = 0; i < listaAlertas.length; i++) {
+                    let alerta = listaAlertas[i];
+
+                    let statusClass = alerta.status_atual === 'CRÍTICO' ? 'alert-status-red' : 'alert-status-yellow';
+
+                    containerAlertas.innerHTML += `
+                    <div class="alert">
+                        <div class="circle"></div>
+                        <div class="alert-title">${alerta.quadroNome}</div>
+                        <div class="alert-info">
+                            <h2>${alerta.hora}</h2>
+                            <h2>Umidade ${alerta.umidade}%</h2>
+                            <h2>Temp ${alerta.temperatura}°C</h2>
+                        </div>
+                        <div class="alert-status ${statusClass}">
+                            <h1>${alerta.status_atual}</h1>
+                        </div>
+                    </div>
+                `;
+                }
+            });
+
+
+        let ctx = document.getElementById('chart').getContext('2d');
+
+        let graf = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [
+                    {
+                        label: 'Dados',
+                        data: [],
+                        borderColor: "#348A6F",
+                        fill: true
+                    },
+                    {
+                        label: 'Mín Ideal',
+                        data: [],
+                        borderDash: [6, 6]
+                    },
+                    {
+                        label: 'Máx Ideal',
+                        data: [],
+                        borderDash: [6, 6]
+                    }
+                ]
             }
+        });
+
+        let tipoAtual = 'temperature';
+
+        function carregarTemperatura() {
+            fetch(`/indexDash/graficoTemp/${sessionStorage.ID_USUARIO}`)
+                .then(function (resposta) {
+                    if (!resposta.ok) throw new Error("Erro na API");
+                    return resposta.json();
+                })
+                .then(function (dados) {
+
+                    if (!dados.length) return;
+
+                    let novoRegistro = dados[dados.length - 1];
+                    let novaTemperatura = novoRegistro.temperatura_media;
+                    let novaHora = `${novoRegistro.hora}:00`;
+
+                    graf.data.labels.push(novaHora);
+                    graf.data.datasets[0].data.push(novaTemperatura);
+
+                    if (graf.data.labels.length > 10) {
+                        graf.data.labels.shift();
+                        graf.data.datasets[0].data.shift();
+                    }
+
+                    let tamanhoAtual = graf.data.labels.length;
+                    graf.data.datasets[1].data = Array(tamanhoAtual).fill(16);
+                    graf.data.datasets[2].data = Array(tamanhoAtual).fill(20);
+
+                    graf.update();
+                })
+                .catch(function (erro) {
+                    console.log("Erro:", erro);
+                });
         }
-    });
 
-    function change(tipo) {
+        function carregarUmidade() {
+            fetch(`/indexDash/graficoUmidade/${sessionStorage.ID_USUARIO}`)
+                .then(function (resposta) {
+                    if (!resposta.ok) throw new Error("Erro na API");
+                    return resposta.json();
+                })
+                .then(function (dados) {
 
-        if (tipo == "humidity") {
-            graf.data.datasets = [
-                humidity,
-                createLine(40, "#2E6AA3", "Mín Ideal"),
-                createLine(70, "#2E6AA3", "Máx Ideal")
-            ];
+                    if (!dados.length) return;
 
-            graf.options.scales.y.max = 100;
+                    let novoRegistro = dados[dados.length - 1];
+                    let valor = novoRegistro.umidade_media;
+                    let hora = `${novoRegistro.hora}:00`;
+
+                    graf.data.labels.push(hora);
+                    graf.data.datasets[0].data.push(valor);
+
+                    if (graf.data.labels.length > 10) {
+                        graf.data.labels.shift();
+                        graf.data.datasets[0].data.shift();
+                    }
+
+                    let tamanhoAtual = graf.data.labels.length;
+                    graf.data.datasets[1].data = Array(tamanhoAtual).fill(40);
+                    graf.data.datasets[2].data = Array(tamanhoAtual).fill(70);
+
+                    graf.update();
+                })
+                .catch(function (erro) {
+                    console.log("Erro:", erro);
+                });
         }
 
-        if (tipo == "temperature") {
-            graf.data.datasets = [
-                temperature,
-                createLine(16, "#348A6F", "Mín Ideal"),
-                createLine(20, "#348A6F", "Máx Ideal")
-            ];
+        setInterval(() => {
 
-            graf.options.scales.y.max = 30;
-        }
+            if (tipoAtual === 'temperature') {
+                carregarTemperatura();
+            } else {
+                carregarUmidade();
+            }
 
-        graf.update();
+        }, 3000);
+
+
+        window.change = function (tipo) {
+
+            tipoAtual = tipo;
+
+            graf.data.labels = [];
+            graf.data.datasets[0].data = [];
+
+            if (tipo === "humidity") {
+
+                graf.data.datasets[0].label = 'Umidade';
+                graf.data.datasets[0].borderColor = "#2E6AA3";
+
+                graf.options.scales.y.max = 100;
+                graf.options.scales.y.min = 0;
+
+
+                carregarUmidade();
+
+            } else {
+
+                graf.data.datasets[0].label = 'Temperatura';
+                graf.data.datasets[0].borderColor = "#348A6F";
+
+                graf.options.scales.y.max = 50;
+                graf.options.scales.y.min = 0;
+
+                carregarTemperatura();
+            }
+
+            graf.update();
+        };
+
+        change('temperature');
     }
+
+
 
 </script>
 

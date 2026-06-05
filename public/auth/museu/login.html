@@ -11,98 +11,109 @@
 <body>
     <div class="container">
         <div class="content">
-           <a href="../../index.html"><img src="../../img/seta.png" class="seta"></a>
+            <a href="../../index.html"><img src="../../img/seta.png" class="seta"></a>
             <div class="logo">
                 <img src="../../img/logo.png" alt="Logo Thermus">
                 <img src="../../img/THERMUS.png">
             </div>
-            <div class="campos" >
+            <div class="campos">
                 <input type="text" class="campo" placeholder="Email" id="InEmail">
                 <p style="display: none; color: red;" id="emailIn">Email Inválido</p>
                 <input type="password" class="campo" placeholder="Senha" id="InSenha">
                 <p style="display: none; color: red;" id="senhaIn">Senha Inválida</p>
                 <button class="botao" onclick="validar()">Entrar</button>
-                <p class="mensagem">Ainda não possui uma conta?  <a href="cadastroMuseu.html">Cadastre-se</a></p>
-                <div id="div_mensagem" class="aviso"></div> 
+                <p class="mensagem">Ainda não possui uma conta? <a href="cadastroMuseu.html">Cadastre-se</a></p>
+                <div id="div_mensagem" class="aviso"></div>
             </div>
-                
-    </div>
+
+        </div>
 </body>
 
 </html>
 <script>
-async function login(){
-    let email = InEmail.value
-    let senha = InSenha.value
+    async function login() {
+        let email = InEmail.value
+        let senha = InSenha.value
 
 
-    fetch("/usuarios/autenticar",{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
             },
-            body:JSON.stringify({
-                emailServer:email,
-                senhaServer:senha
+            body: JSON.stringify({
+                emailServer: email,
+                senhaServer: senha
             })
-        }).then(function(resposta) {
-            console.log("Estou no then do entrar")
-            if (resposta.ok) {
-                resposta.json().then(json => {
-                    sessionStorage.EMAIL_USUARIO = json.email
-                    sessionStorage.NOME_USUARIO = json.nome 
-                    sessionStorage.ID_USUARIO = json.id
-                    window.location = "../../dashboard/index.html"
-                })
-            }
-        }).catch(function(resposta){
-            console.log("ERRO: ",resposta)
-        }) 
- 
-}
+        })
+            .then(function (resposta) {
 
-function validar() {
-    let email = InEmail.value;
-    let senha = InSenha.value;
+                if (resposta.ok) {
 
-    let posArroba = email.indexOf('@');
-    let posCom = email.indexOf('.com');
+                    resposta.json().then(json => {
 
-     if (email == '') {
-        InEmail.style.border = "solid red 3px";
-        InEmail.style.color = "color: rgba(255, 0, 0, 0.389)";
-        emailIn.style.display = "block"
-        return;
-    }else{
-        InSenha.style.border = "none"
-        senhaIn.style.display = "none"
-    }if(
-        posArroba <= 0 || 
-        posCom <= posArroba + 1 || 
-        posCom != email.length - 4
-    ) {
-        InEmail.style.border = "solid red 3px";
-        InEmail.style.color = "color: rgba(255, 0, 0, 0.389)";
-        emailIn.style.display = "block"
-        return;
-    }else{
-        InEmail.style.border = "none";
-        emailIn.style.display = "none";
+                        sessionStorage.EMAIL_USUARIO = json.email;
+                        sessionStorage.NOME_USUARIO = json.museuNome;
+                        sessionStorage.ID_USUARIO = json.id;
 
-    }if(senha == '') {
-        InSenha.style.border = "solid red 3px";
-        InSenha.style.color = "color: rgba(255, 0, 0, 0.389)";
-        senhaIn.style.display = "none";
-        return;
-        
-    }else{
-        InSenha.style.border = "none";
-        senhaIn.style.display = "none";
+                        window.location = "../../dashboard/index.html";
+                    });
+
+                } else {
+
+                    div_mensagem.innerHTML = "Email ou senha inválidos";
+
+                }
+
+            })
+            .catch(function (erro) {
+                console.log("ERRO:", erro);
+                div_mensagem.innerHTML = "Erro ao conectar com o servidor";
+            });
+
     }
 
-    div_mensagem.innerHTML = 'Login válido';
-    login()
+    function validar() {
+        let email = InEmail.value;
+        let senha = InSenha.value;
 
-    
-}
+        let posArroba = email.indexOf('@');
+        let posCom = email.indexOf('.com');
+
+        if (email == '') {
+            InEmail.style.border = "solid red 3px";
+            InEmail.style.color = "color: rgba(255, 0, 0, 0.389)";
+            emailIn.style.display = "block"
+            return;
+        } else {
+            InSenha.style.border = "none"
+            senhaIn.style.display = "none"
+        } if (
+            posArroba <= 0 ||
+            posCom <= posArroba + 1 ||
+            posCom != email.length - 4
+        ) {
+            InEmail.style.border = "solid red 3px";
+            InEmail.style.color = "color: rgba(255, 0, 0, 0.389)";
+            emailIn.style.display = "block"
+            return;
+        } else {
+            InEmail.style.border = "none";
+            emailIn.style.display = "none";
+
+        } if (senha == '') {
+            InSenha.style.border = "solid red 3px";
+            InSenha.style.color = "color: rgba(255, 0, 0, 0.389)";
+            senhaIn.style.display = "none";
+            return;
+
+        } else {
+            InSenha.style.border = "none";
+            senhaIn.style.display = "none";
+        }
+
+        login()
+
+
+    }
 </script>
