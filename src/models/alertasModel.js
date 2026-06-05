@@ -47,6 +47,7 @@ function buscarAlertasAtuais(id){
     DATE_FORMAT(dataHora, '%d/%m %H:%i') AS dataHora,
     quadroNome,
     temperatura,
+    umidade,
     pontoOrvalho,
     diferenca,
     status_atual

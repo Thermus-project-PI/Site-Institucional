@@ -132,83 +132,6 @@
   </body>
 </html>
 <script>
-    const alertas = [
-  {
-    dataHora: "02/04 10:00",
-    sensor: "O Grito",
-    temperatura: 23,
-    umidade: 95,
-    deltaTemp: 22,
-    deltaUmidade: 1,
-    status: "Crítico"
-  },
-  {
-    dataHora: "02/04 12:00",
-    sensor: "Monalisa",
-    temperatura: 25,
-    umidade: 97,
-    deltaTemp: 24.4,
-    deltaUmidade: 0.6,
-    status: "Crítico"
-  },
-  {
-    dataHora: "02/04 12:00",
-    sensor: "Noite Estrelada",
-    temperatura: 27,
-    umidade: 78,
-    deltaTemp: 22.6,
-    deltaUmidade: 4.4,
-    status: "Atenção"
-  },
-  {
-    dataHora: "02/04 12:00",
-    sensor: "O Grito",
-    temperatura: 26,
-    umidade: 96,
-    deltaTemp: 25.2,
-    deltaUmidade: 0.8,
-    status: "Crítico"
-  },
-  {
-    dataHora: "02/04 14:00",
-    sensor: "Monalisa",
-    temperatura: 24,
-    umidade: 94,
-    deltaTemp: 22.8,
-    deltaUmidade: 1.2,
-    status: "Crítico"
-  },
-  {
-    dataHora: "02/04 14:00",
-    sensor: "O Grito",
-    temperatura: 25,
-    umidade: 75,
-    deltaTemp: 20,
-    deltaUmidade: 5,
-    status: "Atenção"
-  },
-  {
-    dataHora: "02/04 16:00",
-    sensor: "O Grito",
-    temperatura: 27,
-    umidade: 76,
-    deltaTemp: 22.2,
-    deltaUmidade: 4.8,
-    status: "Atenção"
-  },
-  {
-    dataHora: "01/04 10:00",
-    sensor: "O Grito",
-    temperatura: 24,
-    umidade: 83,
-    deltaTemp: 20.6,
-    deltaUmidade: 3.4,
-    status: "Atenção"
-  }
-];
-
-    let alertasContainer = document.getElementById("tabelaAlertas");
-
     fetch(`/alertas/buscarTotalAlertas/${sessionStorage.ID_USUARIO}`)
     .then(function (resposta){
         return resposta.json()
@@ -235,84 +158,47 @@
 
         kpi_critico.innerHTML = dados[0].alertas_criticos;
     })
+    
+    let alertasContainer = document.getElementById("tabelaAlertas");
+    let dadosDoBanco = [];
 
-    montar("todos");
+    fetch(`/alertas/buscarAlertasAtuais/${sessionStorage.ID_USUARIO}`)
+    .then(function (resposta){
+      return resposta.json();
+    }).then(function(dados){
+      dadosDoBanco = dados;
+      montar("todos");
+    });
+
     function montar(type) {
-      let alertasContainerLinhas = document.querySelectorAll(
-        "#tabelaAlertas #linha",
-      );
-      alertasContainerLinhas.forEach((tr) => tr.remove());
-      if (type == "todos") {
-        alertas.forEach((alerta) => {
-          let tr = "";
-          let classTd;
+      document.querySelectorAll("#tabelaAlertas #linha")
+      .forEach(tr => tr.remove());
 
-          if (alerta.status == "Crítico") {
-            classTd = "td-red";
-          } else if (alerta.status == "Atenção") {
-            classTd = "td-yellow";
-          }
+      let lista = dadosDoBanco;
 
-          tr = `
-            <tr id='linha'>
-                <td>${alerta.dataHora}</td>
-                <td>${alerta.sensor}</td>
-                <td>${alerta.temperatura}</td>
-                <td>${alerta.umidade}</td>
-                <td>${alerta.deltaTemp}</td>
-                <td>${alerta.deltaUmidade}</td>
-                <td class="${classTd}"><span>${alerta.status}</span></td>
-            </tr>
-            `;
-
-          alertasContainer.innerHTML += tr;
-        })
-      } else if (type == "atencao") {
-        alertas.forEach((alerta) => {
-          if (alerta.status != "Atenção") {
-            return;
-          }
-          let tr = "";
-
-          let classTd = "td-yellow";
-
-          tr = `
-            <tr id="linha">
-                <td>${alerta.dataHora}</td>
-                <td>${alerta.sensor}</td>
-                <td>${alerta.temperatura}</td>
-                <td>${alerta.umidade}</td>
-                <td>${alerta.deltaTemp}</td>
-                <td>${alerta.deltaUmidade}</td>
-                <td class="${classTd}"><span>${alerta.status}</span></td>
-            </tr>
-            `;
-
-          alertasContainer.innerHTML += tr;
-        });
-      } else if (type == "critico") {
-        alertas.forEach((alerta) => {
-          if (alerta.status != "Crítico") {
-            return;
-          }
-          let tr = "";
-
-          let classTd = "td-red";
-
-          tr = `
-            <tr id="linha">
-                <td>${alerta.dataHora}</td>
-                <td>${alerta.sensor}</td>
-                <td>${alerta.temperatura}</td>
-                <td>${alerta.umidade}</td>
-                <td>${alerta.deltaTemp}</td>
-                <td>${alerta.deltaUmidade}</td>
-                <td class="${classTd}"><span>${alerta.status}</span></td>
-            </tr>
-            `;
-
-          alertasContainer.innerHTML += tr;
-        });
+      if(type == "atencao"){
+        lista = dadosDoBanco.filter(a => a.status_atual == "atencao");
       }
+      else if(type == "critico"){
+        lista = dadosDoBanco.filter(a => status_atual == "critico");
+      }
+
+      lista.forEach(function (alerta){
+        let classTd = alerta.status_atual == "critico" ? "td-red" : "td-yellow";
+        let statusLabel = alerta.status_atual == "critico" ? "Crítico" : "Atenção";
+
+        let tr = `
+            <tr id="linha">
+                <td>${alerta.dataHora}</td>
+                <td>${alerta.quadroNome}</td>
+                <td>${alerta.temperatura}</td>
+                <td>${alerta.umidade}</td>
+                <td>${alerta.pontoOrvalho}</td>
+                <td>${alerta.diferenca}</td>
+                <td class="${classTd}"><span>${statusLabel}</span></td>
+            </tr>
+        `;
+        alertasContainer.innerHTML += tr;
+      })
     }
 </script>

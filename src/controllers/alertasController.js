@@ -87,7 +87,7 @@ function buscarAlertasAtuais(req, res){
     }
     else{
 
-        alertasModel.buscarAlertasCriticos(id)
+        alertasModel.buscarAlertasAtuais(id)
             .then(function(resultado){
 
                 res.json(resultado);
