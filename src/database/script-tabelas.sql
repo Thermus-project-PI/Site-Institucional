@@ -253,7 +253,7 @@ join sensor s on s.id = l.fk_sensor
 order by l.datahora;
                               /*VIEW ALERTAS*/
                                                  
-                                                 -- lista completa de alertas
+ -- lista completa de alertas
 
 create view lista_alertas_vw as
 select a.id, a.criadoem, s.quadronome, l.temperatura, l.umidade, l.pontoorvalho,
