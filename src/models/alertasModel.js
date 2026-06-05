@@ -61,9 +61,29 @@ function buscarAlertasAtuais(id){
     return database.executar(instrucaoSql);
 };
 
+function buscarAlertasPorData(id, data){
+    var instrucaoSql = `
+    SELECT 
+        DATE_FORMAT(dataHora, '%d/%m %H:%i') AS dataHora,
+        quadroNome,
+        temperatura,
+        umidade,
+        pontoOrvalho,
+        diferenca,
+        status_atual
+    FROM status_leituras_vw
+    WHERE DATE(dataHora) = '${data}'
+    AND status_atual != 'ok'
+    AND id = ${id}
+    ORDER BY dataHora DESC;
+    `;
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     buscarTotalAlertas,
     buscarAlertasAtencao,
     buscarAlertasCriticos,
-    buscarAlertasAtuais
+    buscarAlertasAtuais,
+    buscarAlertasPorData
 }

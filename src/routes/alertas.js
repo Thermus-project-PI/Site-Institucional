@@ -19,4 +19,8 @@ router.get("/buscarAlertasAtuais/:id", function(req, res){
     alertasController.buscarAlertasAtuais(req, res);
 });
 
+router.get("/buscarAlertasPorData/:id/:data", function(req, res){
+    alertasController.buscarAlertasPorData(req, res);
+});
+
 module.exports = router;

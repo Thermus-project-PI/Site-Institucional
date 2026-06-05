@@ -104,11 +104,9 @@
               </div>
             </div>
             <div class="pesquisa">
-                <input type="text" placeholder=" Informe a data" />
-                <button onclick="buscar()">
-                  Buscar
-                </button>
-              </div>
+              <input type="date" id="ipt_busca" />
+              <button onclick="buscar()">Buscar</button>
+            </div>
           </div>
           <div class="bottomAlertas">
             <table class="alertas" id="tabelaAlertas">
@@ -132,62 +130,88 @@
   </body>
 </html>
 <script>
-    fetch(`/alertas/buscarTotalAlertas/${sessionStorage.ID_USUARIO}`)
-    .then(function (resposta){
-        return resposta.json()
-    }).then(function (dados){
-        console.log(dados);
-
-        kpi_total_registros.innerHTML = dados[0].total_alertas;
-    });
-
-    fetch(`/alertas/buscarAlertasAtencao/${sessionStorage.ID_USUARIO}`)
-    .then(function (resposta){
-        return resposta.json()
-    }).then(function (dados){
-        console.log(dados);
-
-        kpi_atencao.innerHTML = dados[0].alertas_atencao;
-    });
-
-    fetch(`/alertas/buscarAlertasCriticos/${sessionStorage.ID_USUARIO}`)
-    .then(function (resposta){
-        return resposta.json()
-    }).then(function (dados){
-        console.log(dados);
-
-        kpi_critico.innerHTML = dados[0].alertas_criticos;
-    })
-    
-    let alertasContainer = document.getElementById("tabelaAlertas");
-    let dadosDoBanco = [];
-
-    fetch(`/alertas/buscarAlertasAtuais/${sessionStorage.ID_USUARIO}`)
-    .then(function (resposta){
+  fetch(`/alertas/buscarTotalAlertas/${sessionStorage.ID_USUARIO}`)
+    .then(function (resposta) {
       return resposta.json();
-    }).then(function(dados){
+    })
+    .then(function (dados) {
+      console.log(dados);
+
+      kpi_total_registros.innerHTML = dados[0].total_alertas;
+    });
+
+  fetch(`/alertas/buscarAlertasAtencao/${sessionStorage.ID_USUARIO}`)
+    .then(function (resposta) {
+      return resposta.json();
+    })
+    .then(function (dados) {
+      console.log(dados);
+
+      kpi_atencao.innerHTML = dados[0].alertas_atencao;
+    });
+
+  fetch(`/alertas/buscarAlertasCriticos/${sessionStorage.ID_USUARIO}`)
+    .then(function (resposta) {
+      return resposta.json();
+    })
+    .then(function (dados) {
+      console.log(dados);
+
+      kpi_critico.innerHTML = dados[0].alertas_criticos;
+    });
+
+  let alertasContainer = document.getElementById("tabelaAlertas");
+  let dadosDoBanco = [];
+
+  fetch(`/alertas/buscarAlertasAtuais/${sessionStorage.ID_USUARIO}`)
+    .then(function (resposta) {
+      return resposta.json();
+    })
+    .then(function (dados) {
       dadosDoBanco = dados;
       montar("todos");
     });
 
-    function montar(type) {
-      document.querySelectorAll("#tabelaAlertas #linha")
-      .forEach(tr => tr.remove());
+  function buscar() {
+    console.log("chamou a função buscar");
+    let dataDigitada = document.getElementById("ipt_busca").value;
 
-      let lista = dadosDoBanco;
+    if (dataDigitada == "") {
+      alert("Digite uma data!");
+      return;
+    }
 
-      if(type == "atencao"){
-        lista = dadosDoBanco.filter(a => a.status_atual == "atencao");
-      }
-      else if(type == "critico"){
-        lista = dadosDoBanco.filter(a => status_atual == "critico");
-      }
+    fetch(
+      `/alertas/buscarAlertasPorData/${sessionStorage.ID_USUARIO}/${dataDigitada}`,
+    )
+      .then(function (resposta) {
+        return resposta.json();
+      })
+      .then(function (dados) {
+        dadosDoBanco = dados;
+        montar("todos");
+      });
+  }
 
-      lista.forEach(function (alerta){
-        let classTd = alerta.status_atual == "critico" ? "td-red" : "td-yellow";
-        let statusLabel = alerta.status_atual == "critico" ? "Crítico" : "Atenção";
+  function montar(type) {
+    document
+      .querySelectorAll("#tabelaAlertas #linha")
+      .forEach((tr) => tr.remove());
 
-        let tr = `
+    let lista = dadosDoBanco;
+
+    if (type == "atencao") {
+      lista = dadosDoBanco.filter((a) => a.status_atual == "atencao");
+    } else if (type == "critico") {
+      lista = dadosDoBanco.filter((a) => a.status_atual == "critico");
+    }
+
+    lista.forEach(function (alerta) {
+      let classTd = alerta.status_atual == "critico" ? "td-red" : "td-yellow";
+      let statusLabel =
+        alerta.status_atual == "critico" ? "Crítico" : "Atenção";
+
+      let tr = `
             <tr id="linha">
                 <td>${alerta.dataHora}</td>
                 <td>${alerta.quadroNome}</td>
@@ -198,7 +222,7 @@
                 <td class="${classTd}"><span>${statusLabel}</span></td>
             </tr>
         `;
-        alertasContainer.innerHTML += tr;
-      })
-    }
+      alertasContainer.innerHTML += tr;
+    });
+  }
 </script>

@@ -104,9 +104,27 @@ function buscarAlertasAtuais(req, res){
     }
 }
 
+function buscarAlertasPorData(req, res){
+    var id = req.params.id;
+    var data = req.params.data;  // vem da URL
+
+    if(id == undefined || data == undefined){
+        res.status(400).send("Parâmetros inválidos!");
+    } else {
+        alertasModel.buscarAlertasPorData(id, data)
+            .then(function(resultado){
+                res.json(resultado);
+            }).catch(function(erro){
+                console.log(erro);
+                res.status(500).json(erro.sqlMessage);
+            })
+    }
+}
+
 module.exports = {
     buscarTotalAlertas,
     buscarAlertasAtencao,
     buscarAlertasCriticos,
-    buscarAlertasAtuais
+    buscarAlertasAtuais,
+    buscarAlertasPorData
 }
