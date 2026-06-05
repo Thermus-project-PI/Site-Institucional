@@ -21,6 +21,11 @@ var indexDashRouter = require("./src/routes/indexDash");
 var cadastroUserRouter = require("./src/routes/cadastroUser");
 
 
+var avisosRouter = require("./src/routes/avisos");
+var medidasRouter = require("./src/routes/medidas");
+var empresasRouter = require("./src/routes/empresas");
+var relatorioRouter = require("./src/routes/relatorio");
+var alertasRouter = require("./src/routes/alertas");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -33,6 +38,11 @@ app.use("/usuarios", usuarioRouter);
 app.use("/indexDash", indexDashRouter);
 app.use("/cadastroUser", cadastroUserRouter);
 
+app.use("/avisos", avisosRouter);
+app.use("/medidas", medidasRouter);
+app.use("/empresas", empresasRouter);
+app.use("/relatorio", relatorioRouter);
+app.use("/alertas", alertasRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`

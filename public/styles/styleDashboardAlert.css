@@ -83,6 +83,7 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
+    flex-direction: row;
     gap: 10px; 
 }
 
@@ -140,6 +141,10 @@
     border: solid 1px #53005B;
 }
 
+.pesquisa{
+    display: flex;
+    gap: 10px;
+}
 .pesquisa input{ 
     
     height: 2.9vh;
@@ -155,6 +160,29 @@
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.3); 
 
 } 
+
+.pesquisa button{
+    border: none;
+    height: 3vh;
+    padding: 10px;
+    text-align: center;
+    background-color: #21516C;
+    color: #F4F6F8;
+    font-weight: 500;
+    border-radius: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+}
+
+.pesquisa button:hover{
+    background-color: #173a4d;
+}
+
 
 .alertas{
     width: 100%;
