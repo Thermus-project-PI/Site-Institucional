@@ -23,12 +23,12 @@ router.get("/graficoTemp/:idUsuario", function (req, res) {
   indexDashController.buscarGraficoTemp(req, res);
 });
 
-router.get("/graficoumidade/:idUsuario", function (req, res) {
+router.get("/graficoUmidade/:idUsuario", function (req, res) {
   indexDashController.buscarGraficoUmidade(req, res);
 });
 
 router.get("/ultimosAlertas/:idUsuario", function (req, res) {
-  indexDashController.buscarGraficoUmidade(req, res);
+  indexDashController.buscarUltimosAlertas(req, res);
 });
 
 

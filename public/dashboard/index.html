@@ -73,7 +73,7 @@
                             <h1 id="umidadeMediaHT"></h1>
                         </div>
                         <div class="sub-info">
-                            <h2 id="data_atual_umid">Hoje - 04/05/2026</h2>
+                            <h2 id="data_atual_umid"></h2>
                             <h2>todos os sensores</h2>
                         </div>
                     </div>
@@ -104,7 +104,7 @@
                         </div>
                         <div class="sub-info point-risc">
                             <h2>Risco de orvalho atual: </h2>
-                            <span>OK</span>
+                            <span id="statusOrvalho"></span>
                         </div>
                     </div>
                 </div>
@@ -128,54 +128,11 @@
                     <div class="last-alerts-title">
                         <h1>Últimos alertas do dia</h1>
                     </div>
-                    <div class="alerts">
-                        <div class="alert">
-                            <div class="circle"></div>
-                            <div class="alert-title">Noite Estrelada</div>
-                            <div class="alert-info">
-                                <h2>9:12</h2>
-                                <h2>Umidade 1,6%</h2>
-                                <h2>Temp 20°C</h2>
-                            </div>
-                            <div class="alert-status alert-status-red">
-                                <h1>CRÍTICO</h1>
-                            </div>
+                    <div class="last-alerts">
+                        <div class="last-alerts-title">
+                            <h1>Últimos alertas do dia</h1>
                         </div>
-                        <div class="alert">
-                            <div class="circle"></div>
-                            <div class="alert-title">Noite Estrelada</div>
-                            <div class="alert-info">
-                                <h2>9:12</h2>
-                                <h2>Umidade 1,6%</h2>
-                                <h2>Temp 20°C</h2>
-                            </div>
-                            <div class="alert-status alert-status-red">
-                                <h1>CRÍTICO</h1>
-                            </div>
-                        </div>
-                        <div class="alert">
-                            <div class="circle"></div>
-                            <div class="alert-title">Noite Estrelada</div>
-                            <div class="alert-info">
-                                <h2>9:12</h2>
-                                <h2>Umidade 1,6%</h2>
-                                <h2>Temp 20°C</h2>
-                            </div>
-                            <div class="alert-status alert-status-yellow">
-                                <h1>ATENÇÃO</h1>
-                            </div>
-                        </div>
-                        <div class="alert">
-                            <div class="circle"></div>
-                            <div class="alert-title">Noite Estrelada</div>
-                            <div class="alert-info">
-                                <h2>9:12</h2>
-                                <h2>Umidade 1,6%</h2>
-                                <h2>Temp 20°C</h2>
-                            </div>
-                            <div class="alert-status alert-status-yellow">
-                                <h1>ATENÇÃO</h1>
-                            </div>
+                        <div class="alerts" id="containerAlertas">
                         </div>
                     </div>
                 </div>
@@ -239,25 +196,35 @@
             });
 
         fetch(`/indexDash/pontoOrvalho/${sessionStorage.ID_USUARIO}`)
-            .then(function (resposta) {
+            .then(resposta => resposta.json())
+            .then(dados => {
+                let valor = dados[0].ponto_orvalho;
+                let elementoValor = document.getElementById("pontoOrvalhoHT");
+                let spanStatus = document.getElementById("statusOrvalho");
+                let iconContainer = document.querySelector(".icon-container.icon-yellow");
 
-                if (!resposta.ok) {
-                    throw new Error("Erro na API");
+                elementoValor.innerHTML = `${valor}°C`;
+
+                iconContainer.className = "icon-container";
+
+                if (valor <= 4) {
+                    elementoValor.className = "main-info main-info-red";
+                    iconContainer.classList.add("icon-red");
+                    spanStatus.innerHTML = "CRÍTICO";
+                    spanStatus.style.color = "#D24848";
+                } else if (valor <= 7) {
+                    elementoValor.className = "main-info main-info-yellow";
+                    iconContainer.classList.add("icon-yellow");
+                    spanStatus.innerHTML = "ATENÇÃO";
+                    spanStatus.style.color = "rgb(255, 191, 0)";
+                } else {
+                    elementoValor.className = "main-info main-info-green";
+                    iconContainer.classList.add("icon-green");
+                    spanStatus.innerHTML = "OK";
+                    spanStatus.style.color = "#348A6F";
                 }
-
-                return resposta.json();
-
             })
-            .then(function (dados) {
-
-                pontoOrvalhoHT.innerHTML = `${dados[0].ponto_orvalho}`;
-
-            })
-            .catch(function (erro) {
-
-                console.log("Erro:", erro);
-
-            });
+            .catch(erro => console.log("Erro no Orvalho:", erro));
 
         fetch(`/indexDash/alertas/${sessionStorage.ID_USUARIO}`)
             .then(function (resposta) {
@@ -271,10 +238,14 @@
             })
             .then(function (dados) {
 
-                alertasHojeHT.innerHTML = dados[0].total_alertas;
+                console.log("ALERTAS:", dados);
 
-                legendasAlertasHT.innerHTML = `${dados[0].pendentes} pendentes`;
+                let total = dados[0].total_alertas;
+                let criticos = dados[0].total_criticos;
+                let atencao = dados[0].total_atencao;
 
+                alertasHojeHT.innerHTML = total;
+                legendasAlertasHT.innerHTML = `${criticos} Críticos / ${atencao} Atenção`;
             })
             .catch(function (erro) {
 
@@ -282,11 +253,38 @@
 
             });
 
+        fetch(`/indexDash/ultimosAlertas/${sessionStorage.ID_USUARIO}`)
+            .then(resposta => resposta.json())
+            .then(listaAlertas => {
+                console.log(listaAlertas)
+                containerAlertas.innerHTML = "";
+
+                for (let i = 0; i < listaAlertas.length; i++) {
+                    let alerta = listaAlertas[i];
+
+                    let statusClass = alerta.status_atual === 'CRÍTICO' ? 'alert-status-red' : 'alert-status-yellow';
+
+                    containerAlertas.innerHTML += `
+                    <div class="alert">
+                        <div class="circle"></div>
+                        <div class="alert-title">${alerta.quadroNome}</div>
+                        <div class="alert-info">
+                            <h2>${alerta.hora}</h2>
+                            <h2>Umidade ${alerta.umidade}%</h2>
+                            <h2>Temp ${alerta.temperatura}°C</h2>
+                        </div>
+                        <div class="alert-status ${statusClass}">
+                            <h1>${alerta.status_atual}</h1>
+                        </div>
+                    </div>
+                `;
+                }
+            });
 
 
-        const ctx = document.getElementById('chart').getContext('2d');
+        let ctx = document.getElementById('chart').getContext('2d');
 
-        const graf = new Chart(ctx, {
+        let graf = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: [],
@@ -323,9 +321,9 @@
 
                     if (!dados.length) return;
 
-                    const novoRegistro = dados[dados.length - 1];
-                    const novaTemperatura = novoRegistro.temperatura_media;
-                    const novaHora = `${novoRegistro.hora}:00`;
+                    let novoRegistro = dados[dados.length - 1];
+                    let novaTemperatura = novoRegistro.temperatura_media;
+                    let novaHora = `${novoRegistro.hora}:00`;
 
                     graf.data.labels.push(novaHora);
                     graf.data.datasets[0].data.push(novaTemperatura);
@@ -335,7 +333,7 @@
                         graf.data.datasets[0].data.shift();
                     }
 
-                    const tamanhoAtual = graf.data.labels.length;
+                    let tamanhoAtual = graf.data.labels.length;
                     graf.data.datasets[1].data = Array(tamanhoAtual).fill(16);
                     graf.data.datasets[2].data = Array(tamanhoAtual).fill(20);
 
@@ -356,9 +354,9 @@
 
                     if (!dados.length) return;
 
-                    const novoRegistro = dados[dados.length - 1];
-                    const valor = novoRegistro.umidade_media;
-                    const hora = `${novoRegistro.hora}:00`;
+                    let novoRegistro = dados[dados.length - 1];
+                    let valor = novoRegistro.umidade_media;
+                    let hora = `${novoRegistro.hora}:00`;
 
                     graf.data.labels.push(hora);
                     graf.data.datasets[0].data.push(valor);
@@ -368,7 +366,7 @@
                         graf.data.datasets[0].data.shift();
                     }
 
-                    const tamanhoAtual = graf.data.labels.length;
+                    let tamanhoAtual = graf.data.labels.length;
                     graf.data.datasets[1].data = Array(tamanhoAtual).fill(40);
                     graf.data.datasets[2].data = Array(tamanhoAtual).fill(70);
 
@@ -389,7 +387,7 @@
 
         }, 3000);
 
-        
+
         window.change = function (tipo) {
 
             tipoAtual = tipo;

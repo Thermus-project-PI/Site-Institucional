@@ -417,4 +417,12 @@ td{
 .alert-status-green{color: #1f8f4c; background-color: #FDE8E8; border: solid 1px #1f8f4c;}
 
 
+.text-ok { color: #2ecc71; }
+.text-atencao { color: #f1c40f; }
+.text-critico { color: #e74c3c; }
+
+.card .icon-ok { background-color: #2ecc71; color: white; }
+.card .main-info-ok { color: #2ecc71; }
+
+
 

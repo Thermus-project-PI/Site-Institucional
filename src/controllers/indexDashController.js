@@ -93,12 +93,16 @@ function buscarUltimosAlertas(req, res) {
 
 
 
+
+
+
 module.exports = {
   buscarTemperaturaMedia,
   buscarUmidadeMedia,
   buscarPontoOrvalho,
   buscarAlertas,
   buscarGraficoTemp,
-  buscarGraficoUmidade
+  buscarGraficoUmidade,
+  buscarUltimosAlertas
   
 };

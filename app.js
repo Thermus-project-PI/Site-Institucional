@@ -17,7 +17,9 @@ var app = express();
 
 
 var usuarioRouter = require("./src/routes/usuarios");
-var indexDashRouter = require("./src/routes/indexDash")
+var indexDashRouter = require("./src/routes/indexDash");
+var cadastroUserRouter = require("./src/routes/cadastroUser");
+
 
 
 app.use(express.json());
@@ -29,6 +31,7 @@ app.use(cors());
 
 app.use("/usuarios", usuarioRouter);
 app.use("/indexDash", indexDashRouter);
+app.use("/cadastroUser", cadastroUserRouter);
 
 
 app.listen(PORTA_APP, function () {
