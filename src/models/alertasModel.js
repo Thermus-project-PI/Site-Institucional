@@ -6,7 +6,7 @@ function buscarTotalAlertas(id){
         SELECT COUNT(*) as total_alertas
         FROM status_leituras_vw 
         WHERE status_atual <> 'ok' 
-        AND id = ${id}
+        AND museuId = ${id}
         AND DATE(dataHora) = curdate();
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -19,7 +19,7 @@ function buscarAlertasAtencao(id){
     SELECT COUNT(*) as alertas_atencao
     FROM status_leituras_vw 
     WHERE status_atual = 'atencao' 
-    AND id = ${id}
+    AND museuId = ${id}
     AND DATE(dataHora) = curdate();
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -32,7 +32,7 @@ function buscarAlertasCriticos(id){
     SELECT COUNT(*) as alertas_criticos
     FROM status_leituras_vw 
     WHERE status_atual = 'critico' 
-    AND id = ${id}
+    AND museuId = ${id}
     AND DATE(dataHora) = curdate();
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -54,8 +54,9 @@ function buscarAlertasAtuais(id){
     FROM status_leituras_vw
     WHERE DATE(dataHora) = CURDATE()
     AND status_atual != 'ok'
-    AND id = ${id}
-    ORDER BY dataHora DESC;
+    AND museuId = ${id}
+    ORDER BY dataHora DESC
+    limit 10;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -74,7 +75,7 @@ function buscarAlertasPorData(id, data){
     FROM status_leituras_vw
     WHERE DATE(dataHora) = '${data}'
     AND status_atual != 'ok'
-    AND id = ${id}
+    AND museuId = ${id}
     ORDER BY dataHora DESC;
     `;
     return database.executar(instrucaoSql);
