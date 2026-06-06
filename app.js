@@ -24,6 +24,7 @@ var cadastroUserRouter = require("./src/routes/cadastroUser");
 var avisosRouter = require("./src/routes/avisos");
 var relatorioRouter = require("./src/routes/relatorio");
 var alertasRouter = require("./src/routes/alertas");
+var obrasRouter = require("./src/routes/obras");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -39,6 +40,7 @@ app.use("/cadastroUser", cadastroUserRouter);
 app.use("/avisos", avisosRouter);
 app.use("/relatorio", relatorioRouter);
 app.use("/alertas", alertasRouter);
+app.use("/obras", obrasRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`
