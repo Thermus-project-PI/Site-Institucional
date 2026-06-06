@@ -9,75 +9,47 @@ function buscarRelatorioSemanal() {
  
 
     var instrucaoSql = ` 
+       SELECT 
+    WEEKDAY(data_agrupamento) AS dia_numero,
 
-        SELECT 
+    CASE WEEKDAY(data_agrupamento)
+        WHEN 0 THEN 'Segunda'
+        WHEN 1 THEN 'Terça'
+        WHEN 2 THEN 'Quarta'
+        WHEN 3 THEN 'Quinta'
+        WHEN 4 THEN 'Sexta'
+        WHEN 5 THEN 'Sábado'
+        WHEN 6 THEN 'Domingo'
+    END AS dia_semana,
 
-    WEEKDAY(l.dataHora) AS dia_numero, 
+    total_alertas,
+    status
 
-    CASE WEEKDAY(l.dataHora) 
+FROM (
+    SELECT 
+        DATE(l.dataHora) AS data_agrupamento,
+        SUM(
+            CASE 
+                WHEN (l.temperatura - l.pontoOrvalho) <= 7 THEN 1 
+                ELSE 0 
+            END
+        ) AS total_alertas,
 
-        WHEN 0 THEN 'Segunda' 
+        CASE 
+            WHEN SUM(CASE WHEN (l.temperatura - l.pontoOrvalho) <= 4 THEN 1 ELSE 0 END) > 0 
+                THEN 'critico'
+            WHEN SUM(CASE WHEN (l.temperatura - l.pontoOrvalho) <= 7 THEN 1 ELSE 0 END) > 0 
+                THEN 'atencao'
+            ELSE 'ok'
+        END AS status
 
-        WHEN 1 THEN 'Terça' 
+    FROM leitura l
+    WHERE l.dataHora >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
 
-        WHEN 2 THEN 'Quarta' 
+    GROUP BY DATE(l.dataHora)
+) AS resultado
 
-        WHEN 3 THEN 'Quinta' 
-
-        WHEN 4 THEN 'Sexta' 
-
-        WHEN 5 THEN 'Sábado' 
-
-        WHEN 6 THEN 'Domingo' 
-
-    END AS dia_semana, 
-
-    COUNT(a.id) AS total_alertas, 
-
-    CASE 
-
-    WHEN SUM(CASE WHEN a.tipoAlerta = 'CRÍTICO' THEN 1 ELSE 0 END) > 0 
-
-        THEN 'crítico' 
-
-    WHEN SUM(CASE WHEN a.tipoAlerta = 'ATENÇÃO' THEN 1 ELSE 0 END) > 0 
-
-        THEN 'atenção' 
-
-    ELSE 'ok' 
-
-END AS status 
-
-FROM leitura l 
-
-LEFT JOIN alerta a 
-
-    ON a.leituraId = l.id 
-
-WHERE l.dataHora >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) 
-
-GROUP BY WEEKDAY(l.dataHora), 
-
-    CASE WEEKDAY(l.dataHora) 
-
-        WHEN 0 THEN 'Segunda' 
-
-        WHEN 1 THEN 'Terça' 
-
-        WHEN 2 THEN 'Quarta' 
-
-        WHEN 3 THEN 'Quinta' 
-
-        WHEN 4 THEN 'Sexta' 
-
-        WHEN 5 THEN 'Sábado' 
-
-        WHEN 6 THEN 'Domingo' 
-
-    END 
-
-ORDER BY dia_numero; 
-
+ORDER BY dia_numero;
     `; 
 
  
@@ -103,16 +75,11 @@ function buscarEstatisticasGerais() {
     var instrucaoSql = ` 
 
             SELECT 
-
-            ROUND(AVG(temperatura),1) AS temp_media, 
-
-            MAX(temperatura) AS temp_maxima, 
-
-            ROUND(AVG(umidade),1) AS umidade_media, 
-
-            ROUND(AVG(pontoOrvalho),1) AS ponto_orvalho_medio 
-
-        FROM leitura; 
+    ROUND(AVG(temperatura),1) AS temp_media,
+    MAX(temperatura) AS temp_maxima,
+    ROUND(AVG(umidade),1) AS umidade_media,
+    ROUND(AVG(pontoOrvalho),1) AS ponto_orvalho_medio
+FROM leitura;
 
     `; 
 
@@ -137,28 +104,20 @@ function buscarSensorMaisAlertas() {
     var instrucaoSql = ` 
 
              
+SELECT 
+    s.quadroNome as quadronome,
+    SUM(
+        CASE 
+            WHEN (l.temperatura - l.pontoOrvalho) <= 7 THEN 1 
+            ELSE 0 
+        END
+    ) AS total_alertas
 
-           SELECT 
-
-    s.quadroNome AS quadronome, 
-
-            COUNT(a.id) AS total_alertas 
-
-        FROM sensor s 
-
-        JOIN leitura l 
-
-            ON l.sensorId = s.id 
-
-        JOIN alerta a 
-
-            ON a.leituraId = l.id 
-
-        GROUP BY s.id 
-
-        ORDER BY total_alertas DESC 
-
-        LIMIT 1; 
+FROM sensor s
+JOIN leitura l ON l.sensorId = s.id
+GROUP BY s.id, s.quadroNome
+ORDER BY total_alertas DESC
+LIMIT 1;
 
     `; 
 
@@ -183,26 +142,20 @@ function buscarOcorrenciasSensor() {
    var instrucaoSql = ` 
 
                 SELECT 
+    s.quadroNome AS quadronome,
 
-    s.quadroNome AS quadronome, 
+    SUM(
+        CASE 
+            WHEN (l.temperatura - l.pontoOrvalho) <= 7 THEN 1 
+            ELSE 0 
+        END
+    ) AS ocorrencias
 
-            COUNT(a.id) AS ocorrencias 
-
-        FROM sensor s 
-
-        JOIN leitura l 
-
-            ON l.sensorId = s.id 
-
-        LEFT JOIN alerta a 
-
-            ON a.leituraId = l.id 
-
-        GROUP BY s.id 
-
-        ORDER BY ocorrencias DESC 
-
-        LIMIT 5; 
+FROM sensor s
+JOIN leitura l ON l.sensorId = s.id
+GROUP BY s.id, s.quadroNome
+ORDER BY ocorrencias DESC
+LIMIT 5; 
 
     `; 
 
@@ -227,34 +180,24 @@ function buscarListaAlertas() {
     var instrucaoSql = ` 
 
                 SELECT 
+    l.id,
+    l.dataHora,
+    s.quadroNome AS quadronome,
+    l.temperatura,
+    l.umidade,
+    l.pontoOrvalho,
 
-            a.id, 
+    (l.temperatura - l.pontoOrvalho) AS diferenca,
 
-            a.criadoEm, 
+    CASE 
+        WHEN (l.temperatura - l.pontoOrvalho) <= 4 THEN 'critico'
+        WHEN (l.temperatura - l.pontoOrvalho) <= 7 THEN 'atencao'
+        ELSE 'ok'
+    END AS status_alerta
 
-            s.quadroNome AS quadronome, 
-
-            l.temperatura, 
-
-            l.umidade, 
-
-            l.pontoOrvalho, 
-
-            (l.temperatura - l.pontoOrvalho) AS diferenca, 
-
-            a.tipoAlerta AS status_alerta 
-
-        FROM alerta a 
-
-        JOIN leitura l 
-
-            ON l.id = a.leituraId 
-
-        JOIN sensor s 
-
-            ON s.id = l.sensorId 
-
-        ORDER BY a.criadoEm DESC; 
+FROM leitura l
+JOIN sensor s ON s.id = l.sensorId
+ORDER BY l.dataHora DESC; 
 
     `; 
 
@@ -278,33 +221,25 @@ function buscarResumoSensores() {
 
     var instrucaoSql = ` 
 
-                SELECT 
+               SELECT 
+    s.id AS sensor_id,
+    s.quadroNome AS quadronome,
 
-            s.id AS sensor_id, 
+    ROUND(AVG(l.temperatura),1) AS temp_media,
+    ROUND(AVG(l.umidade),1) AS umidade_media,
+    ROUND(AVG(l.pontoOrvalho),1) AS ponto_orvalho,
 
-           s.quadroNome AS quadronome, 
+    SUM(
+        CASE 
+            WHEN (l.temperatura - l.pontoOrvalho) <= 7 THEN 1 
+            ELSE 0 
+        END
+    ) AS total_alertas
 
-            ROUND(AVG(l.temperatura),1) AS temp_media, 
-
-            ROUND(AVG(l.umidade),1) AS umidade_media, 
-
-            ROUND(AVG(l.pontoOrvalho),1) AS ponto_orvalho, 
-
-            COUNT(a.id) AS total_alertas 
-
-        FROM sensor s 
-
-        LEFT JOIN leitura l 
-
-            ON l.sensorId = s.id 
-
-        LEFT JOIN alerta a 
-
-            ON a.leituraId = l.id 
-
-        GROUP BY s.id 
-
-        ORDER BY s.quadroNome; 
+FROM sensor s
+LEFT JOIN leitura l ON l.sensorId = s.id
+GROUP BY s.id, s.quadroNome
+ORDER BY s.quadroNome; 
 
     `; 
 
