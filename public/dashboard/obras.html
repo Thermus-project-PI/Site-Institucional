@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../styles/stylesDashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../styles/styleDashboardSensores.css">
+    <link rel="stylesheet" href="../styles/bobIAStyle.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <title>Dashboard - Obras</title>
@@ -86,122 +87,136 @@
 
     </div>
 
-    <script>
-
-        function montar(nomeQuadro) {
-            lista.innerHTML = "";
-
-            fetch("/obras/obterQuadros/" + sessionStorage.ID_USUARIO).then(
-                function (resposta) {
-                    resposta.json().then(function (obras) {
-                        for (let i = 0; i < obras.length; i++) {
-                            if (nomeQuadro == "" || obras[i].quadroNome.toLowerCase().includes(nomeQuadro.toLowerCase())) {
-
-                                fetch("/obras/obterStatusQuadro/" + sessionStorage.ID_USUARIO + "/" + obras[i].quadroNome)
-                                    .then(function (respostaStatus) {
-                                        respostaStatus.json().then(function (statusResposta) {
-                                            let data = new Date(statusResposta[0].dataHora)
-                                            lista.innerHTML +=
-                                                `<div class='cardSensor' onclick='trocar("${obras[i].quadroNome}")'>
-                                                <div class='top-card'>
-                                                    <b>${obras[i].quadroNome}</b>
-                                                    <span class='badge'>${statusResposta[0].status_atual}</span>
-                                                </div>
-                                                <div class='valores'>${statusResposta[0].temperatura}°C | ${statusResposta[0].umidade}%</div>
-                                                <div class='hora'>${data.toLocaleTimeString()}</div>
-                                            </div>`;
-                                            if (i == 0) {
-                                                trocar(`${obras[i].quadroNome}`)
-                                            }
-                                        })
-                                    })
-                            }
-                        }
-                    })
-                }
-            )
-        }
-
-        function trocar(nomeQuadro) {
-
-            fetch("/obras/obterStatusQuadro/" + sessionStorage.ID_USUARIO + "/" + nomeQuadro)
-                .then(function (respostaStatus) {
-                    respostaStatus.json().then(function (statusResposta) {
-                        let data = new Date(statusResposta[0].dataHora)
-                        nome.innerHTML = nomeQuadro
-                        sala.innerHTML = statusResposta[0].localizacao
-                        document.getElementById("status").innerHTML = statusResposta[0].status_atual
-                    })
-                })
-
-            fetch("/obras/obterMediaQuadro/" + sessionStorage.ID_USUARIO + "/" + nomeQuadro)
-                .then(function (resposta) {
-                    resposta.json().then(function (medias) {
-                        temp.innerHTML = medias[0].temperaturaMedia + " °C"
-                        umi.innerHTML = medias[0].umidadeMedia + " %"
-                    })
-                })
-
-            fetch("/obras/obterTotalAlerta/" + sessionStorage.ID_USUARIO + "/" + nomeQuadro)
-                .then(function (resposta) {
-                    resposta.json().then(function (alertas) {
-                        alerta.innerHTML = alertas[0].total_alertas
-                    })
-                })
-
-
-            fetch("/obras/obterGraficosObras/" + sessionStorage.ID_USUARIO + "/" + nomeQuadro)
-                .then(function (resposta) {
-                    resposta.json().then(function (graficos) {
-
-                        let horas = [];
-                        let temperatura = [];
-                        let umidade = [];
-
-                        for (let i = 0; i < graficos.length; i++) {
-                            horas.push(graficos[i].hora);
-                            temperatura.push(graficos[i].temperatura);
-                            umidade.push(graficos[i].umidade);
-                        }
-
-                        grafico.innerHTML = "<canvas></canvas>";
-                        const ctx = grafico.querySelector("canvas");
-
-                        new Chart(ctx, {
-                            type: 'line',
-                            data: {
-                                labels: horas,
-                                datasets: [
-                                    {
-                                        label: 'Temperatura',
-                                        data: temperatura,
-                                        borderColor: "#348A6F",
-                                        backgroundColor: "#348A6F20",
-                                        fill: true
-                                    },
-                                    {
-                                        label: 'Umidade',
-                                        data: umidade,
-                                        borderColor: "#2E6AA3",
-                                        backgroundColor: "#2E6AA320",
-                                        fill: true
-                                    }
-                                ]
-                            }
-                        });
-
-                    });
-                });
-        }
-
-        function filtrarQuadros() {
-            montar(ipt_filtroQuadro.value);
-        }
-
-        montar("");
-
-    </script>
+    <div class="chatClosed" id="bobIA">
+        <h1 id="circleContent">?</h1>
+        <div class="content" id="bobContent">
+            <div class="top">
+                <h1>BOBIA</h1>
+                <img src="../img/close.svg" id="closeBtn">
+            </div>
+            <div class="chat" id="chat">
+            </div>
+            <div class="bottom">
+                <input type="text" id="userContent">
+                <img src="../img/sent.svg" id="send">  
+            </div>
+        </div>
+    </div>
 
 </body>
-
 </html>
+<script src="../scripts/bobIA.js"></script>
+<script>
+    function montar(nomeQuadro) {
+        lista.innerHTML = "";
+
+        fetch("/obras/obterQuadros/" + sessionStorage.ID_USUARIO).then(
+            function (resposta) {
+                resposta.json().then(function (obras) {
+                    for (let i = 0; i < obras.length; i++) {
+                        if (nomeQuadro == "" || obras[i].quadroNome.toLowerCase().includes(nomeQuadro.toLowerCase())) {
+
+                            fetch("/obras/obterStatusQuadro/" + sessionStorage.ID_USUARIO + "/" + obras[i].quadroNome)
+                                .then(function (respostaStatus) {
+                                    respostaStatus.json().then(function (statusResposta) {
+                                        let data = new Date(statusResposta[0].dataHora)
+                                        lista.innerHTML +=
+                                            `<div class='cardSensor' onclick='trocar("${obras[i].quadroNome}")'>
+                                            <div class='top-card'>
+                                                <b>${obras[i].quadroNome}</b>
+                                                <span class='badge'>${statusResposta[0].status_atual}</span>
+                                            </div>
+                                            <div class='valores'>${statusResposta[0].temperatura}°C | ${statusResposta[0].umidade}%</div>
+                                            <div class='hora'>${data.toLocaleTimeString()}</div>
+                                        </div>`;
+                                        if (i == 0) {
+                                            trocar(`${obras[i].quadroNome}`)
+                                        }
+                                    })
+                                })
+                        }
+                    }
+                })
+            }
+        )
+    }
+
+    function trocar(nomeQuadro) {
+
+        fetch("/obras/obterStatusQuadro/" + sessionStorage.ID_USUARIO + "/" + nomeQuadro)
+            .then(function (respostaStatus) {
+                respostaStatus.json().then(function (statusResposta) {
+                    let data = new Date(statusResposta[0].dataHora)
+                    nome.innerHTML = nomeQuadro
+                    sala.innerHTML = statusResposta[0].localizacao
+                    document.getElementById("status").innerHTML = statusResposta[0].status_atual
+                })
+            })
+
+        fetch("/obras/obterMediaQuadro/" + sessionStorage.ID_USUARIO + "/" + nomeQuadro)
+            .then(function (resposta) {
+                resposta.json().then(function (medias) {
+                    temp.innerHTML = medias[0].temperaturaMedia + " °C"
+                    umi.innerHTML = medias[0].umidadeMedia + " %"
+                })
+            })
+
+        fetch("/obras/obterTotalAlerta/" + sessionStorage.ID_USUARIO + "/" + nomeQuadro)
+            .then(function (resposta) {
+                resposta.json().then(function (alertas) {
+                    alerta.innerHTML = alertas[0].total_alertas
+                })
+            })
+
+
+        fetch("/obras/obterGraficosObras/" + sessionStorage.ID_USUARIO + "/" + nomeQuadro)
+            .then(function (resposta) {
+                resposta.json().then(function (graficos) {
+
+                    let horas = [];
+                    let temperatura = [];
+                    let umidade = [];
+
+                    for (let i = 0; i < graficos.length; i++) {
+                        horas.push(graficos[i].hora);
+                        temperatura.push(graficos[i].temperatura);
+                        umidade.push(graficos[i].umidade);
+                    }
+
+                    grafico.innerHTML = "<canvas></canvas>";
+                    const ctx = grafico.querySelector("canvas");
+
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: horas,
+                            datasets: [
+                                {
+                                    label: 'Temperatura',
+                                    data: temperatura,
+                                    borderColor: "#348A6F",
+                                    backgroundColor: "#348A6F20",
+                                    fill: true
+                                },
+                                {
+                                    label: 'Umidade',
+                                    data: umidade,
+                                    borderColor: "#2E6AA3",
+                                    backgroundColor: "#2E6AA320",
+                                    fill: true
+                                }
+                            ]
+                        }
+                    });
+
+                });
+            });
+    }
+
+    function filtrarQuadros() {
+        montar(ipt_filtroQuadro.value);
+    }
+
+    montar("");
+
+</script>
