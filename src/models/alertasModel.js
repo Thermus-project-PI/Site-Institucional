@@ -1,38 +1,38 @@
 var database = require("../database/config");
 
-function buscarTotalAlertas(id){
+function buscarTotalAlertas(museuId){
     console.log("ACESSEI O ALERTAS  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarTotalAlertas()");
     var instrucaoSql = `
         SELECT COUNT(*) as total_alertas
         FROM status_leituras_vw 
         WHERE status_atual <> 'ok' 
-        AND museuId = ${id}
+        AND museuId = ${museuId}
         AND DATE(dataHora) = curdate();
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
-function buscarAlertasAtencao(id){
+function buscarAlertasAtencao(museuId){
     console.log("Acessei a função buscarAlertasAtencao em alertasModel");
     var instrucaoSql = `
     SELECT COUNT(*) as alertas_atencao
     FROM status_leituras_vw 
     WHERE status_atual = 'atencao' 
-    AND museuId = ${id}
+    AND museuId = ${museuId}
     AND DATE(dataHora) = curdate();
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
-function buscarAlertasCriticos(id){
+function buscarAlertasCriticos(museuId){
     console.log("Acessei a função buscarAlertasCriticos em alertasModel");
     var instrucaoSql = `
     SELECT COUNT(*) as alertas_criticos
     FROM status_leituras_vw 
     WHERE status_atual = 'critico' 
-    AND museuId = ${id}
+    AND museuId = ${museuId}
     AND DATE(dataHora) = curdate();
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -40,7 +40,7 @@ function buscarAlertasCriticos(id){
 };
 
 
-function buscarAlertasAtuais(id){
+function buscarAlertasAtuais(museuId){
     console.log("Acessei a função buscarAlertasCriticos em alertasModel");
     var instrucaoSql = `
     SELECT 
@@ -54,7 +54,7 @@ function buscarAlertasAtuais(id){
     FROM status_leituras_vw
     WHERE DATE(dataHora) = CURDATE()
     AND status_atual != 'ok'
-    AND museuId = ${id}
+    AND museuId = ${museuId}
     ORDER BY dataHora DESC
     limit 10;
     `;
@@ -62,7 +62,7 @@ function buscarAlertasAtuais(id){
     return database.executar(instrucaoSql);
 };
 
-function buscarAlertasPorData(id, data){
+function buscarAlertasPorData(museuId, data){
     var instrucaoSql = `
     SELECT 
         DATE_FORMAT(dataHora, '%d/%m %H:%i') AS dataHora,
@@ -75,7 +75,7 @@ function buscarAlertasPorData(id, data){
     FROM status_leituras_vw
     WHERE DATE(dataHora) = '${data}'
     AND status_atual != 'ok'
-    AND museuId = ${id}
+    AND museuId = ${museuId}
     ORDER BY dataHora DESC;
     `;
     return database.executar(instrucaoSql);

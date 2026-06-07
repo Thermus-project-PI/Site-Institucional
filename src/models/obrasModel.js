@@ -16,7 +16,7 @@ function obterStatusQuadro(nomeQuadro,idMuseu) {
     var instrucaoSql = `
     SELECT * FROM status_leituras_vw WHERE idLeitura = (
     SELECT MAX(idLeitura) FROM status_leituras_vw 
-    WHERE id = ${idMuseu} 
+    WHERE museuId = ${idMuseu} 
     AND quadroNome = '${nomeQuadro}');`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -29,7 +29,7 @@ function obterMediaQuadro(nomeQuadro,idMuseu) {
     SELECT ROUND(AVG(temperatura),1) AS temperaturaMedia, 
     ROUND(AVG(umidade),0) AS umidadeMedia 
     FROM status_leituras_vw 
-    WHERE id = ${idMuseu} 
+    WHERE museuId = ${idMuseu} 
     AND quadroNome = '${nomeQuadro}';`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -41,7 +41,7 @@ function obterTotalAlerta(nomeQuadro,idMuseu) {
     var instrucaoSql = `
     SELECT COUNT(*) AS total_alertas
     FROM status_leituras_vw 
-    WHERE id = ${idMuseu} 
+    WHERE museuId = ${idMuseu} 
     AND quadroNome = '${nomeQuadro}' 
     AND status_atual <> 'OK';`;
 
@@ -58,7 +58,7 @@ function obterGraficosObras(nomeQuadro,idMuseu) {
         ROUND(AVG(temperatura),1) AS temperatura,
         ROUND(AVG(umidade),0) AS umidade
     FROM status_leituras_vw
-    WHERE id = ${idMuseu}
+    WHERE museuId = ${idMuseu}
     AND quadroNome = '${nomeQuadro}'
     AND dataHora >= CURDATE()
     GROUP BY quadroNome, HOUR(dataHora)

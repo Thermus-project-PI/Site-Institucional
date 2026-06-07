@@ -1,18 +1,17 @@
-var database = require("../database/config"); 
+var database = require("../database/config");
 
- 
 
- 
 
-function buscarRelatorioSemanal() { 
 
- 
+
+function buscarRelatorioSemanal() {
+
+
 
     var instrucaoSql = ` 
-       SELECT 
-    WEEKDAY(data_agrupamento) AS dia_numero,
-
-    CASE WEEKDAY(data_agrupamento)
+       SELECT
+    dia,
+    CASE dia_numero
         WHEN 0 THEN 'Segunda'
         WHEN 1 THEN 'Terça'
         WHEN 2 THEN 'Quarta'
@@ -21,56 +20,51 @@ function buscarRelatorioSemanal() {
         WHEN 5 THEN 'Sábado'
         WHEN 6 THEN 'Domingo'
     END AS dia_semana,
-
     total_alertas,
-    status
-
+    CASE
+        WHEN media_status >= 2.5 THEN 'critico'
+        WHEN media_status >= 1.5 THEN 'atencao'
+        ELSE 'ok'
+    END AS status_medio
 FROM (
-    SELECT 
-        DATE(l.dataHora) AS data_agrupamento,
-        SUM(
-            CASE 
-                WHEN (l.temperatura - l.pontoOrvalho) <= 7 THEN 1 
-                ELSE 0 
-            END
-        ) AS total_alertas,
-
-        CASE 
-            WHEN SUM(CASE WHEN (l.temperatura - l.pontoOrvalho) <= 4 THEN 1 ELSE 0 END) > 0 
-                THEN 'critico'
-            WHEN SUM(CASE WHEN (l.temperatura - l.pontoOrvalho) <= 7 THEN 1 ELSE 0 END) > 0 
-                THEN 'atencao'
-            ELSE 'ok'
-        END AS status
-
-    FROM leitura l
-    WHERE l.dataHora >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
-
-    GROUP BY DATE(l.dataHora)
+    SELECT
+        DATE(dataHora) AS dia,
+        WEEKDAY(dataHora) AS dia_numero,
+        COUNT(*) AS total_alertas,
+        avg(
+            case status_atual
+                when 'ok' then 1
+                when 'atencao' then 2
+                when 'critico' then 3
+            end
+        ) as media_status
+    FROM status_leituras_vw
+    GROUP BY
+        DATE(dataHora),
+        WEEKDAY(dataHora)
 ) AS resultado
+ORDER BY dia;
+    `;
 
-ORDER BY dia_numero;
-    `; 
 
- 
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql); 
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
 
- 
 
-    return database.executar(instrucaoSql); 
 
-} 
+    return database.executar(instrucaoSql);
 
- 
+}
 
- 
 
- 
 
-function buscarEstatisticasGerais() { 
 
- 
+
+
+
+function buscarEstatisticasGerais() {
+
+
 
     var instrucaoSql = ` 
 
@@ -81,34 +75,34 @@ function buscarEstatisticasGerais() {
     ROUND(AVG(pontoOrvalho),1) AS ponto_orvalho_medio
 FROM leitura;
 
-    `; 
+    `;
 
- 
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql); 
 
- 
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
 
-    return database.executar(instrucaoSql); 
 
-} 
 
- 
+    return database.executar(instrucaoSql);
 
- 
+}
 
-function buscarSensorMaisAlertas() { 
 
- 
+
+
+
+function buscarSensorMaisAlertas() {
+
+
 
     var instrucaoSql = ` 
 
-             
+    
 SELECT 
     s.quadroNome as quadronome,
     SUM(
         CASE 
-            WHEN (l.temperatura - l.pontoOrvalho) <= 7 THEN 1 
+            WHEN (l.temperatura - l.pontoOrvalho) <= 7 OR l.umidade < 30 OR l.umidade > 70 THEN 1 
             ELSE 0 
         END
     ) AS total_alertas
@@ -119,34 +113,34 @@ GROUP BY s.id, s.quadroNome
 ORDER BY total_alertas DESC
 LIMIT 1;
 
-    `; 
+    `;
 
- 
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql); 
 
- 
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
 
-    return database.executar(instrucaoSql); 
 
-} 
 
- 
+    return database.executar(instrucaoSql);
 
- 
+}
 
-function buscarOcorrenciasSensor() { 
 
- 
 
-   var instrucaoSql = ` 
+
+
+function buscarOcorrenciasSensor() {
+
+
+
+    var instrucaoSql = ` 
 
                 SELECT 
     s.quadroNome AS quadronome,
 
     SUM(
         CASE 
-            WHEN (l.temperatura - l.pontoOrvalho) <= 7 THEN 1 
+            WHEN (l.temperatura - l.pontoOrvalho) <= 7  OR l.umidade < 30 OR l.umidade > 70  tHEN 1
             ELSE 0 
         END
     ) AS ocorrencias
@@ -157,25 +151,25 @@ GROUP BY s.id, s.quadroNome
 ORDER BY ocorrencias DESC
 LIMIT 5; 
 
-    `; 
+    `;
 
- 
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql); 
 
- 
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
 
-    return database.executar(instrucaoSql); 
 
-} 
 
- 
+    return database.executar(instrucaoSql);
 
- 
+}
 
-function buscarListaAlertas() { 
 
- 
+
+
+
+function buscarListaAlertas() {
+
+
 
     var instrucaoSql = ` 
 
@@ -199,25 +193,25 @@ FROM leitura l
 JOIN sensor s ON s.id = l.sensorId
 ORDER BY l.dataHora DESC; 
 
-    `; 
+    `;
 
- 
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql); 
 
- 
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
 
-    return database.executar(instrucaoSql); 
 
-} 
 
- 
+    return database.executar(instrucaoSql);
 
- 
+}
 
-function buscarResumoSensores() { 
 
- 
+
+
+
+function buscarResumoSensores() {
+
+
 
     var instrucaoSql = ` 
 
@@ -241,25 +235,25 @@ LEFT JOIN leitura l ON l.sensorId = s.id
 GROUP BY s.id, s.quadroNome
 ORDER BY s.quadroNome; 
 
-    `; 
+    `;
 
- 
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql); 
 
- 
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
 
-    return database.executar(instrucaoSql); 
 
-} 
 
- 
+    return database.executar(instrucaoSql);
 
- 
+}
 
-function buscarGraficoTemperatura() { 
 
- 
+
+
+
+function buscarGraficoTemperatura() {
+
+
 
     var instrucaoSql = ` 
 
@@ -273,25 +267,25 @@ function buscarGraficoTemperatura() {
 
         ORDER BY hora; 
 
-    `; 
+    `;
 
- 
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql); 
 
- 
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
 
-    return database.executar(instrucaoSql); 
 
-} 
 
- 
+    return database.executar(instrucaoSql);
 
- 
+}
 
-function buscarGraficoUmidade() { 
 
- 
+
+
+
+function buscarGraficoUmidade() {
+
+
 
     var instrucaoSql = ` 
 
@@ -305,42 +299,41 @@ function buscarGraficoUmidade() {
 
         ORDER BY hora; 
 
-    `; 
+    `;
 
- 
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql); 
 
- 
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
 
-    return database.executar(instrucaoSql); 
 
-} 
 
- 
+    return database.executar(instrucaoSql);
 
- 
+}
 
-module.exports = { 
 
-    buscarRelatorioSemanal, 
 
-    buscarEstatisticasGerais, 
 
-    buscarSensorMaisAlertas, 
 
-    buscarOcorrenciasSensor, 
+module.exports = {
 
-    buscarListaAlertas, 
+    buscarRelatorioSemanal,
 
-    buscarResumoSensores, 
+    buscarEstatisticasGerais,
 
-    buscarGraficoTemperatura, 
+    buscarSensorMaisAlertas,
 
-    buscarGraficoUmidade 
+    buscarOcorrenciasSensor,
 
-} 
+    buscarListaAlertas,
 
- 
+    buscarResumoSensores,
 
- 
+    buscarGraficoTemperatura,
+
+    buscarGraficoUmidade
+
+}
+
+
+
