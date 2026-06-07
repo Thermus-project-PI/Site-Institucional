@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/stylesDashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../styles/styleDashboardSensores.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <title>Dashboard - Obras</title>
+</head>
+
+<body>
+
+    <aside>
+        <div class="top">
+            <div class="logo-container">
+                <img src="../img/logo-fina.svg" alt="logo" class="logo">
+            </div>
+            <div class="links-container">
+                <div class="link" onclick="window.location.href = 'index.html'">
+                    <p>Dashboard</p>
+                </div>
+                <div class="link selected" onclick="window.location.href = 'obras.html'">
+                    <p>Obras</p>
+                </div>
+                <div class="link" onclick="window.location.href = 'alertas.html'">
+                    <p>Alertas</p>
+                </div>
+                <div class="link" onclick="window.location.href = 'relatorios.html'">
+                    <p>Relatórios</p>
+                </div>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="btn-container">
+                <button class="btn" onclick="window.location.href='../auth/funcionario/cadastroUser.html'">
+                    <span>Cadastrar funcionário</span>
+                </button>
+                <button class="btn" onclick="window.location.href='../index.html'">
+                    <span>Sair</span>
+                    <i class="fa-solid fa-arrow-right-from-bracket btn-icon-logout"></i>
+                </button>
+            </div>
+        </div>
+    </aside>
+    <div class="content">
+
+        <div class="container-lista">
+            <input oninput="filtrarQuadros()" id="ipt_filtroQuadro" type="text" class="pesquisa"
+                placeholder="Buscar quadro">
+            <div class="lista" id="lista"></div>
+        </div>
+
+
+        <div class="conteudo">
+
+            <div class="topo">
+                <h2 id="nome"></h2>
+                <p id="sala"></p>
+                <p id="status"></p>
+            </div>
+
+            <div class="dados">
+                <div class="caixa">
+                    <p>Temp média</p>
+                    <h3 id="temp"></h3>
+                </div>
+
+                <div class="caixa">
+                    <p>Umidade média</p>
+                    <h3 id="umi"></h3>
+                </div>
+
+                <div class="caixa">
+                    <p>Alertas</p>
+                    <h3 id="alerta"></h3>
+                </div>
+            </div>
+
+            <div class="grafico" id="grafico"></div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        function montar(nomeQuadro) {
+            lista.innerHTML = "";
+
+            fetch("/obras/obterQuadros/" + sessionStorage.ID_USUARIO).then(
+                function (resposta) {
+                    resposta.json().then(function (obras) {
+                        for (let i = 0; i < obras.length; i++) {
+                            if (nomeQuadro == "" || obras[i].quadroNome.toLowerCase().includes(nomeQuadro.toLowerCase())) {
+
+                                fetch("/obras/obterStatusQuadro/" + sessionStorage.ID_USUARIO + "/" + obras[i].quadroNome)
+                                    .then(function (respostaStatus) {
+                                        respostaStatus.json().then(function (statusResposta) {
+                                            let data = new Date(statusResposta[0].dataHora)
+                                            lista.innerHTML +=
+                                                `<div class='cardSensor' onclick='trocar("${obras[i].quadroNome}")'>
+                                                <div class='top-card'>
+                                                    <b>${obras[i].quadroNome}</b>
+                                                    <span class='badge'>${statusResposta[0].status_atual}</span>
+                                                </div>
+                                                <div class='valores'>${statusResposta[0].temperatura}°C | ${statusResposta[0].umidade}%</div>
+                                                <div class='hora'>${data.toLocaleTimeString()}</div>
+                                            </div>`;
+                                            if (i == 0) {
+                                                trocar(`${obras[i].quadroNome}`)
+                                            }
+                                        })
+                                    })
+                            }
+                        }
+                    })
+                }
+            )
+        }
+
+        function trocar(nomeQuadro) {
+
+            fetch("/obras/obterStatusQuadro/" + sessionStorage.ID_USUARIO + "/" + nomeQuadro)
+                .then(function (respostaStatus) {
+                    respostaStatus.json().then(function (statusResposta) {
+                        let data = new Date(statusResposta[0].dataHora)
+                        nome.innerHTML = nomeQuadro
+                        sala.innerHTML = statusResposta[0].localizacao
+                        document.getElementById("status").innerHTML = statusResposta[0].status_atual
+                    })
+                })
+
+            fetch("/obras/obterMediaQuadro/" + sessionStorage.ID_USUARIO + "/" + nomeQuadro)
+                .then(function (resposta) {
+                    resposta.json().then(function (medias) {
+                        temp.innerHTML = medias[0].temperaturaMedia + " °C"
+                        umi.innerHTML = medias[0].umidadeMedia + " %"
+                    })
+                })
+
+            fetch("/obras/obterTotalAlerta/" + sessionStorage.ID_USUARIO + "/" + nomeQuadro)
+                .then(function (resposta) {
+                    resposta.json().then(function (alertas) {
+                        alerta.innerHTML = alertas[0].total_alertas
+                    })
+                })
+
+
+            fetch("/obras/obterGraficosObras/" + sessionStorage.ID_USUARIO + "/" + nomeQuadro)
+                .then(function (resposta) {
+                    resposta.json().then(function (graficos) {
+
+                        let horas = [];
+                        let temperatura = [];
+                        let umidade = [];
+
+                        for (let i = 0; i < graficos.length; i++) {
+                            horas.push(graficos[i].hora);
+                            temperatura.push(graficos[i].temperatura);
+                            umidade.push(graficos[i].umidade);
+                        }
+
+                        grafico.innerHTML = "<canvas></canvas>";
+                        const ctx = grafico.querySelector("canvas");
+
+                        new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: horas,
+                                datasets: [
+                                    {
+                                        label: 'Temperatura',
+                                        data: temperatura,
+                                        borderColor: "#348A6F",
+                                        backgroundColor: "#348A6F20",
+                                        fill: true
+                                    },
+                                    {
+                                        label: 'Umidade',
+                                        data: umidade,
+                                        borderColor: "#2E6AA3",
+                                        backgroundColor: "#2E6AA320",
+                                        fill: true
+                                    }
+                                ]
+                            }
+                        });
+
+                    });
+                });
+        }
+
+        function filtrarQuadros() {
+            montar(ipt_filtroQuadro.value);
+        }
+
+        montar("");
+
+    </script>
+
+</body>
+
+</html>
