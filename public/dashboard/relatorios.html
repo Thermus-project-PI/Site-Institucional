@@ -1,298 +1,555 @@
 <!DOCTYPE html>
+
 <html lang="pt-br">
 
+
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
+
+
     <link rel="stylesheet" href="../styles/stylesDashboard.css">
+
     <link rel="stylesheet" href="../styles/styleDashboardsRelatorios.css">
 
+
+
     <title>Dashboard - Relatórios</title>
+
 </head>
+
+
 
 <body onload="carregarDados()">
 
+
+
     <div class="content">
+
+
 
         <aside>
 
+
+
             <div class="top">
 
+
+
                 <div class="logo-container">
+
                     <img src="../img/logo-fina.svg" alt="logo" class="logo">
+
                 </div>
+
+
 
                 <div class="links-container">
 
+
+
                     <div class="link" onclick="window.location.href = 'index.html'">
+
                         <p>Dashboard</p>
+
                     </div>
 
-                    <div class="link" onclick="window.location.href = 'obras.html'">
+
+
+                    <div class="link" onclick="window.location.href = 'sensores.html'">
+
                         <p>Obras</p>
+
                     </div>
+
+
 
                     <div class="link" onclick="window.location.href = 'alertas.html'">
+
                         <p>Alertas</p>
+
                     </div>
 
+
+
                     <div class="link selected" onclick="window.location.href = 'relatorios.html'">
+
                         <p>Relatórios</p>
+
                     </div>
+
+
 
                 </div>
 
+
+
             </div>
+
+
 
             <div class="bottom">
 
+
+
                 <div class="btn-container">
 
+                
+
                     <button class="btn" onclick="window.location.href='../auth/funcionario/cadastroUser.html'">
+
                         <span>Cadastrar funcionário</span>
+
                     </button>
 
+
+
                     <button class="btn" onclick="window.location.href='../index.html'">
+
                         <span>Sair</span>
+
                         <i class="fa-solid fa-arrow-right-from-bracket btn-icon-logout"></i>
+
                     </button>
+
+
+
+
 
                 </div>
 
+
+
             </div>
+
+
 
         </aside>
 
+
+
         <div class="big-container">
+
+
 
             <div class="caixote1">
 
+
+
                 <div class="topo">
-                    <h1>Mapa de status — semana (por sensor × dia da semana)</h1>
-                    <h2>Cada célula = um dia de leitura</h2>
+
+                    <h1>Mapa de status — SEMANA</h1>
+
+
+
                 </div>
+
+
 
                 <div class="fundo">
 
+
+
                     <table>
+
+
 
                         <thead>
 
+
+
                             <tr>
-                                <th>Sensor</th>
+
                                 <th>Dia</th>
-                                <th>Status</th>
-                                <th>Temperatura Máxima</th>
-                                <th>Umidade Média</th>
-                                <th>Ponto de Orvalho</th>
+
+                                <th>Alertas</th>
+
+                                <th>Status Médio</th>
+
                             </tr>
+
+
 
                         </thead>
 
+
+
                         <tbody id="tbody_relatorio"></tbody>
+
+
 
                     </table>
 
+
+
                 </div>
 
+
+
             </div>
+
+
 
             <div class="caixote2">
 
+
+
                 <div class="subcaixote">
+
+
 
                     <h2>Estatísticas Consolidadas</h2>
 
+
+
                     <div class="subcaixote_texto">
+
                         <p style="color: grey;">Temp. média geral</p>
+
                         <p id="temp_media">--</p>
+
                     </div>
 
+
+
                     <div class="subcaixote_texto">
+
                         <p style="color: grey;">Temp. máxima registrada</p>
+
                         <p id="temp_maxima">--</p>
+
                     </div>
 
+
+
                     <div class="subcaixote_texto">
+
                         <p style="color: grey;">Umidade média geral</p>
+
                         <p id="umidade_media">--</p>
+
                     </div>
 
+
+
                     <div class="subcaixote_texto">
+
                         <p style="color: grey;">Ponto de orvalho médio</p>
+
                         <p id="ponto_orvalho">--</p>
+
                     </div>
+
+
 
                     <div class="subcaixote_textoX">
+
                         <p style="color: grey;">Sensor com mais alertas</p>
+
                         <p id="sensor_alerta">--</p>
+
                     </div>
+
+
 
                 </div>
 
-                <div class="subcaixote">
+
+
+                <div class="subcaixote_ocorrencia">
+
+
 
                     <h2>Ocorrências por sensor</h2>
 
+
+
                     <div id="container_ocorrencias"></div>
+
+
 
                 </div>
 
+
+
             </div>
+
+
 
         </div>
 
+
+
     </div>
+
+
 
 </body>
 
+
+
 </html>
+
+
 
 <script>
 
+
+
     async function carregarDados() {
 
-    carregarRelatorioSemanal();
 
-    carregarEstatisticas();
 
-    carregarSensorMaisAlertas();
+        carregarRelatorioSemanal();
 
-    carregarOcorrencias();
+
+
+        carregarEstatisticas();
+
+
+
+        carregarSensorMaisAlertas();
+
+
+
+        carregarOcorrencias();
+
+
 
     }
+
+
+
 
 
     async function carregarRelatorioSemanal() {
 
-    const resposta = await fetch("/relatorio/relatorio-semanal");
+        const resposta = await fetch("/relatorio/relatorio-semanal");
 
-    const dados = await resposta.json();
 
-    tbody_relatorio.innerHTML = "";
 
-    dados.forEach(item => {
+        const dados = await resposta.json();
 
-    let classeStatus = "";
 
-    if (item.status == "ok") {
-    classeStatus = "ok";
+
+        tbody_relatorio.innerHTML = "";
+
+
+
+        dados.forEach(item => {
+
+
+
+            let classeStatus = "";
+
+
+
+
+
+
+
+            if (item.status == "ok") {
+
+                classeStatus = "ok";
+
+            }
+
+            else if (item.status == "atenção") {
+
+                classeStatus = "atencao";
+
+            }
+
+            else {
+
+                classeStatus = "critico";
+
+            }
+
+
+
+            tbody_relatorio.innerHTML += ` 
+
+<tr> 
+
+    <td>${item.dia_semana}</td> 
+
+    <td>${item.total_alertas}</td> 
+
+    <td class="${classeStatus}"> 
+
+        ${item.status} 
+
+    </td> 
+
+</tr> 
+
+ 
+
+        `;
+
+        });
+
+
+
     }
 
-    else if (item.status == "atencao") {
-    classeStatus = "atencao";
-    }
 
-    else {
-    classeStatus = "risco";
-    }
 
-    tbody_relatorio.innerHTML += `
-
-    <tr>
-
-        <td class="titulo_tb">${item.quadronome}</td>
-
-        <td>${item.dia_semana}</td>
-
-        <td class="${classeStatus}">
-            ${item.status}
-        </td>
-
-        <td class="temp">
-            ${item.temperatura_maxima}°C
-        </td>
-
-        <td>
-            ${item.umidade_media}%
-        </td>
-
-        <td>
-            ${item.ponto_orvalho}°C
-        </td>
-
-    </tr>
-
-    `;
-
-    });
-
-    }
 
 
     async function carregarEstatisticas() {
 
-    const resposta = await fetch("/relatorio/estatisticas-gerais");
 
-    const dados = await resposta.json();
 
-    temp_media.innerHTML =
-    `${dados[0].temp_media}°C`;
+        const resposta = await fetch("/relatorio/estatisticas-gerais");
 
-    temp_maxima.innerHTML =
-    `${dados[0].temp_maxima}°C`;
 
-    umidade_media.innerHTML =
-    `${dados[0].umidade_media}%`;
 
-    ponto_orvalho.innerHTML =
-    `${dados[0].ponto_orvalho_medio}°C`;
+        const dados = await resposta.json();
+
+
+
+        temp_media.innerHTML =
+
+            `${dados[0].temp_media}°C`;
+
+
+
+        temp_maxima.innerHTML =
+
+            `${dados[0].temp_maxima}°C`;
+
+
+
+        umidade_media.innerHTML =
+
+            `${dados[0].umidade_media}%`;
+
+
+
+        ponto_orvalho.innerHTML =
+
+            `${dados[0].ponto_orvalho_medio}`;
+
+
 
     }
+
+
+
 
 
     async function carregarSensorMaisAlertas() {
 
-    const resposta = await fetch("/relatorio/sensor-mais-alertas");
 
-    const dados = await resposta.json();
 
-    sensor_alerta.innerHTML =
-    `${dados[0].quadronome} · ${dados[0].total_alertas} ocorrências`;
+        const resposta = await fetch("/relatorio/sensor-mais-alertas");
+
+
+
+        const dados = await resposta.json();
+
+
+
+        sensor_alerta.innerHTML =
+
+            `${dados[0].quadronome} · ${dados[0].total_alertas} ocorrências`;
+
+
 
     }
+
+
+
 
 
     async function carregarOcorrencias() {
 
-    const resposta = await fetch("/relatorio/ocorrencias-sensor");
 
-    const dados = await resposta.json();
 
-    container_ocorrencias.innerHTML = "";
+        const resposta = await fetch("/relatorio/ocorrencias-sensor");
 
-    dados.forEach(item => {
 
-    container_ocorrencias.innerHTML += `
 
-    <div class="subcaixote_linha">
+        const dados = await resposta.json();
 
-        <p>${item.quadronome}</p>
 
-        <div class="linha"></div>
 
-        <div class="barra_rosa_container">
+        container_ocorrencias.innerHTML = "";
 
-            <div class="barra_rosa" style="
-                                width: ${item.ocorrencias * 40}px;
-                                height: 20px;
-                                border-radius: 10px;
-                            ">
-            </div>
 
-        </div>
 
-        <p>${item.ocorrencias}</p>
+        dados.forEach(item => {
 
-    </div>
+
+
+            container_ocorrencias.innerHTML += ` 
+
+ 
+
+    <div class="subcaixote_linha"> 
+
+ 
+
+        <p>${item.quadronome}</p> 
+
+ 
+
+        <div class="linha"></div> 
+
+ 
+
+        <div class="barra_rosa_container"> 
+
+ 
+
+            <div class="barra_rosa" style=" 
+
+                                width: ${item.ocorrencias * 40}px; 
+
+                                height: 20px; 
+
+                                border-radius: 10px; 
+
+                                 
+
+                            "> 
+
+            </div> 
+
+ 
+
+        </div> 
+
+ 
+
+        <p>${item.ocorrencias}</p> 
+
+ 
+
+    </div> 
+
+ 
 
     `;
 
-    });
+
+
+        });
+
+
 
     }
 
-    </script>
+
+
+</script>

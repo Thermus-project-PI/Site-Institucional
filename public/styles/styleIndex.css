@@ -262,19 +262,46 @@ html, body {
 }
 
 /* Área do Cliente*/
-.areacliente{
+.areacliente {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    justify-items: flex-start;
+    justify-content: center;
 
-    height: 100vh;
-
-    color: #e4e4e4;
-    gap: 10vh;
+    padding: 10vh 5vw;
+    gap: 4vh;
 
     background-color: #19395a;
+    color: #e4e4e4;
+}
+.manual {
+    display: inline-block;
+    padding: 18px 40px;
+
+    border-radius: 40px;
+    background-color: #bacdd6;
+    color: #19395a;
+
+    font-family: 'Playfair Display';
+    font-size: 22px;
+
+    text-decoration: none;
+    border: none;
+
+    margin-top: 20px;
+
+    transition: 0.3s;
+    cursor: pointer;
+    margin-right: 20px;
+    
+    
+}
+
+.manual:hover {
+  
+    background-color: #08455f;
+    color: #bacdd6;
+
 }
 
 
@@ -562,6 +589,7 @@ html, body {
     margin-bottom: 3%;
     flex-direction: column;
 }
+
 
 .botao-cliente{
     padding: 15px 30px;
