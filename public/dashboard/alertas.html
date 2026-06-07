@@ -9,6 +9,7 @@
     />
     <link rel="stylesheet" href="../styles/stylesDashboard.css" />
     <link rel="stylesheet" href="../styles/styleDashboardAlert.css" />
+    <link rel="stylesheet" href="../styles/bobIAStyle.css">
     <title>Dashboard - Alertas</title>
   </head>
 
@@ -127,8 +128,25 @@
         </div>
       </div>
     </div>
+
+    <div class="chatClosed" id="bobIA">
+        <h1 id="circleContent">?</h1>
+        <div class="content" id="bobContent">
+            <div class="top">
+                <h1>BOBIA</h1>
+                <img src="../img/close.svg" id="closeBtn">
+            </div>
+            <div class="chat" id="chat">
+            </div>
+            <div class="bottom">
+                <input type="text" id="userContent">
+                <img src="../img/sent.svg" id="send">  
+            </div>
+        </div>
+    </div>
   </body>
 </html>
+<script src="../scripts/bobIA.js"></script>
 <script>
   fetch(`/alertas/buscarTotalAlertas/${sessionStorage.ID_USUARIO}`)
     .then(function (resposta) {
