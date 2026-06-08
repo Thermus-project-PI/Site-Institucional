@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../styles/stylesDashboard.css">
-    <link rel="stylesheet" href="../styles/bobIAStyle.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Dashboard</title>
 </head>
@@ -131,7 +130,6 @@
                     </div>
                     <div class="last-alerts">
                         <div class="last-alerts-title">
-                            <h1>Últimos alertas do dia</h1>
                         </div>
                         <div class="alerts" id="containerAlertas">
                         </div>
@@ -140,24 +138,7 @@
             </div>
         </main>
     </div>
-
-    <div class="chatClosed" id="bobIA">
-        <h1 id="circleContent">?</h1>
-        <div class="content" id="bobContent">
-            <div class="top">
-                <h1>BOBIA</h1>
-                <img src="../img/close.svg" id="closeBtn">
-            </div>
-            <div class="chat" id="chat">
-            </div>
-            <div class="bottom">
-                <input type="text" id="userContent">
-                <img src="../img/sent.svg" id="send">  
-            </div>
-        </div>
-    </div>
 </body>
-<script src="../scripts/bobIA.js"></script>
 <script>
     window.onload = function () {
 
