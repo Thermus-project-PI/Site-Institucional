@@ -319,92 +319,52 @@
 
 
     async function carregarDados() {
-
-
-
         carregarRelatorioSemanal();
-
-
-
         carregarEstatisticas();
-
-
-
         carregarSensorMaisAlertas();
-
-
-
         carregarOcorrencias();
-
-
-
     }
 
-
-
-
-
     async function carregarRelatorioSemanal() {
-
         const resposta = await fetch("/relatorio/relatorio-semanal");
-
-
-
         const dados = await resposta.json();
 
-
+        console.log(dados)
 
         tbody_relatorio.innerHTML = "";
 
-
-
         dados.forEach(item => {
-
-
-
             let classeStatus = "";
 
-
-
-
-
-
-
             if (item.status == "ok") {
-
                 classeStatus = "ok";
-
             }
 
             else if (item.status == "atenção") {
-
                 classeStatus = "atencao";
-
             }
 
             else {
-
                 classeStatus = "critico";
-
             }
 
 
 
             tbody_relatorio.innerHTML += ` 
 
-<tr> 
+            <tr> 
 
-    <td>${item.dia_semana}</td> 
+                <td>${item.dia_semana}</td> 
 
-    <td>${item.total_alertas}</td> 
+                <td>${item.total_alertas}</td> 
 
-    <td class="${classeStatus}"> 
+                <td class="${classeStatus}"> 
 
-        ${item.status_medio} 
+                    ${item.status_medio} 
 
-    </td> 
+                </td> 
 
-</tr> 
+            </tr> 
 
  
 

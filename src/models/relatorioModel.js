@@ -41,7 +41,7 @@ FROM (
     FROM status_leituras_vw
     GROUP BY
         DATE(dataHora),
-        WEEKDAY(dataHora)
+        WEEKDAY(dataHora),
 ) AS resultado
 ORDER BY dia;
     `;

@@ -261,7 +261,15 @@
                 for (let i = 0; i < listaAlertas.length; i++) {
                     let alerta = listaAlertas[i];
 
-                    let statusClass = alerta.status_atual === 'CRÍTICO' ? 'alert-status-red' : 'alert-status-yellow';
+                    let statusClass = ''
+
+                    if(alerta.status_atual == "CRÍTICO"){
+                        statusClass = 'alert-status-red'
+                    }else if(alerta.status_atual == "ATENÇÃO"){
+                        statusClass = 'alert-status-yellow'
+                    }else if(alerta.status_atual == "OK"){
+                        statusClass = 'alert-status-green'
+                    }
 
                     containerAlertas.innerHTML += `
                     <div class="alert">
